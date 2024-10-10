@@ -1,6 +1,6 @@
 # @weser/theming
 
-<img alt="npm version" src="https://badge.fury.io/js/@weser/theming.svg"> <img alt="npm downloads" src="https://img.shields.io/npm/dm/@weser/theming.svg"> <a href="https://bundlephobia.com/result?p=@weser/theming@latest"><img alt="Bundlephobia" src="https://img.shields.io/bundlephobia/minzip/@weser/theming.svg"></a>
+<img alt="npm version" src="https://badge.fury.io/js/@weser%2Ftheming.svg"> <img alt="npm downloads" src="https://img.shields.io/npm/dm/@weser/theming.svg"> <a href="https://bundlephobia.com/result?p=@weser/theming@latest"><img alt="Bundlephobia" src="https://img.shields.io/bundlephobia/minzip/@weser/theming.svg"></a>
 
 ## Installation
 

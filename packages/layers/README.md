@@ -1,6 +1,6 @@
 # @weser/layers
 
-<img alt="npm version" src="https://badge.fury.io/js/@weser/layers.svg"> <img alt="npm downloads" src="https://img.shields.io/npm/dm/@weser/layers.svg"> <a href="https://bundlephobia.com/result?p=@weser/layers@latest"><img alt="Bundlephobia" src="https://img.shields.io/bundlephobia/minzip/@weser/layers.svg"></a>
+<img alt="npm version" src="https://badge.fury.io/js/@weser%2Flayers.svg"> <img alt="npm downloads" src="https://img.shields.io/npm/dm/@weser/layers.svg"> <a href="https://bundlephobia.com/result?p=@weser/layers@latest"><img alt="Bundlephobia" src="https://img.shields.io/bundlephobia/minzip/@weser/layers.svg"></a>
 
 ## Installation
 

@@ -1,6 +1,6 @@
 # @weser/hooks
 
-<img alt="npm version" src="https://badge.fury.io/js/@weser/hooks.svg"> <img alt="npm downloads" src="https://img.shields.io/npm/dm/@weser/hooks.svg"> <a href="https://bundlephobia.com/result?p=@weser/hooks@latest"><img alt="Bundlephobia" src="https://img.shields.io/bundlephobia/minzip/@weser/hooks.svg"></a>
+<img alt="npm version" src="https://badge.fury.io/js/@weser%2Fhooks.svg"> <img alt="npm downloads" src="https://img.shields.io/npm/dm/@weser/hooks.svg"> <a href="https://bundlephobia.com/result?p=@weser/hooks@latest"><img alt="Bundlephobia" src="https://img.shields.io/bundlephobia/minzip/@weser/hooks.svg"></a>
 
 ## Installation
 

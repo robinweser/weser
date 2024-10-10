@@ -1,6 +1,6 @@
 # @weser/dnd
 
-<img alt="npm version" src="https://badge.fury.io/js/@weser/dnd.svg"> <img alt="npm downloads" src="https://img.shields.io/npm/dm/@weser/dnd.svg"> <a href="https://bundlephobia.com/result?p=@weser/dnd@latest"><img alt="Bundlephobia" src="https://img.shields.io/bundlephobia/minzip/@weser/dnd.svg"></a>
+<img alt="npm version" src="https://badge.fury.io/js/@weser%2Fdnd.svg"> <img alt="npm downloads" src="https://img.shields.io/npm/dm/@weser/dnd.svg"> <a href="https://bundlephobia.com/result?p=@weser/dnd@latest"><img alt="Bundlephobia" src="https://img.shields.io/bundlephobia/minzip/@weser/dnd.svg"></a>
 
 ## Installation
 
