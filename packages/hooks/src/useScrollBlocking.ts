@@ -11,6 +11,10 @@ function blockScrolling(scrollElement: HTMLElement) {
 }
 
 function enableScrolling(scrollElement: HTMLElement) {
+  if (scrollElement.style.position !== 'fixed') {
+    return
+  }
+
   scrollElement.style.removeProperty('position')
   scrollElement.style.removeProperty('overflow')
   scrollElement.style.removeProperty('top')
