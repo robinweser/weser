@@ -1,3 +1,4 @@
+export { default as useBreakpoint } from './useBreakpoint.js'
 export { default as useClickAway } from './useClickAway.js'
 export { default as useClientOnly } from './useClientOnly.js'
 export { default as useDisclosure } from './useDisclosure.js'
