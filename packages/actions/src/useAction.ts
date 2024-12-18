@@ -1,8 +1,6 @@
 import { useState } from 'react'
 
-export type T_ActionResponse<T = any> = T extends any
-  ? [string] | [null, T?]
-  : [string] | [null, T]
+import { T_ActionResponse } from './types.js'
 
 type State<T> = {
   loading: boolean

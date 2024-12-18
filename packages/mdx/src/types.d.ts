@@ -10,3 +10,12 @@ declare module 'fast-loops' {
     mapper: (item: T, index: number) => B
   )
 }
+
+declare module 'gray-matter' {
+  export default function matter<MetaData = any>(
+    markdown: string
+  ): {
+    data: MetaData
+    content: string
+  }
+}

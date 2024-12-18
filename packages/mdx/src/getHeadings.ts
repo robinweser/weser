@@ -18,26 +18,40 @@ function getHeadingContent(children: any) {
   return arrayMap(children, getNodeText)
 }
 
-const MIN_DEPTH = 2
-const MAX_DEPTH = 4
-
 type Heading = {
   id: string
   children: string
   depth: number
 }
 
-export default function getHeadings(markdown: string): Array<Heading> {
+type Config = {
+  minDepth?: number
+  maxDepth?: number
+}
+const defaultConfig = {
+  minDepth: 1,
+  maxDepth: 4,
+}
+export default function getHeadings(
+  markdown: string,
+  config?: Config
+): Array<Heading> {
+  const { minDepth, maxDepth } = {
+    ...defaultConfig,
+    ...config,
+  }
   const { content } = matter(markdown)
   const ast = parseMarkdown(content)
 
-  return arrayReduce<(typeof ast.children)[0], Array<Heading>>(
+  type Node = (typeof ast.children)[0]
+
+  return arrayReduce<Node, Array<Heading>>(
     ast.children,
     (headings, child) => {
       if (
         child.type === 'heading' &&
-        child.depth >= MIN_DEPTH &&
-        child.depth <= MAX_DEPTH
+        child.depth >= minDepth &&
+        child.depth <= maxDepth
       ) {
         const content = getHeadingContent(child.children)
 

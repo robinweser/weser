@@ -11,9 +11,16 @@ tbd.
 
 ## Packages
 
+- [actions](/packages/actions)
+- [context](/packages/context)
+- [dnd](/packages/dnd)
+- [errors](/packages/errors)
+- [forms](/packages/forms)
 - [hooks](/packages/hooks)
 - [layers](/packages/layers)
-- [dnd](/packages/dnd)
+- [mdx](/packages/mdx)
+- [optimistic](/packages/optimistic)
+- [storage](/packages/storage)
 - [theming](/packages/theming)
 
 ## License

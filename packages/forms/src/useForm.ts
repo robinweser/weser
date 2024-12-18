@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState, FormEvent, ChangeEvent } from 'react'
 import { z, ZodObject, ZodError, ZodRawShape, ZodIssue } from 'zod'
 
-export type Field<T> = {
+import { Field, Options } from './types.js'
+import defaultFormatErrorMessage from './defaultFormatErrorMessage.js'
+import useField from './useField.js'
+
+type Ref<T> = {
   value: T
-  disabled: boolean
-  touched: boolean
   dirty: boolean
-  valid: boolean
-  errorMessage?: string
 }
 
 type FieldReference = {
@@ -32,104 +32,49 @@ function mapFieldsToData(fields: Record<string, any>): Record<string, any> {
   return obj
 }
 
-function defaultFormatErrorMessage(error: ZodIssue) {
-  return error.message
-}
-
 // TODO: accept refined schemas, not possible due to https://github.com/colinhacks/zod/issues/2474
 export default function useForm<S extends ZodRawShape>(
   schema: ZodObject<S>,
   formatErrorMessage: (
     error: ZodIssue,
-    name: string
+    name?: string
   ) => string = defaultFormatErrorMessage
 ) {
   const [fields, setFields] = useState<FieldsMap>({})
 
-  type Options<T> = {
-    value?: T
-    disabled?: boolean
-    touched?: boolean
-    showValidationOn?: 'submit' | 'blur' | 'change'
-    parseValue?: (e: any) => T
-  }
-
-  function useField<T = string, C = ChangeEvent<HTMLInputElement>>(
+  function useFormField<T = string>(
     name: keyof S,
-    {
-      value = '' as T,
-      disabled = false,
-      touched = false,
-      showValidationOn = 'submit',
-      parseValue = (e: ChangeEvent<HTMLInputElement>) => e.target.value as T,
-    }: Options<T> = {}
+    options: Omit<
+      Options<T>,
+      'formatErrorMessage' | 'name' | '_onUpdateValue'
+    > = {}
   ) {
     const shape = schema.shape[name]
-    const isOptional = shape.isOptional()
-
-    function validate(value: T): undefined | string {
-      const res = shape.safeParse(value)
-
-      if (res.success) {
-        return
-      } else {
-        return formatErrorMessage(res.error.errors[0], name as string)
-      }
-    }
-
-    const message = validate(value)
-
-    const initialField = {
-      value,
-      disabled,
-      touched,
-      dirty: false,
-      valid: !message,
-      errorMessage: message,
-    }
-
-    const ref = useRef<{
-      value: T
-      dirty: boolean
-    }>({
-      value,
-      dirty: false,
-    })
-    const [field, setField] = useState<Field<T>>(initialField)
-
-    function update(data: Partial<Field<T>>) {
-      if (typeof data.value !== 'undefined') {
-        const dirty = data.value !== initialField.value
-        const errorMessage = validate(data.value)
-
+    // @ts-ignore
+    const field = useField(shape, {
+      ...options,
+      name: name as string,
+      formatErrorMessage,
+      _onUpdateValue: (value, dirty) => {
         ref.current = {
-          value: data.value,
+          value,
           dirty,
         }
+      },
+    })
 
-        setField((field: Field<T>) => ({
-          ...field,
-          touched: showValidationOn === 'change' ? dirty : field.touched,
-          dirty,
-          ...data,
-          errorMessage,
-          valid: !errorMessage,
-        }))
-      } else {
-        setField((field: Field<T>) => ({
-          ...field,
-          ...data,
-        }))
-      }
-    }
+    const ref = useRef<Ref<T>>({
+      value: field.value,
+      dirty: false,
+    })
 
     function reset() {
       ref.current = {
-        value: initialField.value,
+        value: field.initial.value,
         dirty: false,
       }
 
-      setField(initialField)
+      field.reset()
     }
 
     useEffect(
@@ -138,70 +83,16 @@ export default function useForm<S extends ZodRawShape>(
           ...fields,
           [name]: {
             ref,
-            update,
+            update: field.update,
             reset,
           },
         })),
       []
     )
 
-    function onChange(e: C) {
-      update({ value: parseValue(e) })
-    }
-
-    const required = !isOptional
-    // Only show validation error when is touched
-    const valid = !field.touched ? true : !field.errorMessage
-    // Only show errrorMessage and validation styles if the field is touched according to the config
-    const errorMessage = field.touched ? field.errorMessage : undefined
-
-    const touch = () => update({ touched: false })
-    const untouch = () => update({ touched: false })
-
-    function getListeners() {
-      if (showValidationOn === 'blur') {
-        return {
-          onFocus: touch,
-          onBlur: untouch,
-        }
-      }
-
-      return {
-        onFocus: touch,
-      }
-    }
-
-    const inputProps = {
-      value: field.value,
-      disabled: field.disabled,
-      required,
-      name,
-      'data-valid': valid,
-      onChange,
-      ...getListeners(),
-    }
-
-    const props = {
-      name,
-      value: field.value,
-      disabled: field.disabled,
-      valid,
-      required,
-      errorMessage,
-      onChange,
-      ...getListeners(),
-    }
-
     return {
       ...field,
-      required,
-      valid,
-      name,
-      update,
       reset,
-      errorMessage,
-      inputProps,
-      props,
     }
   }
 
@@ -254,7 +145,7 @@ export default function useForm<S extends ZodRawShape>(
   }
 
   return {
-    useField,
+    useFormField,
     handleSubmit,
     formProps,
     isDirty,
