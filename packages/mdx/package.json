@@ -1,6 +1,6 @@
 {
   "name": "@weser/mdx",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Helpers for working with MDX files",
   "author": "Robin Weser <robin@weser.io>",
   "license": "MIT",
