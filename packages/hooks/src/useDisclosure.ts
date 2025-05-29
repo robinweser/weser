@@ -6,7 +6,7 @@ export default function useDisclosure(defaultExpanded: boolean = false) {
 
   useEffect(() => setExpanded(defaultExpanded), [defaultExpanded])
 
-  const toggle = setExpanded((isExpanded) => !isExpanded)
+  const toggle = () => setExpanded((isExpanded) => !isExpanded)
 
   const toggleProps = {
     id: id + '-toggle',
