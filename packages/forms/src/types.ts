@@ -16,6 +16,6 @@ export type Options<T> = {
   touched?: boolean
   showValidationOn?: 'submit' | 'blur' | 'change'
   parseValue?: (e: any) => T
-  formatErrorMessage?: (error: ZodIssue, name?: string) => string
+  formatErrorMessage?: (error: ZodIssue, value: T, name?: string) => string
   _onUpdateValue?: (value: T, dirty: boolean) => void
 }

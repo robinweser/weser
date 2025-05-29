@@ -1,12 +1,12 @@
 import { ChangeEvent, useState } from 'react'
-import { ZodSchema } from 'zod'
+import { ZodType } from 'zod'
 
 import { Field, Options } from './types.js'
 import defaultFormatErrorMessage from './defaultFormatErrorMessage.js'
 import defaultParseValue from './defaultParseValue.js'
 
 export default function useField<T = string, C = ChangeEvent<HTMLInputElement>>(
-  schema: ZodSchema,
+  schema: ZodType,
   {
     name,
     value = '' as T,
@@ -15,6 +15,7 @@ export default function useField<T = string, C = ChangeEvent<HTMLInputElement>>(
     showValidationOn = 'submit',
     parseValue = defaultParseValue<T>,
     formatErrorMessage = defaultFormatErrorMessage,
+
     _onUpdateValue,
   }: Options<T> = {}
 ) {
@@ -23,11 +24,8 @@ export default function useField<T = string, C = ChangeEvent<HTMLInputElement>>(
   function validate(value: T): undefined | string {
     const { success, error } = schema.safeParse(value)
 
-    if (success) {
-      return
-    } else {
-      const errors = error.errors || error.issues
-      return formatErrorMessage(errors[0], name)
+    if (!success) {
+      return formatErrorMessage(error.issues[0], value, name)
     }
   }
 

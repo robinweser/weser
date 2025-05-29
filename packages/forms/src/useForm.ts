@@ -37,7 +37,8 @@ export default function useForm<S extends ZodRawShape>(
   schema: ZodObject<S>,
   formatErrorMessage: (
     error: ZodIssue,
-    name?: string
+    value: any,
+    name: string
   ) => string = defaultFormatErrorMessage
 ) {
   const [fields, setFields] = useState<FieldsMap>({})
