@@ -1,6 +1,6 @@
 {
   "name": "@weser/theming",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Utils for theming with CSS variables",
   "author": "Robin Weser <robin@weser.io>",
   "license": "MIT",
