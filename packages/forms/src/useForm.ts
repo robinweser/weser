@@ -43,7 +43,7 @@ export default function useForm<S extends ZodRawShape>(
 ) {
   const [fields, setFields] = useState<FieldsMap>({})
 
-  function useFormField<T = string>(
+  function useFormField<T = string, C = ChangeEvent<HTMLInputElement>>(
     name: keyof S,
     options: Omit<
       Options<T>,
@@ -52,7 +52,7 @@ export default function useForm<S extends ZodRawShape>(
   ) {
     const shape = schema.shape[name]
     // @ts-ignore
-    const field = useField(shape, {
+    const field = useField<T, C>(shape, {
       ...options,
       name: name as string,
       formatErrorMessage,
@@ -124,6 +124,7 @@ export default function useForm<S extends ZodRawShape>(
     onError?: (error: ZodError) => void
   ) {
     return (e: FormEvent<HTMLFormElement>) => {
+      e.stopPropagation()
       e.preventDefault()
 
       touchFields()

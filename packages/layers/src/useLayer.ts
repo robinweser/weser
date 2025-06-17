@@ -18,6 +18,8 @@ export default function useLayer<E extends HTMLElement>(
         removeLayer(id)
       }
     }
+
+    return () => removeLayer(id)
   }, [visible])
 
   const active = layers[layers.length - 1]?.id === id

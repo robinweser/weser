@@ -1,15 +1,15 @@
 import { RefObject, useEffect, useRef, useState } from 'react'
 
-type Props = {
+type Props<T> = {
   defaultVisible?: boolean
-  getTrigger?: () => HTMLElement | null
+  getTrigger?: () => T | null
 }
 
-export default function useTrigger({
+export default function useTrigger<T extends HTMLElement>({
   defaultVisible = false,
   getTrigger,
-}: Props = {}): [boolean, (visible: boolean) => void, RefObject<HTMLElement>] {
-  const triggerRef = useRef<HTMLElement>(null)
+}: Props<T> = {}): [boolean, (visible: boolean) => void, RefObject<T>] {
+  const triggerRef = useRef<T>(null)
   const [isVisible, _setVisible] = useState<boolean>(false)
 
   function getTriggerElement() {
