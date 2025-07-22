@@ -43,6 +43,15 @@ type ArrayKeys<S extends ZodRawShape> = {
 
 type ArrayValue<T> = T extends ZodArray<infer U> ? z.infer<U> : never
 
+type ArrayElement<S extends ZodRawShape, K extends ArrayKeys<S>> = S[K] extends ZodArray<infer U>
+  ? U
+  : never
+
+type ArrayChildKeys<
+  S extends ZodRawShape,
+  K extends ArrayKeys<S>
+> = ArrayElement<S, K> extends ZodObject<infer U> ? PathKeys<U> : never
+
 function setDeepValue(
   obj: Record<string, any>,
   path: string[],
@@ -249,9 +258,8 @@ export default function useForm<S extends ZodRawShape>(
       }
     }
 
-    function remove(index: number) {
-      const id = ids[index]
-      setIds((list) => list.filter((_, i) => i !== index))
+    function remove(id: string) {
+      setIds((list) => list.filter((item) => item !== id))
       arrayValuesRef.current[name as string] = Object.keys(
         arrayValuesRef.current[name as string] || {}
       ).reduce<Record<string, any>>((acc, key) => {
@@ -273,10 +281,12 @@ export default function useForm<S extends ZodRawShape>(
 
     const fieldsArray = ids.map((id) => ({
       id,
-      useFormField: (
-        child: string,
-        options?: Omit<Options<any>, 'formatErrorMessage' | 'name' | '_onUpdateValue'>
-      ) => useFormField(`${String(name)}.${id}.${child}`, options),
+      useFormField<P extends ArrayChildKeys<S, K>, T = string, C = ChangeEvent<HTMLInputElement>>(
+        child: P,
+        options?: Omit<Options<T>, 'formatErrorMessage' | 'name' | '_onUpdateValue'>
+      ) {
+        return useFormField<T, C>(`${String(name)}.${id}.${child}`, options)
+      },
     }))
 
     return { fields: fieldsArray, append, remove }
