@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, FormEvent, ChangeEvent } from 'react'
+import { useEffect, useRef, useState, FormEvent, ChangeEvent, useId } from 'react'
 import {
   z,
   ZodObject,
@@ -33,9 +33,19 @@ type FieldsMap = Record<string, FieldReference>
 type ArraysMap = Record<string, string[]>
 type ArrayValuesMap = Record<string, Record<string, any>>
 
-export type PathKeys<T extends ZodRawShape> =
-  | (keyof T & string)
-  | `${keyof T & string}.${string}`
+type PathImpl<T extends ZodTypeAny> = T extends ZodObject<
+  infer U extends Record<string, ZodTypeAny>
+>
+  ? {
+      [K in keyof U & string]: `${K}` | `${K}.${PathImpl<U[K]>}`
+    }[keyof U & string]
+  : T extends ZodArray<infer V>
+    ? V extends ZodTypeAny
+      ? `${number}` | `${number}.${PathImpl<V>}`
+      : never
+    : never
+
+export type PathKeys<T extends ZodRawShape> = PathImpl<ZodObject<T>>
 
 type ArrayKeys<S extends ZodRawShape> = {
   [K in keyof S]: S[K] extends ZodArray<any> ? K : never
@@ -219,13 +229,15 @@ export default function useForm<S extends ZodRawShape>(
     name: K,
     initial: ArrayValue<S[K]>[] = []
   ) {
+    const prefix = useId()
+    const counterRef = useRef(0)
     const [ids, setIds] = useState<string[]>(() => {
       const existing = arraysRef.current[name as string]
       if (existing && existing.length) {
         return [...existing]
       }
 
-      const initialIds = initial.map(() => Math.random().toString(36).slice(2))
+      const initialIds = initial.map((_, idx) => `${prefix}-${idx}`)
       arraysRef.current[name as string] = initialIds
       arrayValuesRef.current[name as string] = initial.reduce<Record<string, any>>(
         (acc, val, idx) => {
@@ -235,10 +247,12 @@ export default function useForm<S extends ZodRawShape>(
         {}
       )
       if (initialIds.length > 0) {
+        counterRef.current = initialIds.length
         return initialIds
       }
-      const first = Math.random().toString(36).slice(2)
+      const first = `${prefix}-0`
       arraysRef.current[name as string] = [first]
+      counterRef.current = 1
       return [first]
     })
 
@@ -247,7 +261,8 @@ export default function useForm<S extends ZodRawShape>(
     }, [ids])
 
     function append(value?: ArrayValue<S[K]>) {
-      const id = Math.random().toString(36).slice(2)
+      const id = `${prefix}-${counterRef.current}`
+      counterRef.current += 1
       setIds((list) => [...list, id])
       if (value !== undefined) {
         arrayValuesRef.current[name as string] = {
@@ -282,7 +297,10 @@ export default function useForm<S extends ZodRawShape>(
         child: P,
         options?: Omit<Options<T>, 'formatErrorMessage' | 'name' | '_onUpdateValue'>
       ) {
-        return useFormField<T, C>(`${String(name)}.${id}.${child}`, options)
+        return useFormField<T, C>(
+          `${String(name)}.${id}.${child}` as PathKeys<S>,
+          options
+        )
       },
     }))
 
