@@ -123,9 +123,15 @@ export default function useForm<S extends ZodRawShape>(
   function getSchema(path: string): ZodTypeAny {
     const parts = path.split('.')
     let current: ZodTypeAny = schema
+    let skipNext = false
 
     for (let i = 0; i < parts.length; i++) {
       const part = parts[i]
+
+      if (skipNext) {
+        skipNext = false
+        continue
+      }
 
       if (current instanceof ZodObject) {
         current = current.shape[part]
@@ -135,18 +141,12 @@ export default function useForm<S extends ZodRawShape>(
       if (current instanceof ZodArray) {
         const element: ZodTypeAny = (current as any).element || (current as any)._def.type
         current = element
-
-        if (arraysRef.current[parts[i - 1]]) {
-          // skip array id segment
-          continue
-        }
-
-        if (/^\d+$/.test(part)) {
-          continue
-        }
-
-        if (current instanceof ZodObject) {
-          current = current.shape[part]
+        skipNext = true
+        if (i < parts.length - 1) {
+          const next = parts[i + 1]
+          if (current instanceof ZodObject) {
+            current = current.shape[next]
+          }
         }
       }
     }
@@ -158,14 +158,16 @@ export default function useForm<S extends ZodRawShape>(
     const parts = path.split('.')
     for (let i = 0; i < parts.length; i++) {
       const arrName = parts[i]
-      const ids = arraysRef.current[arrName]
-      if (!ids) continue
+      const map = arrayValuesRef.current[arrName]
+      if (!map) continue
       const id = parts[i + 1]
-      const rest = parts.slice(i + 2).join('.')
-      const value = arrayValuesRef.current[arrName]?.[id]
-      if (value && rest) {
-        return rest.split('.').reduce((acc, key) => acc?.[key], value)
+      const rest = parts.slice(i + 2)
+      let value = map[id]
+      for (const key of rest) {
+        if (value == null) break
+        value = value[key]
       }
+      return value
     }
     return undefined
   }
