@@ -93,7 +93,7 @@ export default function useField<T = string, C = ChangeEvent<HTMLInputElement>>(
   // Only show errrorMessage and validation styles if the field is touched according to the config
   const errorMessage = field.touched ? field.errorMessage : undefined
 
-  const touch = () => update({ touched: false })
+  const touch = () => update({ touched: true })
   const untouch = () => update({ touched: false })
 
   function getListeners() {
