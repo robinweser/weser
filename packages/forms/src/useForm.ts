@@ -209,13 +209,13 @@ export default function useForm<S extends ZodRawShape>(
       field.reset()
     }
 
-    useEffect(() => {
-      fieldsRef.current[name] = {
-        ref,
-        update: field.update,
-        reset,
-      }
+    fieldsRef.current[name] = {
+      ref,
+      update: field.update,
+      reset,
+    }
 
+    useEffect(() => {
       return () => {
         delete fieldsRef.current[name]
       }
