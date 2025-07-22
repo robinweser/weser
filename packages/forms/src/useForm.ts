@@ -32,7 +32,6 @@ function mapFieldsToData(fields: Record<string, any>): Record<string, any> {
   return obj
 }
 
-// TODO: accept refined schemas, not possible due to https://github.com/colinhacks/zod/issues/2474
 export default function useForm<S extends ZodRawShape>(
   schema: ZodObject<S>,
   formatErrorMessage: (

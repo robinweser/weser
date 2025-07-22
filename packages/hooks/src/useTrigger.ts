@@ -5,7 +5,7 @@ type Props<T> = {
   getTrigger?: () => T | null
 }
 
-export default function useTrigger<T extends HTMLElement>({
+export default function useTrigger<T extends HTMLElement = HTMLButtonElement>({
   defaultVisible = false,
   getTrigger,
 }: Props<T> = {}): [boolean, (visible: boolean) => void, RefObject<T>] {

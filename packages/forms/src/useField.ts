@@ -21,7 +21,7 @@ export default function useField<T = string, C = ChangeEvent<HTMLInputElement>>(
 ) {
   const isOptional = schema.isOptional()
 
-  function validate(value: T): undefined | string {
+  function _validate(value: T): undefined | string {
     const { success, error } = schema.safeParse(value)
 
     if (!success) {
@@ -29,7 +29,7 @@ export default function useField<T = string, C = ChangeEvent<HTMLInputElement>>(
     }
   }
 
-  const message = validate(value)
+  const message = _validate(value)
 
   const initialField = {
     value,
@@ -45,7 +45,7 @@ export default function useField<T = string, C = ChangeEvent<HTMLInputElement>>(
   function update(data: Partial<Field<T>>) {
     if (data.value !== undefined) {
       const dirty = data.value !== initialField.value
-      const errorMessage = validate(data.value)
+      const errorMessage = _validate(data.value)
 
       if (_onUpdateValue) {
         _onUpdateValue(data.value, dirty)
@@ -69,6 +69,10 @@ export default function useField<T = string, C = ChangeEvent<HTMLInputElement>>(
 
   function reset() {
     setField(initialField)
+  }
+
+  function validate() {
+    return schema.safeParse(field.value)
   }
 
   function onChange(e: C) {
@@ -124,6 +128,7 @@ export default function useField<T = string, C = ChangeEvent<HTMLInputElement>>(
     valid,
     update,
     reset,
+    validate,
     errorMessage,
     inputProps,
     initial: initialField,
