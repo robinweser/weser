@@ -252,10 +252,8 @@ export default function useForm<S extends ZodRawShape>(
         counterRef.current = initialIds.length
         return initialIds
       }
-      const first = `${prefix}-0`
-      arraysRef.current[name as string] = [first]
-      counterRef.current = 1
-      return [first]
+
+      return []
     })
 
     useEffect(() => {
@@ -293,20 +291,7 @@ export default function useForm<S extends ZodRawShape>(
       fieldsRef.current = next
     }
 
-    const fieldsArray = ids.map((id) => ({
-      id,
-      useFormField<P extends ArrayChildKeys<S, K>, T = string, C = ChangeEvent<HTMLInputElement>>(
-        child: P,
-        options?: Omit<Options<T>, 'formatErrorMessage' | 'name' | '_onUpdateValue'>
-      ) {
-        return useFormField<T, C>(
-          `${String(name)}.${id}.${child}` as PathKeys<S>,
-          options
-        )
-      },
-    }))
-
-    return { fields: fieldsArray, append, remove }
+    return { ids, append, remove }
   }
 
   function touchFields() {
