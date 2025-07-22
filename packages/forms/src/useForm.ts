@@ -41,7 +41,7 @@ type PathImpl<T extends ZodTypeAny> = T extends ZodObject<
     }[keyof U & string]
   : T extends ZodArray<infer V>
     ? V extends ZodTypeAny
-      ? `${number}` | `${number}.${PathImpl<V>}`
+      ? `${string}` | `${string}.${PathImpl<V>}`
       : never
     : never
 

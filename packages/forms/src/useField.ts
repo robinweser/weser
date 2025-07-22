@@ -60,10 +60,18 @@ export default function useField<T = string, C = ChangeEvent<HTMLInputElement>>(
         valid: !errorMessage,
       }))
     } else {
-      setField((field: Field<T>) => ({
-        ...field,
-        ...data,
-      }))
+      setField((field: Field<T>) => {
+        const next = { ...field, ...data }
+        if (data.touched && data.touched !== field.touched) {
+          const errorMessage = _validate(field.value)
+          return {
+            ...next,
+            errorMessage,
+            valid: !errorMessage,
+          }
+        }
+        return next
+      })
     }
   }
 
