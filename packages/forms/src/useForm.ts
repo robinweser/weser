@@ -17,6 +17,7 @@ import useField from './useField.js'
 type Ref<T> = {
   value: T
   dirty: boolean
+  touched: boolean
 }
 
 type FieldReference = {
@@ -24,6 +25,7 @@ type FieldReference = {
     current: {
       value: any
       dirty: boolean
+      touched: boolean
     }
   }
   update: (data: Partial<Field<any>>) => void
@@ -170,10 +172,13 @@ export default function useForm<S extends ZodRawShape>(
   ) {
     const shape = getSchemaForPath(name)
     const stored = fields.current[name]?.ref.current as Ref<T> | undefined
-    const ref = useRef<Ref<T>>(stored ?? {
-      value: (options.value ?? '') as T,
-      dirty: false,
-    })
+    const ref = useRef<Ref<T>>(
+      stored ?? {
+        value: (options.value ?? '') as T,
+        dirty: false,
+        touched: false,
+      }
+    )
 
     // @ts-ignore
     const field = useField<T, C>(shape, {
@@ -182,10 +187,8 @@ export default function useForm<S extends ZodRawShape>(
       name,
       formatErrorMessage,
       _onUpdateValue: (value, dirty) => {
-        ref.current = {
-          value,
-          dirty,
-        }
+        ref.current.value = value
+        ref.current.dirty = dirty
       },
     })
 
@@ -193,6 +196,7 @@ export default function useForm<S extends ZodRawShape>(
       ref.current = {
         value: field.initial.value,
         dirty: false,
+        touched: false,
       }
 
       field.reset()
@@ -204,7 +208,17 @@ export default function useForm<S extends ZodRawShape>(
         update: field.update,
         reset,
       }
+
+      return () => {
+        // noop cleanup, field state remains
+      }
     }, [])
+
+    useEffect(() => {
+      ref.current.touched = field.touched
+      ref.current.dirty = field.dirty
+      ref.current.value = field.value as T
+    })
 
     return {
       ...field,
