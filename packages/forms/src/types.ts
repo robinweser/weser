@@ -1,4 +1,4 @@
-import { ZodIssue } from 'zod'
+import { $ZodIssue } from '@zod/core'
 
 export type Field<T> = {
   value: T
@@ -16,6 +16,8 @@ export type Options<T> = {
   touched?: boolean
   showValidationOn?: 'submit' | 'blur' | 'change'
   parseValue?: (e: any) => T
-  formatErrorMessage?: (error: ZodIssue, value: T, name?: string) => string
-  _onUpdateValue?: (value: T, dirty: boolean) => void
+  formatErrorMessage?: (error: $ZodIssue, value: T, name?: string) => string
+  _onInit?: (field: Field<T>) => void
+  _onUpdate?: (field: Partial<Field<T>>) => void
+  _storedField?: Field<T>
 }

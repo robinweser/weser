@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { ZodType } from 'zod'
 
 import { Field, Options } from './types.js'
@@ -15,8 +15,9 @@ export default function useField<T = string, C = ChangeEvent<HTMLInputElement>>(
     showValidationOn = 'submit',
     parseValue = defaultParseValue<T>,
     formatErrorMessage = defaultFormatErrorMessage,
-
-    _onUpdateValue,
+    _onInit,
+    _onUpdate,
+    _storedField,
   }: Options<T> = {}
 ) {
   function _validate(value: T): undefined | string {
@@ -38,26 +39,40 @@ export default function useField<T = string, C = ChangeEvent<HTMLInputElement>>(
     errorMessage: message,
   }
 
-  const [field, setField] = useState<Field<T>>(initialField)
+  const [field, setField] = useState<Field<T>>(_storedField ?? initialField)
+
+  useEffect(() => {
+    if (_onInit && !_storedField) {
+      _onInit(field)
+    }
+  }, [_onInit, _storedField])
 
   function update(data: Partial<Field<T>>) {
     if (data.value !== undefined) {
       const dirty = data.value !== initialField.value
       const errorMessage = _validate(data.value)
 
-      if (_onUpdateValue) {
-        _onUpdateValue(data.value, dirty)
-      }
-
-      setField((field: Field<T>) => ({
-        ...field,
+      const _data = {
         touched: showValidationOn === 'change' ? dirty : field.touched,
         dirty,
         ...data,
         errorMessage,
         valid: !errorMessage,
+      }
+
+      if (_onUpdate) {
+        _onUpdate(_data)
+      }
+
+      setField((field: Field<T>) => ({
+        ...field,
+        ..._data,
       }))
     } else {
+      if (_onUpdate) {
+        _onUpdate(data)
+      }
+
       setField((field: Field<T>) => ({
         ...field,
         ...data,
@@ -66,6 +81,10 @@ export default function useField<T = string, C = ChangeEvent<HTMLInputElement>>(
   }
 
   function reset() {
+    if (_onUpdate) {
+      _onUpdate(initialField)
+    }
+
     setField(initialField)
   }
 
