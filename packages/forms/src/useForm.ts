@@ -14,19 +14,11 @@ import { Field, Options } from './types.js'
 import defaultFormatErrorMessage from './defaultFormatErrorMessage.js'
 import useField from './useField.js'
 
-type Ref<T> = {
-  value: T
-  dirty: boolean
-  touched: boolean
-}
+type Ref<T> = Field<T>
 
 type FieldReference = {
   ref: {
-    current: {
-      value: any
-      dirty: boolean
-      touched: boolean
-    }
+    current: Field<any>
   }
   update: (data: Partial<Field<any>>) => void
   reset: () => void
@@ -172,18 +164,14 @@ export default function useForm<S extends ZodRawShape>(
   ) {
     const shape = getSchemaForPath(name)
     const stored = fields.current[name]?.ref.current as Ref<T> | undefined
-    const ref = useRef<Ref<T>>(
-      stored ?? {
-        value: (options.value ?? '') as T,
-        dirty: false,
-        touched: false,
-      }
-    )
 
+    // create field with stored state as initial values
     // @ts-ignore
     const field = useField<T, C>(shape, {
       ...options,
-      value: ref.current.value,
+      value: stored?.value ?? options.value ?? ('' as T),
+      touched: stored?.touched ?? options.touched,
+      disabled: stored?.disabled ?? options.disabled,
       name,
       formatErrorMessage,
       _onUpdateValue: (value, dirty) => {
@@ -192,12 +180,15 @@ export default function useForm<S extends ZodRawShape>(
       },
     })
 
+    const ref = useRef<Ref<T>>(stored ?? { ...field })
+
+    // keep ref in sync with field state
+    useEffect(() => {
+      ref.current = { ...field }
+    })
+
     function reset() {
-      ref.current = {
-        value: field.initial.value,
-        dirty: false,
-        touched: false,
-      }
+      ref.current = { ...field.initial }
 
       field.reset()
     }
@@ -214,11 +205,6 @@ export default function useForm<S extends ZodRawShape>(
       }
     }, [])
 
-    useEffect(() => {
-      ref.current.touched = field.touched
-      ref.current.dirty = field.dirty
-      ref.current.value = field.value as T
-    })
 
     return {
       ...field,
