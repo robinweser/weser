@@ -155,17 +155,17 @@ export default function useForm<S extends ZodRawShape>(
     return { ids, append, remove }
   }
 
-  function useFormField<T = string, C = ChangeEvent<HTMLInputElement>>(
+  function useStoredField<T = string, C = ChangeEvent<HTMLInputElement>>(
     name: string,
     options: Omit<
       Options<T>,
       'formatErrorMessage' | 'name' | '_onUpdateValue'
-    > = {}
+    > = {},
+    shape: ZodTypeAny
   ) {
-    const shape = getSchemaForPath(name)
     const stored = fields.current[name]?.ref.current as Ref<T> | undefined
 
-    // create field with stored state as initial values
+    // always call useField so hook order stays intact
     // @ts-ignore
     const field = useField<T, C>(shape, {
       ...options,
@@ -181,7 +181,6 @@ export default function useForm<S extends ZodRawShape>(
     })
 
     const ref = useRef<Ref<T>>(stored ?? { ...field })
-
     const updateRef = useRef(field.update)
 
     // keep ref and update method in sync with field state
@@ -197,22 +196,31 @@ export default function useForm<S extends ZodRawShape>(
     }
 
     useEffect(() => {
-      fields.current[name] = {
-        ref,
-        update: (data: Partial<Field<any>>) => updateRef.current(data),
-        reset,
-      }
-
-      return () => {
-        // noop cleanup, field state remains
+      if (!fields.current[name]) {
+        fields.current[name] = {
+          ref,
+          update: (data: Partial<Field<any>>) => updateRef.current(data),
+          reset,
+        }
       }
     }, [])
-
 
     return {
       ...field,
       reset,
     }
+  }
+
+  function useFormField<T = string, C = ChangeEvent<HTMLInputElement>>(
+    name: string,
+    options: Omit<
+      Options<T>,
+      'formatErrorMessage' | 'name' | '_onUpdateValue'
+    > = {}
+  ) {
+    const shape = getSchemaForPath(name)
+
+    return useStoredField<T, C>(name, options, shape)
   }
 
   function touchFields() {
