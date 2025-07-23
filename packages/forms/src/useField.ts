@@ -19,8 +19,6 @@ export default function useField<T = string, C = ChangeEvent<HTMLInputElement>>(
     _onUpdateValue,
   }: Options<T> = {}
 ) {
-  const isOptional = schema.isOptional()
-
   function _validate(value: T): undefined | string {
     const { success, error } = schema.safeParse(value)
 
@@ -79,32 +77,30 @@ export default function useField<T = string, C = ChangeEvent<HTMLInputElement>>(
     update({ value: parseValue(e) })
   }
 
-  const required = !isOptional
   // Only show validation error when is touched
   const valid = !field.touched ? true : !field.errorMessage
   // Only show errrorMessage and validation styles if the field is touched according to the config
   const errorMessage = field.touched ? field.errorMessage : undefined
 
-  const touch = () => update({ touched: false })
+  const touch = () => update({ touched: true })
   const untouch = () => update({ touched: false })
 
   function getListeners() {
     if (showValidationOn === 'blur') {
       return {
-        onFocus: touch,
-        onBlur: untouch,
+        onFocus: untouch,
+        onBlur: touch,
       }
     }
 
     return {
-      onFocus: touch,
+      onFocus: untouch,
     }
   }
 
   const inputProps = {
     value: field.value,
     disabled: field.disabled,
-    required,
     name,
     'data-valid': valid,
     onChange,
@@ -116,7 +112,6 @@ export default function useField<T = string, C = ChangeEvent<HTMLInputElement>>(
     disabled: field.disabled,
     name,
     valid,
-    required,
     errorMessage,
     onChange,
     ...getListeners(),
@@ -124,7 +119,6 @@ export default function useField<T = string, C = ChangeEvent<HTMLInputElement>>(
 
   return {
     ...field,
-    required,
     valid,
     update,
     reset,
