@@ -32,6 +32,14 @@ type FieldReference = {
 
 type FieldsMap = Record<string, FieldReference>
 
+function removeFieldsForPrefix(prefix: string, fields: FieldsMap) {
+  for (const key in fields) {
+    if (key.startsWith(prefix)) {
+      delete fields[key]
+    }
+  }
+}
+
 function setNestedValue(obj: Record<string, any>, path: string, value: any) {
   const keys = path.split('.')
   let current = obj
@@ -147,6 +155,7 @@ export default function useForm<S extends ZodRawShape>(
         fieldArrays.current[name] = next
         return next
       })
+      removeFieldsForPrefix(`${name}.${id}.`, fields.current)
     }
 
     return { ids, append, remove }
@@ -160,9 +169,16 @@ export default function useForm<S extends ZodRawShape>(
     > = {}
   ) {
     const shape = getSchemaForPath(name)
+    const stored = fields.current[name]?.ref.current as Ref<T> | undefined
+    const ref = useRef<Ref<T>>(stored ?? {
+      value: (options.value ?? '') as T,
+      dirty: false,
+    })
+
     // @ts-ignore
     const field = useField<T, C>(shape, {
       ...options,
+      value: ref.current.value,
       name,
       formatErrorMessage,
       _onUpdateValue: (value, dirty) => {
@@ -171,11 +187,6 @@ export default function useForm<S extends ZodRawShape>(
           dirty,
         }
       },
-    })
-
-    const ref = useRef<Ref<T>>({
-      value: field.value,
-      dirty: false,
     })
 
     function reset() {
@@ -192,10 +203,6 @@ export default function useForm<S extends ZodRawShape>(
         ref,
         update: field.update,
         reset,
-      }
-
-      return () => {
-        delete fields.current[name]
       }
     }, [])
 
