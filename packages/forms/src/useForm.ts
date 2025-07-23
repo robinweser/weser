@@ -182,9 +182,12 @@ export default function useForm<S extends ZodRawShape>(
 
     const ref = useRef<Ref<T>>(stored ?? { ...field })
 
-    // keep ref in sync with field state
+    const updateRef = useRef(field.update)
+
+    // keep ref and update method in sync with field state
     useEffect(() => {
       ref.current = { ...field }
+      updateRef.current = field.update
     })
 
     function reset() {
@@ -196,7 +199,7 @@ export default function useForm<S extends ZodRawShape>(
     useEffect(() => {
       fields.current[name] = {
         ref,
-        update: field.update,
+        update: (data: Partial<Field<any>>) => updateRef.current(data),
         reset,
       }
 
