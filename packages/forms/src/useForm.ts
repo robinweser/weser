@@ -1,14 +1,5 @@
 import { useEffect, useRef, useState, FormEvent, ChangeEvent } from 'react'
-import {
-  z,
-  ZodObject,
-  ZodError,
-  ZodRawShape,
-  ZodIssue,
-  ZodTypeAny,
-  ZodArray,
-  ZodType,
-} from 'zod'
+import { z, ZodObject, ZodError, ZodRawShape, ZodIssue } from 'zod'
 
 import { Field, Options } from './types.js'
 import defaultFormatErrorMessage from './defaultFormatErrorMessage.js'
@@ -26,73 +17,11 @@ type FieldReference = {
 
 type FieldsMap = Record<string, FieldReference>
 
-function removeFieldsForPrefix(prefix: string, fields: FieldsMap) {
-  for (const key in fields) {
-    if (key.startsWith(prefix)) {
-      delete fields[key]
-    }
-  }
-}
-
-function setNestedValue(obj: Record<string, any>, path: string, value: any) {
-  const keys = path.split('.')
-  let current = obj
-  for (let i = 0; i < keys.length - 1; i++) {
-    const key = keys[i]
-    if (!current[key]) {
-      current[key] = {}
-    }
-    current = current[key]
-  }
-
-  current[keys[keys.length - 1]] = value
-}
-
-function getNestedValue(obj: Record<string, any>, path: string) {
-  const keys = path.split('.')
-  let current: any = obj
-
-  for (const key of keys) {
-    if (current == null) {
-      return undefined
-    }
-    current = current[key]
-  }
-
-  return current
-}
-
-function normalizeArrays(
-  obj: Record<string, any>,
-  arrays: Record<string, string[]>
-) {
-  const paths = Object.keys(arrays).sort(
-    (a, b) => b.split('.').length - a.split('.').length
-  )
-
-  for (const path of paths) {
-    const ids = arrays[path]
-    const container = getNestedValue(obj, path)
-
-    if (container) {
-      const arr = ids.map((id) => container[id])
-      setNestedValue(obj, path, arr)
-    } else {
-      setNestedValue(obj, path, [])
-    }
-  }
-}
-
-function mapFieldsToData(
-  fields: Record<string, any>,
-  arrays: Record<string, string[]>
-) {
+function mapFieldsToData(fields: Record<string, any>): Record<string, any> {
   const obj: Record<string, any> = {}
   for (const name in fields) {
-    setNestedValue(obj, name, fields[name].ref.current.value)
+    obj[name] = fields[name].ref.current.value
   }
-
-  normalizeArrays(obj, arrays)
 
   return obj
 }
@@ -102,78 +31,26 @@ export default function useForm<S extends ZodRawShape>(
   formatErrorMessage: (
     error: ZodIssue,
     value: any,
-    name?: string
+    name: string
   ) => string = defaultFormatErrorMessage
 ) {
-  const fields = useRef<FieldsMap>({})
-  const fieldArrays = useRef<Record<string, string[]>>({})
+  const [fields, setFields] = useState<FieldsMap>({})
 
-  function getSchemaForPath(path: string): ZodTypeAny {
-    const parts = path.split('.')
-    let current: ZodTypeAny = schema
-
-    for (const part of parts) {
-      if (current instanceof ZodArray) {
-        current = (current as ZodArray<any>).element
-        continue
-      }
-
-      if (current instanceof ZodObject) {
-        const obj = current as ZodObject<any>
-        // @ts-ignore
-        current = obj.shape[part]
-      }
-    }
-
-    return current
-  }
-
-  function useFieldArray(name: string) {
-    const [ids, setIds] = useState<string[]>(() => {
-      fieldArrays.current[name] = []
-      return []
-    })
-
-    function append(id: string = Math.random().toString(36).slice(2)) {
-      setIds((ids) => {
-        const next = [...ids, id]
-        fieldArrays.current[name] = next
-        return next
-      })
-      return id
-    }
-
-    function remove(id: string) {
-      setIds((ids) => {
-        const next = ids.filter((i) => i !== id)
-        fieldArrays.current[name] = next
-        return next
-      })
-      removeFieldsForPrefix(`${name}.${id}.`, fields.current)
-    }
-
-    return { ids, append, remove }
-  }
-
-  function useStoredField<T = string, C = ChangeEvent<HTMLInputElement>>(
-    name: string,
+  function useFormField<T = string, C = ChangeEvent<HTMLInputElement>>(
+    name: keyof S,
     options: Omit<
       Options<T>,
-      'formatErrorMessage' | 'name' | '_onUpdateValue'
-    > = {},
-    shape: ZodTypeAny
+      'formatErrorMessage' | 'name' | '_onUpdateValue' | '_storedField'
+    > = {}
   ) {
-    const stored = fields.current[name]?.ref.current as Ref<T> | undefined
-
-    // always call useField so hook order stays intact
+    const shape = schema.shape[name]
+    const stored = fields[name as string]?.ref.current as Ref<T> | undefined
     // @ts-ignore
     const field = useField<T, C>(shape, {
       ...options,
-      value: stored?.value ?? options.value ?? ('' as T),
-      touched: stored?.touched ?? options.touched,
-      disabled: stored?.disabled ?? options.disabled,
-      name,
+      name: name as string,
       formatErrorMessage,
+      _storedField: stored,
       _onUpdateValue: (value, dirty) => {
         ref.current.value = value
         ref.current.dirty = dirty
@@ -181,12 +58,9 @@ export default function useForm<S extends ZodRawShape>(
     })
 
     const ref = useRef<Ref<T>>(stored ?? { ...field })
-    const updateRef = useRef(field.update)
 
-    // keep ref and update method in sync with field state
     useEffect(() => {
       ref.current = { ...field }
-      updateRef.current = field.update
     })
 
     function reset() {
@@ -195,15 +69,18 @@ export default function useForm<S extends ZodRawShape>(
       field.reset()
     }
 
-    useEffect(() => {
-      if (!fields.current[name]) {
-        fields.current[name] = {
-          ref,
-          update: (data: Partial<Field<any>>) => updateRef.current(data),
-          reset,
-        }
-      }
-    }, [])
+    useEffect(
+      () =>
+        setFields((fields: FieldsMap) => ({
+          ...fields,
+          [name]: {
+            ref,
+            update: field.update,
+            reset,
+          },
+        })),
+      []
+    )
 
     return {
       ...field,
@@ -211,33 +88,21 @@ export default function useForm<S extends ZodRawShape>(
     }
   }
 
-  function useFormField<T = string, C = ChangeEvent<HTMLInputElement>>(
-    name: string,
-    options: Omit<
-      Options<T>,
-      'formatErrorMessage' | 'name' | '_onUpdateValue'
-    > = {}
-  ) {
-    const shape = getSchemaForPath(name)
-
-    return useStoredField<T, C>(name, options, shape)
-  }
-
   function touchFields() {
-    for (const name in fields.current) {
-      fields.current[name].update({ touched: true })
+    for (const name in fields) {
+      fields[name].update({ touched: true })
     }
   }
 
   function reset() {
-    for (const name in fields.current) {
-      fields.current[name].reset()
+    for (const name in fields) {
+      fields[name].reset()
     }
   }
 
   function isDirty() {
-    for (const name in fields.current) {
-      if (fields.current[name].ref.current.dirty) {
+    for (const name in fields) {
+      if (fields[name].ref.current.dirty) {
         return true
       }
     }
@@ -255,7 +120,7 @@ export default function useForm<S extends ZodRawShape>(
 
       touchFields()
 
-      const data = mapFieldsToData(fields.current, fieldArrays.current)
+      const data = mapFieldsToData(fields)
       const parsed = schema.safeParse(data)
 
       if (parsed.success) {
@@ -274,7 +139,6 @@ export default function useForm<S extends ZodRawShape>(
 
   return {
     useFormField,
-    useFieldArray,
     handleSubmit,
     formProps,
     isDirty,

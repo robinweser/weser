@@ -18,4 +18,5 @@ export type Options<T> = {
   parseValue?: (e: any) => T
   formatErrorMessage?: (error: ZodIssue, value: T, name?: string) => string
   _onUpdateValue?: (value: T, dirty: boolean) => void
+  _storedField?: Field<T>
 }

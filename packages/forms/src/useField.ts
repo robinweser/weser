@@ -17,6 +17,7 @@ export default function useField<T = string, C = ChangeEvent<HTMLInputElement>>(
     formatErrorMessage = defaultFormatErrorMessage,
 
     _onUpdateValue,
+    _storedField,
   }: Options<T> = {}
 ) {
   const isOptional = schema.isOptional()
@@ -31,7 +32,7 @@ export default function useField<T = string, C = ChangeEvent<HTMLInputElement>>(
 
   const message = _validate(value)
 
-  const initialField = {
+  const initialField = _storedField ?? {
     value,
     disabled,
     touched,
