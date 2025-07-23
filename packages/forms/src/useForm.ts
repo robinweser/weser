@@ -103,7 +103,7 @@ export default function useForm<S extends ZodRawShape>(
     name?: string
   ) => string = defaultFormatErrorMessage
 ) {
-  const [fields, setFields] = useState<FieldsMap>({})
+  const fields = useRef<FieldsMap>({})
   const fieldArrays = useRef<Record<string, string[]>>({})
 
   function getSchemaForPath(path: string): ZodTypeAny {
@@ -188,21 +188,15 @@ export default function useForm<S extends ZodRawShape>(
     }
 
     useEffect(() => {
-      setFields((fields: FieldsMap) => ({
-        ...fields,
-        [name]: {
-          ref,
-          update: field.update,
-          reset,
-        },
-      }))
+      fields.current[name] = {
+        ref,
+        update: field.update,
+        reset,
+      }
 
-      return () =>
-        setFields((fields: FieldsMap) => {
-          const next = { ...fields }
-          delete next[name]
-          return next
-        })
+      return () => {
+        delete fields.current[name]
+      }
     }, [])
 
     return {
@@ -212,20 +206,20 @@ export default function useForm<S extends ZodRawShape>(
   }
 
   function touchFields() {
-    for (const name in fields) {
-      fields[name].update({ touched: true })
+    for (const name in fields.current) {
+      fields.current[name].update({ touched: true })
     }
   }
 
   function reset() {
-    for (const name in fields) {
-      fields[name].reset()
+    for (const name in fields.current) {
+      fields.current[name].reset()
     }
   }
 
   function isDirty() {
-    for (const name in fields) {
-      if (fields[name].ref.current.dirty) {
+    for (const name in fields.current) {
+      if (fields.current[name].ref.current.dirty) {
         return true
       }
     }
@@ -243,7 +237,7 @@ export default function useForm<S extends ZodRawShape>(
 
       touchFields()
 
-      const data = mapFieldsToData(fields, fieldArrays.current)
+      const data = mapFieldsToData(fields.current, fieldArrays.current)
       const parsed = schema.safeParse(data)
 
       if (parsed.success) {
