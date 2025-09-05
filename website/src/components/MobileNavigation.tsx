@@ -64,7 +64,7 @@ export default function MobileNavigation({
         zIndex={theme.zIndex.OVERLAY_1}
         inset={0}
         bottom={0}
-        style={{ backgroundColor: theme.colors.background.sidebar }}>
+        style={{ backgroundColor: theme.colors.background.menu }}>
         <Box
           ref={menuRef}
           paddingInline={5}
