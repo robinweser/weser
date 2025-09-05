@@ -1,0 +1,36 @@
+---
+title: alpha
+last-updated: 2025-09-03
+order: 4
+---
+
+A small utility function that applies an alpha channel to a CSS color value.<br />
+It uses the `hsl` color model to apply the alpha channel.
+
+## Example
+
+```tsx
+import { alpha } from '@weser/theming'
+
+const transparentRed = alpha('red', 0.5)
+const transparentVariable = alpha('var(--background)', 0.5)
+```
+
+## Parameters
+
+| Parameter | Type     | Description                               |
+| --------- | -------- | ----------------------------------------- |
+| value     | `string` | The CSS color value to apply the alpha to |
+| alpha     | `0-1`    | The alpha value as a float from 0 to 1    |
+
+## Returns
+
+(`string`) A string that references a CSS color value with an alpha channel applied.
+
+## Import Alias
+
+For convenience, we also export a shorthand import alias.
+
+```ts
+import { a } from '@weser/theming'
+```

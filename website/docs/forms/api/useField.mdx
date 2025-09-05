@@ -1,0 +1,205 @@
+---
+title: useField
+order: 2
+---
+
+A React hook for managing a single form field.<br />
+It uses [useState](https://react.dev/reference/react/useState) under the hood and leverages [Zod](https://zod.dev/) for validation.
+
+## The Gist
+
+```tsx
+'use client'
+import { z } from 'zod'
+import { useField } from '@weser/forms'
+
+const schema = z.string().min(3, 'Please enter at least 3 characters')
+
+export default function NameField() {
+  const field = useField(schema, { name: 'name', value: '' })
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    // mark as touched to show errors
+    field.update({ touched: true })
+    if (field.validate().success) {
+      // submit
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input {...field.inputProps} placeholder="Your name" />
+      {field.errorMessage && <p role="alert">{field.errorMessage}</p>}
+      <button>Save</button>
+    </form>
+  )
+}
+```
+
+## Parameters
+
+| Parameter | Type                | Description                                              |
+| --------- | ------------------- | -------------------------------------------------------- |
+| schema    | `ZodType`           | The Zod schema used to validate the value.               |
+| options   | [Options](#options) | Initial field data and additional configuration options. |
+
+### Options
+
+| Property           | Type                                                     | Default                    | Description                                                                                                                      |
+| ------------------ | -------------------------------------------------------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| value              | `T = string`                                             | `''`                       | Initial value                                                                                                                    |
+| disabled           | `boolean`                                                | `false`                    | Initial disabled state                                                                                                           |
+| touched            | `boolean`                                                | `false`                    | Initial touched state that indicates whether validation errors are shown or not                                                  |
+| name               | `string`                                                 |                            | The name of the field                                                                                                            |
+| showValidationOn   | `"change"` \| `"blur"` \| `"submit"`                     | `"submit"`                 | Which event is used to trigger the touched state                                                                                 |
+| parseValue         | `(e: Event) => any`                                      | `(e) => e.target.value`    | How the value is received from the input element.<br />Use `e.target.checked` when working with `<input type="checkbox" />`      |
+| formatErrorMessage | `(error: ZodIssue, value: any, name?: string) => string` | `(error) => error.message` | A function to overwrite the default error message from Zod. Receives the Zod issue, the current value and the name of the field. |
+
+#### formatErrorMessage
+
+By default, the error message from Zod is used.
+While those are better than nothing, we still often want to show custom error messages to the user.
+This is also helpful when supporting multiple languages and having to translate on the fly on when your schemas are shared between multiple applications.
+
+```ts
+import { ZodIssue } from 'zod'
+
+// Note: the type is ZodIssue and not ZodError
+function formatErrorMessage(error: ZodIssue, value: any, name: string) {
+  switch (error.code) {
+    case 'too_small':
+      return `This field ${name} requires at least ${error.minimum} characters.`
+    default:
+      return error.message
+  }
+}
+```
+
+## Returns
+
+(`Object`) An object with the following properties and methods:
+
+### value
+
+The current value of the field.
+
+### disabled
+
+Whether the field is disabled.
+
+### touched
+
+Whether the field is touched.
+
+### dirty
+
+Whether the field is dirty.
+
+### valid
+
+Whether the field is valid.
+
+### errorMessage
+
+A string containing the validation message.<br/>
+Only returned if the field is invalid **and** touched.
+
+### update
+
+A function that takes [field input data](/forms/api/types/T_FieldInput) and updates the field accordingly.<br />
+Useful e.g. when receiving data from an API.
+
+<Callout title="Re-validation">
+  If the value is changed, it will automatically trigger re-validation.
+  <br />
+  Remember, error messages are only shown if the field is touched.
+</Callout>
+
+#### Example // update-example
+
+```ts
+update({
+  value: 'Foo',
+  touched: true,
+})
+```
+
+### validate
+
+A function that validates the field.
+
+#### Returns // validate-returns
+
+(`ZodSafeParseResult`) Returns an object with `success` and `error` properties.
+
+| Property | Type       | Description                                            |
+| -------- | ---------- | ------------------------------------------------------ |
+| success  | `boolean`  | Whether the validation was successful.                 |
+| error    | `ZodError` | The error object if the validation was not successful. |
+
+### reset
+
+A function that resets the field back to its initial state.
+
+### inputProps
+
+An object with properties that can be passed to native HTML `input`, `select` and `textarea` elements.<br />
+Use `data-valid` to style the element based on the validation state.
+
+| Property   | Type                         | Description                   |
+| ---------- | ---------------------------- | ----------------------------- |
+| name       | `string`                     | The name of the field         |
+| value      | `any`                        | The value of the field        |
+| disabled   | `boolean`                    | Whether the field is disabled |
+| data-valid | `boolean`                    | Whether the field is valid    |
+| onChange   | `React.ChangeEventHandler`   | The onChange event handler    |
+| onFocus    | `React.KeyboardEventHandler` | The onFocus event handler     |
+| onBlur     | `React.KeyboardEventHandler` | The onBlur event handler      |
+
+### props
+
+An alternative to [inputProps](#inputProps), that can be used to create custom components that render label and input elements. Also includes `errorMessage` and `valid` for proper error-state handling.
+
+| Property     | Type                         | Description                   |
+| ------------ | ---------------------------- | ----------------------------- |
+| value        | `any`                        | The value of the field        |
+| valid        | `boolean`                    | Whether the field is valid    |
+| required     | `boolean`                    | Whether the field is required |
+| disabled     | `boolean`                    | Whether the field is disabled |
+| errorMessage | `string`                     | The error message             |
+| name         | `string`                     | The name of the field         |
+| onChange     | `React.ChangeEventHandler`   | The onChange event handler    |
+| onFocus      | `React.KeyboardEventHandler` | The onFocus event handler     |
+| onBlur       | `React.KeyboardEventHandler` | The onBlur event handler      |
+
+## Generic Type
+
+By default, `useField` expects string values and defaults to an empty string if no initial value is provided.<br />
+In order to also support e.g. `boolean` values or arrays, we can customise the generic types and pass new values.
+
+<Callout variant="warning" title="Important Note">
+  When using a custom type, the default value becomes mandatory or else it will
+  default to an empty string.
+</Callout>
+
+```tsx
+import { ChangeEvent } from 'react'
+
+const acceptsTerms = useField<boolean, ChangeEvent<HTMLInputElement>>(
+  z.boolean(),
+  {
+    parseValue: (e) => e.target.checked,
+    value: false,
+  }
+)
+
+type ArrayChangeEvent = (value: Array<string>) => void
+const tags = useField<Array<string>, ArrayChangeEvent>(z.array(z.string()), {
+  // overwrite the default that expects a native HTML event
+  parseValue: (value) => value,
+  value: [],
+})
+```
+
+Passing a custom value type and change event will also change the type of `field.value` and the expected input for [update](#update).

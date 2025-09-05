@@ -1,0 +1,32 @@
+---
+title: createVariable
+order: 3
+---
+
+A small utility function that creates a CSS variable and its reference.<br />
+Primarily useful when creating lower-level abstractions like [createTheme](/theming/api/createTheme) or [createThemes](/theming/api/createThemes).
+
+## Example
+
+```ts
+import { createVariable } from '@weser/theming'
+
+const [reference, declaration] = createVariable('brand-color', 'red')
+
+// => 'var(--brand-color)'
+console.log(reference)
+
+// => '--brand-color:red'
+console.log(declaration)
+```
+
+## Parameters
+
+| Parameter | Type     | Description                        |
+| --------- | -------- | ---------------------------------- |
+| name      | `string` | The CSS variable name              |
+| value     | `string` | The value assigned to the variable |
+
+## Returns
+
+(`[string, string]`) A tuple where the first element is a string referencing the CSS variable and the second element is a string referencing the variable declaration to be inlined somewhere in your application.

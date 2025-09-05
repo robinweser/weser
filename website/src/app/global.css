@@ -1,0 +1,29 @@
+body {
+  --background: var(--colors-background-primary);
+  --foreground: var(--colors-foreground-primary);
+
+  background-color: var(--background);
+  color: var(--foreground);
+  font-size: 16px;
+}
+
+[data-id='code'] + [data-id='anchor'] > h2,
+[data-id='table'] + [data-id='anchor'] > h2 {
+  margin-top: 2rem;
+}
+
+[data-id='code'] + [data-id='anchor'] > h3,
+[data-id='table'] + [data-id='anchor'] > h3 {
+  margin-top: 1.5rem;
+}
+
+[data-id='code'] + [data-id='anchor'] > h4,
+[data-id='table'] + [data-id='anchor'] > h4,
+[data-id='code'] + [data-id='anchor'] > h5,
+[data-id='table'] + [data-id='anchor'] > h5 {
+  margin-top: 1rem;
+}
+
+.note + [data-id='anchor'] > h4 {
+  margin-top: -4px;
+}

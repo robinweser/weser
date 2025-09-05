@@ -1,0 +1,69 @@
+---
+title: createThemes
+order: 2
+---
+
+Similar to [createTheme](/theming/api/createTheme), but for multiple themes.<br />
+Useful for reusing the same tokens when creating e.g. a dark and a light theme.
+
+## Example
+
+```ts
+import { createThemes } from '@weser/theming'
+
+const light = {
+  colors: {
+    foreground: 'black',
+    background: 'white',
+  },
+}
+
+const dark = {
+  colors: {
+    foreground: 'white',
+    background: 'black',
+  },
+}
+
+const themes = {
+  light,
+  dark,
+}
+
+// a nice little helper for type safe theme selection
+export type Theme = keyof typeof themes
+
+const [theme, variables] = createThemes(themes, {
+  getSelector: (name) => '.' + name,
+})
+
+// => 'var(--colors-foreground)'
+console.log(theme.colors.foreground)
+```
+
+## Parameters
+
+| Parameter | Type                     | Description                                           |
+| --------- | ------------------------ | ----------------------------------------------------- |
+| themes    | `Record<string, Object>` | A map of theme objects with the theme name as the key |
+| config    | `Config`                 |                                                       |
+
+### Config
+
+| Parameter            | Type                        | Default              | Description                                                                      |
+| -------------------- | --------------------------- | -------------------- | -------------------------------------------------------------------------------- |
+| getSelector          | `(name: string) => string`  | `name => "." + name` | The CSS selector to apply the theme to. Gets the theme name as a parameter.      |
+| shouldTransformValue | `(path: string) => boolean` | `() => true`         | A function that determines if a value should be transformed into a CSS variable. |
+
+#### Example // config-example
+
+```ts
+const [theme, variables] = createTheme(tokens, {
+  selector: (name) => '.theme-' + name,
+  shouldTransformValue: (path) => path.startsWith('colors'),
+})
+```
+
+## Returns
+
+(`[Object, string]`) A tuple where the first element is the theme object with same properties but referenced CSS variable strings instead of direct values. The second element is a CSS string with all the variable definitions that need to be inlined somewhere in your application.

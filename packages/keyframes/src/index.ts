@@ -1,1 +1,1 @@
-export { default as createKeyframe, Keyframe } from './createKeyframe.js'
+export { default as createKeyframe, T_Keyframe } from './createKeyframe.js'

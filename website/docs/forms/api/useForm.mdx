@@ -1,0 +1,122 @@
+---
+title: useForm
+order: 1
+---
+
+A React hook for managing forms with [Zod](https://zod.dev/) validation.<br />
+
+## The Gist
+
+```tsx
+'use client'
+import { z, ZodError } from 'zod'
+import { useForm } from '@weser/forms'
+
+const Z_RegisterInput = z.object({
+  name: z.string().optional(),
+  email: z.string().email(),
+  password: z
+    .string()
+    // custom error messages to be shown to the user
+    .min(8, { message: 'Your password next to have at least 8 characters.' }),
+})
+
+type T_RegisterInput = z.infer<typeof Z_RegisterInput>
+
+function Form() {
+  const { useFormField, handleSubmit, reset } = useForm(Z_RegisterInput)
+
+  const name = useFormField('name')
+  const email = useFormField('email')
+  const password = useFormField('password')
+
+  function onSuccess(data: T_RegisterInput) {
+    // do something with the data
+    console.log(data)
+    reset()
+  }
+
+  function onFailure(error: ZodError) {
+    console.error(error)
+  }
+
+  return (
+    <form onSubmit={handleSubmit(onSuccess, onFailure)}>
+      <label htmlFor="name">Full Name</label>
+      <input id="name" {...name.inputProps} />
+
+      <label htmlFor="email">E-Mail</label>
+      <input id="email" type="email" {...email.inputProps} />
+      {email.errorMessage && <p role="alert">{email.errorMessage}</p>}
+
+      <label htmlFor="password">Password</label>
+      <input id="password" type="password" {...password.inputProps} />
+      {password.errorMessage && <p role="alert">{password.errorMessage}</p>}
+
+      <button type="submit">Login</button>
+    </form>
+  )
+}
+```
+
+## Parameters
+
+| Parameter          | Type                                                    | Default                    | Description                                                                                                                                                                                                                                     |
+| ------------------ | ------------------------------------------------------- | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| schema             | `ZodObject`                                             |                            | The Zod schema used to validate the data.                                                                                                                                                                                                       |
+| formatErrorMessage | `(error: ZodIssue, value: any, name: string) => string` | `(error) => error.message` | A function to overwrite the default error message from Zod. Receives the Zod issue, the current value and the name of the field.<br/>See [useField – formatErrorMessage](/forms/api/useField#formatErrorMessage) for more details and examples. |
+
+## Returns
+
+(`Object`) An object with the following methods:
+
+### useFormField
+
+A react hook to create form fields based on the schema properties.<br/ >
+It uses [useField](./useField.mdx) under the hood.
+
+#### Parameters // useFormField-parameters
+
+| Parameter | Type                                   | Description                                                                                                                                                                              |
+| --------- | -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| name      | `keyof z.infer<typeof schema>`         | The name of the schema property that's connected to this field.                                                                                                                          |
+| options   | [Options](/forms/api/useField#options) | Initial field data and additional configuration options.<br/>See [useField](/forms/api/useField#options) for more details. Takes all options except for `name` and `formatErrorMessage`. |
+
+#### Returns // useFormField-returns
+
+(`Object`) See [useField](/forms/api/useField#returns) for the return type.
+
+### handleSubmit
+
+A function used to handle the form submission.
+
+It validates the form data and either calls `onSubmit` on success or `onError` on failure.
+
+<Callout title="Useful Tip">
+  Submitting a form will automatically touch all fields, making error messages
+  visible.
+</Callout>
+
+#### Parameters // handleSubmit-parameters
+
+| Parameter | Type                                     | Description                                        |
+| --------- | ---------------------------------------- | -------------------------------------------------- |
+| onSubmit  | `(data: z.infer<typeof schema>) => void` | A function that receives the validated form data.  |
+| onError   | `(error: ZodError) => void`              | A function that receives the Zod validation error. |
+
+#### Returns // handleSubmit-returns
+
+(`React.FormEventHandler`) A form event handler. This **must** be passed to the `onSubmit` prop of a `<form>` element.
+
+### checkDirty
+
+A function to check if the form is dirty.<br/>
+Useful e.g. when conditionally showing a save button or when you want to inform a user about unsafed changes when leaving a page or closing a modal.
+
+#### Returns // checkDirty-returns
+
+(`boolean`) Returns `true` if the form is dirty, `false` otherwise.
+
+### reset
+
+A function to reset the form to its initial state.

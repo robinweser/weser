@@ -25,7 +25,6 @@ Thumbs.db
 node_modules
 lib
 es
-types
 coverage
 dist
 .turbo

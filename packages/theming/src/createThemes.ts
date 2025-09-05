@@ -13,7 +13,7 @@ type MutliConfig = {
   getSelector?: (name: string) => string
 }
 
-const defaultGetSelector = (name: string) => name
+const defaultGetSelector = (name: string) => '.' + name
 
 export default function createThemes<T extends Tokens>(
   themes: ThemeMap<T>,

@@ -1,0 +1,78 @@
+---
+title: Usage with React
+---
+
+When using this package with React, you're most likely creating multiple themes using the [createThemes](/theming/api/createThemes) API.
+
+## Creating your themes
+
+To do so, create a new `theme.ts` file in your project and import the `createThemes` function:
+
+```ts
+import { createThemes } from '@weser/theming'
+
+const light = {
+  colors: {
+    foreground: 'black',
+    background: 'white',
+  },
+}
+
+const dark = {
+  colors: {
+    foreground: 'white',
+    background: 'black',
+  },
+}
+
+const themes = {
+  light,
+  dark,
+}
+
+// a nice little helper for type safe theme selection
+export type Theme = keyof typeof themes
+
+const [theme, variables] = createThemes(themes)
+export { theme, variables }
+```
+
+## Inserting the CSS variables
+
+Then, import the variables somewhere in your app root and inline them into a `<style>` tag to make sure the variables are actually available in your components:
+
+```tsx
+import { variables } from './theme'
+
+export default function RootLayout({ children }: PropsWithChildren) {
+  return (
+    <html>
+      <body className="light">
+        <style dangerouslySetInnerHTML={{ __html: variables }} />
+        {children}
+      </body>
+    </html>
+  )
+}
+```
+
+> **Note**: You can switch the theme by adding the `dark` class to the body element.
+
+## Using the theme
+
+Then, you can use the theme and variables in your components:
+
+```tsx
+import { alpha } from '@weser/theming'
+
+import { theme } from './theme'
+
+export default function Component() {
+  return (
+    <div style={{ color: theme.colors.foreground }}>
+      Hello{' '}
+      <span style={{ color: alpha(theme.colors.foreground, 0.5) }}>World</span>
+    </div>
+  )
+}
+```

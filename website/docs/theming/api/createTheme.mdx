@@ -1,0 +1,61 @@
+---
+title: createTheme
+order: 1
+---
+
+A function that turns an object of tokens into valid CSS variables.<br/>
+Useful when creating themes from TypeScript to be used in components. It supports nested objects and allows for customizing and excluding certain properties.
+
+## Example
+
+```ts
+import { createTheme } from '@weser/theming'
+
+const tokens = {
+  colors: {
+    brand50: 'hsl(255, 100%, 97%)',
+    brand100: 'hsl(255, 90%, 92%)',
+    brand200: 'hsl(255, 85%, 85%)',
+    brand300: 'hsl(255, 80%, 75%)',
+    brand400: 'hsl(255, 75%, 65%)',
+    brand500: 'hsl(255, 70%, 55%)', // base color
+    brand600: 'hsl(255, 65%, 45%)',
+    brand700: 'hsl(255, 60%, 35%)',
+    brand800: 'hsl(255, 55%, 25%)',
+    brand900: 'hsl(255, 50%, 15%)',
+    brand950: 'hsl(255, 45%, 8%)',
+  },
+}
+
+const [theme, variables] = createTheme(tokens)
+
+// => 'var(--colors-brand500)'
+console.log(theme.colors.brand500)
+```
+
+## Parameters
+
+| Parameter | Type     | Description |
+| --------- | -------- | ----------- |
+| tokens    | `Object` |             |
+| config    | `Config` |             |
+
+### Config
+
+| Parameter            | Type       | Default                  | Description                                                                      |
+| -------------------- | ---------- | ------------------------ | -------------------------------------------------------------------------------- |
+| selector             | `string`   | `:root`                  | The CSS selector to apply the theme to.                                          |
+| shouldTransformValue | `Function` | `(path: string) => true` | A function that determines if a value should be transformed into a CSS variable. |
+
+#### Example // config-example
+
+```ts
+const [theme, variables] = createTheme(tokens, {
+  selector: '.light-theme',
+  shouldTransformValue: (path) => path.startsWith('colors'),
+})
+```
+
+## Returns
+
+(`[Object, string]`) A tuple where the first element is the theme object with same properties but referenced CSS variable strings instead of direct values. The second element is a CSS string with all the variable definitions that need to be inlined somewhere in your application.

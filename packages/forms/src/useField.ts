@@ -144,7 +144,7 @@ export default function useField<T = string, C = ChangeEvent<HTMLInputElement>>(
     validate,
     errorMessage,
     inputProps,
-    initial: initialField,
     props,
+    _initial: initialField,
   }
 }
