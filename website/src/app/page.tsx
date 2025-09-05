@@ -48,6 +48,7 @@ export default async function Page() {
 
             <ActionButton
               stretch
+              size="large"
               action="https://github.com/robinweser/weser"
               intent="neutral"
               variant="control">
