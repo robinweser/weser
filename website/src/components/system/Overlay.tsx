@@ -1,8 +1,8 @@
 import { ElementType } from 'react'
 
-import El, { ElProps } from './El'
-import { T_StyleProp } from './core'
-import { T_Style } from '../../utils/system'
+import El, { ElProps } from '@/components/system/El'
+
+import { T_Style, T_StyleProp } from '@/utils/system'
 
 type OverlayStyleProps = Pick<
   T_Style,

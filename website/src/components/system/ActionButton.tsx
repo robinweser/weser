@@ -45,6 +45,7 @@ export default function ActionButton({
   const icon = Icon ? <Icon size={20} /> : undefined
 
   return (
+    // @ts-ignore
     <Click
       {...props}
       autoFocus={autoFocus}

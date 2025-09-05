@@ -1,6 +1,5 @@
 import {
   ComponentProps,
-  ElementType,
   ReactNode,
   useEffect,
   useRef,
@@ -8,7 +7,7 @@ import {
   KeyboardEvent,
 } from 'react'
 
-import { El, Box, T_StyleProp } from './core'
+import { El } from './core'
 import InputContainer, {
   T_InputProps,
   T_InputContainerProps,
@@ -16,6 +15,7 @@ import InputContainer, {
 
 import mergeRefs from '@/utils/mergeRefs'
 import { colors } from '@/utils/theme'
+import { T_StyleProp } from '@/utils/system'
 
 function getProps(isButton: boolean, loading: boolean) {
   if (isButton) {

@@ -2,8 +2,8 @@
 import { ComponentProps, PropsWithChildren, Ref } from 'react'
 import NextLink from 'next/link'
 
-import El, { ElProps } from './El'
-import { T_StyleProp } from './core'
+import El, { ElProps } from '@/components/system/El'
+import { T_StyleProp } from '@/utils/system'
 
 type LinkAction = string
 type ClickAction = ComponentProps<'button'>['onClick']
@@ -36,7 +36,7 @@ export default function Click({
   style,
   children,
   ...props
-}: Props) {
+}: PropsWithChildren<Props>) {
   if (typeof props.action === 'string') {
     const { action, target, ...rest } = props
     const rel = target === '_blank' ? 'noreferrer noopener' : undefined
@@ -89,7 +89,6 @@ function LinkComponent({
   ...props
 }: PropsWithChildren<ComponentProps<'a'>>) {
   if (!href) {
-    // @ts-ignore
     return <div {...props}>{children}</div>
   }
 
@@ -102,7 +101,6 @@ function LinkComponent({
   }
 
   return (
-    // @ts-ignore
     <NextLink href={href} target={target} {...props}>
       {children}
     </NextLink>

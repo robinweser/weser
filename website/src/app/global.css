@@ -24,6 +24,6 @@ body {
   margin-top: 1rem;
 }
 
-.note + [data-id='anchor'] > h4 {
+[data-id='note'] + [data-id='anchor'] > h4 {
   margin-top: -4px;
 }

@@ -36,14 +36,14 @@ const pseudoClasses = {
   ':last-child': ':last-child',
   ':first-child': ':first-child',
   'p + &': 'p + &',
-  '.note &': '.note &',
-  '.note + &': '.note + &',
   '.dark &': '.dark &',
   '.light &': '.light &',
   ':hover > &': ':hover > &',
   '& img': '& img',
   ':disabled': ':disabled',
   '* + &': '* + &',
+  '[data-id="note"] &': '[data-id="note"] &',
+  '[data-id="note"] + &': '[data-id="note"] + &',
   '[data-id="code"] + &': '[data-id="code"] + &',
   '[data-id="anchor"] + &': '[data-id="anchor"] + &',
   '[data-id="field"] &': '[data-id="field"] &',
@@ -74,3 +74,4 @@ const [styleSheet, css] = createHooks<T_Style, typeof hooks, typeof theme>({
 })
 
 export { css, styleSheet }
+export type T_StyleProp = Parameters<typeof css>[0]

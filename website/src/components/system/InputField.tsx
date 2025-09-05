@@ -3,11 +3,13 @@ import { ComponentProps, Fragment, ReactNode, useId } from 'react'
 import { Box, VisuallyHidden } from '@/components/system/core'
 
 import FormMessage from '@/components/system/FormMessage'
+import {
+  T_InputContainerProps,
+  T_InputProps,
+} from '@/components/system/InputContainer'
+import Label, { NecessityIndicator } from '@/components/system/Label'
 
-import Label, { NecessityIndicator } from './Label'
-import { T_StyleProp } from './core'
-import { T_Style } from '@/utils/system'
-import { T_InputContainerProps, T_InputProps } from './InputContainer'
+import { T_Style, T_StyleProp } from '@/utils/system'
 
 const resetStyle: T_Style = {
   display: 'flex',

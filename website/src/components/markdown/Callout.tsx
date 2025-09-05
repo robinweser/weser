@@ -18,7 +18,7 @@ export default function Callout({
 }: PropsWithChildren<Props>) {
   return (
     <Box
-      className="note"
+      data-id="note"
       marginBlock={4}
       bg={alpha(theme.colors.background[variant], 0.1)}
       marginInline={[-5, , , 0]}
@@ -38,7 +38,7 @@ export default function Callout({
         'p + &': {
           marginTop: 0,
         },
-        '.note + &': {
+        '[data-id="note"] + &': {
           marginTop: 0,
         },
         '[data-id="anchor"] + &': {

@@ -61,9 +61,9 @@ type BoxProps = {
   | 'display'
 >
 
-type Props<T extends ElementType> = Partial<BoxProps> & ElProps<T>
+type Props<T extends ElementType = 'div'> = Partial<BoxProps> & ElProps<T>
 
-export default function Box<T extends ElementType>({
+export default function Box<T extends ElementType = 'div'>({
   style,
   bg,
   backgroundColor = bg,

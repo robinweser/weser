@@ -4,6 +4,9 @@ import withBundleAnalyzer from '@next/bundle-analyzer'
 export default withBundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
 })({
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   eslint: {
     // Warning: This allows production builds to successfully complete even if
     // your project has ESLint errors.

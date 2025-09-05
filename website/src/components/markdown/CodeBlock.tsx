@@ -11,10 +11,10 @@ export default function CodeBlock({ children }: PropsWithChildren) {
       marginRight={[-5, , 0]}
       maxWidth={['calc(100% + 40px)', , '100%']}
       style={{
-        '.code + &': {
+        '[data-id="code"] + &': {
           marginTop: 8,
         },
-        '.note + &': {
+        '[data-id="note"] + &': {
           marginTop: -4,
         },
       }}>

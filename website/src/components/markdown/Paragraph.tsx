@@ -16,7 +16,7 @@ export default function Paragraph({ children }: PropsWithChildren) {
         lineHeight: 1.5,
         color: theme.colors.foreground.primary,
 
-        '.note &': {
+        '[data-id="note"] &': {
           color: theme.colors.foreground.secondary,
           marginBottom: 0,
           marginTop: 0,

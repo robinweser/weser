@@ -1,6 +1,6 @@
 import { ElementType } from 'react'
 
-import El, { ElProps } from './El'
+import El, { ElProps } from '@/components/system/El'
 import { T_Style } from '@/utils/system'
 import { typography } from '@/utils/theme'
 
@@ -35,12 +35,12 @@ export default function Text<T extends ElementType>({
   const getPropertyStyle = getVariantStyle(typography, variant)
 
   return (
-    // @ts-ignore
     <El
       ref={ref}
       {...props}
       style={[
         {
+          // @ts-ignore
           '--tehlu_text-size': size || getPropertyStyle('fontSize'),
           fontFamily: getPropertyStyle('fontFamily'),
           fontVariant: getPropertyStyle('fontVariant'),
@@ -51,12 +51,13 @@ export default function Text<T extends ElementType>({
           lineHeight: height || getPropertyStyle('lineHeight'),
           display: 'var(--tehlu_text-inner-display, block)',
           fontSize: 'var(--tehlu_text-size, 1rem)',
-        },
+        } as T_Style,
         style,
       ]}>
       <span
         style={{
           display: 'contents',
+          // @ts-ignore
           '--tehlu_text-inner-display': 'inline-block',
         }}>
         {children}

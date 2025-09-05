@@ -29,7 +29,6 @@ export default function ThemeToggle({ variant = 'default' }: Props) {
   return (
     <ActionButton
       size="small"
-      label={mode === 'dark' ? 'Light mode' : 'Dark mode'}
       variant="function"
       icon={mode === 'dark' ? Sun : Moon}
       action={() =>

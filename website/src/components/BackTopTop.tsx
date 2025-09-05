@@ -6,7 +6,6 @@ import ActionButton from '@/components/system/ActionButton'
 export default function BackToTop() {
   return (
     <ActionButton
-      href="#top"
       icon={ArrowUp}
       variant="control"
       intent="neutral"

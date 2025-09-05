@@ -1,10 +1,12 @@
 'use client'
 import { ComponentProps, PropsWithChildren } from 'react'
 import NextLink from 'next/link'
+import { alpha } from '@weser/theming'
 
 import { Box, VisuallyHidden } from '@/components/system/core'
+
 import theme from '@/utils/theme'
-import { alpha } from '@weser/theming'
+import { T_Style } from '@/utils/system'
 
 type Props = {
   href: string
@@ -29,7 +31,7 @@ export default function Link({
   const isExtern =
     href.indexOf('http') === 0 || href.startsWith('mailto') || isIcon
 
-  const linkStyle = {
+  const linkStyle: T_Style = {
     display: 'inline',
     textDecoration: 'none',
     color: theme.colors.foreground.link,

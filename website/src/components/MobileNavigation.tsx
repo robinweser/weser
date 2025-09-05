@@ -1,7 +1,6 @@
 'use client'
 import { ComponentProps } from 'react'
 import { Github, Menu, X } from 'lucide-react'
-import { usePathname, useRouter } from 'next/navigation'
 import { useLayer } from '@weser/layers'
 import {
   useFocusTrap,
@@ -10,7 +9,7 @@ import {
   useTrigger,
 } from '@weser/hooks'
 
-import { Box, El, Overlay, Text } from '@/components/system/core'
+import { Box, Overlay, Text } from '@/components/system/core'
 import IconButton from '@/components/system/IconButton'
 import Navigation from '@/components/Navigation'
 import PackagesPicker from '@/components/PackagesPicker'
@@ -36,11 +35,8 @@ export default function MobileNavigation({
   packages,
   hierarchy,
 }: Props) {
-  const router = useRouter()
-  const pathname = usePathname()
-
   const [isVisible, setVisible] = useTrigger()
-  const [menuRef, active] = useLayer(isVisible)
+  const [menuRef, active] = useLayer<HTMLDivElement>(isVisible)
 
   useScrollBlocking(isVisible)
 
@@ -113,10 +109,7 @@ export default function MobileNavigation({
           role="banner"
           paddingBlock={[3.5, , , 4.5]}
           marginTop={-1}
-          paddingInline={5}
-          style={{
-            color: theme.colors.foreground,
-          }}>
+          paddingInline={5}>
           <Box
             direction="row"
             gap={4}
