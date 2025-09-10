@@ -2,4 +2,45 @@
 title: createContext
 ---
 
-tbd.
+A convenience helper function to create a context and a provider component.
+
+## The Gist
+
+```tsx
+import { createContext } from '@weser/context'
+
+type Theme = 'light' | 'dark'
+
+const [useTheme, ThemeProvider] = createContext<Theme>('light', 'theme')
+
+function App({ children }) {
+  return <ThemeProvider value="dark">{children}</ThemeProvider>
+}
+
+function Component() {
+  const theme = useTheme()
+
+  return (
+    <div style={{ backgroundColor: theme === 'dark' ? 'black' : 'white' }}>
+      Hello
+    </div>
+  )
+}
+```
+
+## Parameters
+
+| Parameter    | Type     | Default | Description                                     |
+| ------------ | -------- | ------- | ----------------------------------------------- |
+| defaultValue | `T`      | `null`  | The default value for when no provider is used. |
+| name         | `string` | `""`    | A name for the context used in error messages.  |
+
+## Returns
+
+(`[() => T, ComponentType<ContextProps<T>>]`) A tuple where the first element is a hook to use the context and the second element is the context provider component that takes a single `value` prop.
+
+### ContextProps
+
+| Parameter | Type | Description                          |
+| --------- | ---- | ------------------------------------ |
+| value     | `T`  | The value to provide to the context. |

@@ -21,12 +21,11 @@ export default function PackagesPicker({ activePackage, packages }: Props) {
       variant="inline"
       label="Package"
       labelVisible={false}
-      // prefix="@weser/"
       value={activePackage}
       options={options}
       renderValue={({ value }) => '@weser/' + value}
       onChange={(e) => {
-        router.push(`/${e.target.value}/intro`)
+        router.push(`/${e.target.value}/overview`)
       }}
     />
   )

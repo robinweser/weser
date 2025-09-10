@@ -19,7 +19,7 @@ export default withBundleAnalyzer({
     return [
       {
         source: '/:package',
-        destination: '/:package/intro',
+        destination: '/:package/overview',
         permanent: true,
       },
     ]
