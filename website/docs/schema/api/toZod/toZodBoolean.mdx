@@ -1,0 +1,28 @@
+---
+title: toZodBoolean
+---
+
+## The Gist
+
+```ts
+import { toZodBoolean, T_JSONSchemaBoolean } from '@weser/schema'
+
+const json: T_JSONSchemaBoolean = {
+  type: 'boolean',
+}
+
+const schema = toZodArray(json)
+
+// You can now use the schema as is
+schema.safeParse(true)
+```
+
+## Parameters
+
+| Parameter | Type                                                         | Description                                                 |
+| --------- | ------------------------------------------------------------ | ----------------------------------------------------------- |
+| schema    | [T_JSONSchemaBoolean](/schema/api/types/T_JSONSchemaBoolean) | The JSON boolean schema to convert to a Zod boolean schema. |
+
+## Return Value
+
+(`ZodBoolean`) A Zod boolean schema.

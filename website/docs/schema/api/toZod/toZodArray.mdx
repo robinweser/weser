@@ -1,0 +1,33 @@
+---
+title: toZodArray
+---
+
+## The Gist
+
+```ts
+import {
+  toZodArray,
+  T_JSONSchemaArray,
+  T_JSONSchemaString,
+} from '@weser/schema'
+
+const json: T_JSONSchemaArray<T_JSONSchemaString> = {
+  type: 'array',
+  items: { type: 'string' },
+}
+
+const schema = toZodArray(json)
+
+// You can now use the schema as is
+schema.safeParse(['foo', 'bar'])
+```
+
+## Parameters
+
+| Parameter | Type                                                     | Description                                             |
+| --------- | -------------------------------------------------------- | ------------------------------------------------------- |
+| schema    | [T_JSONSchemaArray](/schema/api/types/T_JSONSchemaArray) | The JSON array schema to convert to a Zod array schema. |
+
+## Return Value
+
+(`ZodArray`) A Zod array schema.

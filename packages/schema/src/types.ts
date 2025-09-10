@@ -40,8 +40,7 @@ export type T_JSONSchemaBoolean = T_JSONSchemaRaw & {
   default?: boolean
 }
 
-export interface T_JSONSchemaArray<T = T_JSONValue>
-  extends T_JSONSchemaRaw {
+export interface T_JSONSchemaArray<T = T_JSONValue> extends T_JSONSchemaRaw {
   type: 'array'
   items: T_JSONSchema
   default?: Array<T>

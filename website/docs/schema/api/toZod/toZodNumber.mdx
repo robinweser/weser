@@ -1,0 +1,28 @@
+---
+title: toZodNumber
+---
+
+## The Gist
+
+```ts
+import { toZodNumber, T_JSONSchemaNumber } from '@weser/schema'
+
+const json: T_JSONSchemaNumber = {
+  type: 'number',
+}
+
+const schema = toZodNumber(json)
+
+// You can now use the schema as is
+schema.safeParse(3)
+```
+
+## Parameters
+
+| Parameter | Type                                                       | Description                                               |
+| --------- | ---------------------------------------------------------- | --------------------------------------------------------- |
+| schema    | [T_JSONSchemaNumber](/schema/api/types/T_JSONSchemaNumber) | The JSON number schema to convert to a Zod number schema. |
+
+## Returns
+
+(`ZodNumber`) A Zod number schema.

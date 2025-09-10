@@ -1,0 +1,32 @@
+---
+title: toZod
+order: 2
+---
+
+## The Gist
+
+```ts
+import { toZod, T_JSONSchema } from '@weser/schema'
+
+const json: T_JSONSchema = {
+  type: 'object',
+  properties: {
+    name: { type: 'string' },
+  },
+}
+
+const schema = toZod(json)
+
+// You can now use the schema as is
+schema.safeParse({ name: 'John' })
+```
+
+## Parameters
+
+| Parameter | Type                                           | Description                                 |
+| --------- | ---------------------------------------------- | ------------------------------------------- |
+| schema    | [T_JSONSchema](/schema/api/types/T_JSONSchema) | The JSON schema to convert to a Zod schema. |
+
+## Return Value
+
+(`ZodType`) A Zod schema.

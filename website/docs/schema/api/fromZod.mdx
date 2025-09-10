@@ -3,4 +3,24 @@ title: fromZod
 order: 1
 ---
 
-tbd.
+## The Gist
+
+```ts
+import { fromZod } from '@weser/schema'
+
+const schema = z.object({
+  name: z.string(),
+})
+
+const json = toZod(schema)
+```
+
+## Parameters
+
+| Parameter | Type      | Description                                 |
+| --------- | --------- | ------------------------------------------- |
+| schema    | `ZodType` | The Zod schema to convert to a JSON schema. |
+
+## Return Value
+
+([T_JSONSchema](/schema/api/types/T_JSONSchema)) A JSON schema.

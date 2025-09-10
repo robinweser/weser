@@ -1,0 +1,28 @@
+---
+title: toZodEnum
+---
+
+## The Gist
+
+```ts
+import { toZodArray, T_JSONSchemaEnum } from '@weser/schema'
+
+const json: T_JSONSchemaEnum = {
+  enum: ['foo', 'bar'],
+}
+
+const schema = toZodEnum(json)
+
+// You can now use the schema as is
+schema.safeParse('foo')
+```
+
+## Parameters
+
+| Parameter | Type                                                   | Description                                           |
+| --------- | ------------------------------------------------------ | ----------------------------------------------------- |
+| schema    | [T_JSONSchemaEnum](/schema/api/types/T_JSONSchemaEnum) | The JSON enum schema to convert to a Zod enum schema. |
+
+## Return Value
+
+(`ZodEnum`) A Zod enum schema.
