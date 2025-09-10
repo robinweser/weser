@@ -1,6 +1,6 @@
 {
   "name": "@weser/dnd",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "React library for low-level drag'n'drop implementations",
   "author": "Robin Weser <robin@weser.io>",
   "license": "MIT",

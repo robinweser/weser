@@ -1,6 +1,6 @@
 {
   "name": "@weser/actions",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "React helpers for working with server actions",
   "author": "Robin Weser <robin@weser.io>",
   "license": "MIT",
