@@ -2,4 +2,73 @@
 title: useAction
 ---
 
-tbd.
+A convenience hook for working with server actions in [React](https://react.dev).
+
+## The Gist
+
+<Callout title="Note">
+  This examples uses [Next.js](https://nextjs.org), but this also works with any
+  other framework supporting server actions.
+</Callout>
+
+```tsx
+import { useAction } from '@weser/actions'
+import { useRouter } from 'next/navigation'
+
+// async server action that returns a promise with 'use server' directive
+// createItem takes an object with just a name property
+import createItem from '@/actions/createItem'
+
+function Component() {
+  const router = useRouter()
+  const [{ loading }, execute] = useAction(createItem, {
+    onSuccess: (data) => {
+      if (data?.id) {
+        router.push('/items/' + data.id)
+      }
+    },
+    onError: () => alert('Something went wrong'),
+  })
+
+  return (
+    <button
+      disabled={loading}
+      onClick={() =>
+        execute({
+          name: 'My Item',
+        })
+      }>
+      {loading ? 'Creating...' : 'Create Item'}
+    </button>
+  )
+}
+```
+
+## Parameters
+
+| Parameter | Type                                           | Description                       |
+| --------- | ---------------------------------------------- | --------------------------------- |
+| action    | `(payload: P) => Promise<T_ActionResponse<T>>` | The action to execute.            |
+| callbacks | [Callbacks](#callbacks)                        | The configuration for the action. |
+
+### Callbacks
+
+| Parameter | Type                      | Description                                    |
+| --------- | ------------------------- | ---------------------------------------------- |
+| onSuccess | `(data: T) => void`       | The function to call when the action succeeds. |
+| onError   | `(error: string) => void` | The function to call when the action fails.    |
+
+## Returns
+
+| Return | Type                            | Description                         |
+| ------ | ------------------------------- | ----------------------------------- |
+| state  | [State](#state)                 | The state of the action.            |
+| run    | `(payload: P) => Promise<void>` | The function to execute the action. |
+
+### State
+
+| Parameter | Type      | Description                         |
+| --------- | --------- | ----------------------------------- |
+| loading   | `boolean` | Whether the action is loading.      |
+| data      | `T`       | The data returned from the action.  |
+| error     | `string`  | The error returned from the action. |

@@ -12,7 +12,7 @@ const schema = z.object({
   name: z.string(),
 })
 
-const json = toZod(schema)
+const json = fromZod(schema)
 ```
 
 ## Parameters
@@ -21,6 +21,6 @@ const json = toZod(schema)
 | --------- | --------- | ------------------------------------------- |
 | schema    | `ZodType` | The Zod schema to convert to a JSON schema. |
 
-## Return Value
+## Returns
 
 ([T_JSONSchema](/schema/api/types/T_JSONSchema)) A JSON schema.

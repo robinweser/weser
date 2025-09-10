@@ -7,7 +7,6 @@ import Text from '@/components/system/Text'
 import IconButton from '@/components/system/IconButton'
 import Bleed from '@/components/system/Bleed'
 import PackagesPicker from '@/components/PackagesPicker'
-import El from '@/components/system/El'
 import Footer from '@/components/Footer'
 
 import getPageStructure from '@/utils/getPageStructure'
@@ -40,7 +39,6 @@ export default async function Layout({
         position="sticky"
         padding={5}
         gap={5}
-        overflow="auto"
         style={{ top: 0 }}>
         <Box gap={2}>
           <Box
@@ -65,7 +63,9 @@ export default async function Layout({
           <PackagesPicker packages={packages} activePackage={packageName} />
         </Box>
 
-        <Navigation structure={structure} packageName={packageName} />
+        <Box overflow="auto" paddingBottom={5}>
+          <Navigation structure={structure} packageName={packageName} />
+        </Box>
       </Box>
       <Box
         grow={1}
