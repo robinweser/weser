@@ -3,11 +3,11 @@ import { RefObject, useEffect, useId, useRef } from 'react'
 
 import useLayerContext from './useLayerContext.js'
 
-export default function useLayer<E extends HTMLElement>(
+export default function useLayer<T extends HTMLElement>(
   visible: boolean
-): [RefObject<E>, boolean] {
+): [RefObject<T>, boolean] {
   const id = useId()
-  const ref = useRef<E>(null)
+  const ref = useRef<T>(null)
   const { layers, addLayer, removeLayer, hasLayer } = useLayerContext()
 
   useEffect(() => {

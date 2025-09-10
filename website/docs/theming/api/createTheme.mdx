@@ -6,7 +6,7 @@ order: 1
 A function that turns an object of tokens into valid CSS variables.<br/>
 Useful when creating themes from TypeScript to be used in components. It supports nested objects and allows for customizing and excluding certain properties.
 
-## Example
+## The Gist
 
 ```ts
 import { createTheme } from '@weser/theming'
@@ -18,7 +18,7 @@ const tokens = {
     brand200: 'hsl(255, 85%, 85%)',
     brand300: 'hsl(255, 80%, 75%)',
     brand400: 'hsl(255, 75%, 65%)',
-    brand500: 'hsl(255, 70%, 55%)', // base color
+    brand500: 'hsl(255, 70%, 55%)',
     brand600: 'hsl(255, 65%, 45%)',
     brand700: 'hsl(255, 60%, 35%)',
     brand800: 'hsl(255, 55%, 25%)',
@@ -35,17 +35,17 @@ console.log(theme.colors.brand500)
 
 ## Parameters
 
-| Parameter | Type     | Description |
-| --------- | -------- | ----------- |
-| tokens    | `Object` |             |
-| config    | `Config` |             |
+| Parameter | Type              | Description |
+| --------- | ----------------- | ----------- |
+| tokens    | `Object`          |             |
+| config    | [Config](#config) |             |
 
 ### Config
 
-| Parameter            | Type       | Default                  | Description                                                                      |
-| -------------------- | ---------- | ------------------------ | -------------------------------------------------------------------------------- |
-| selector             | `string`   | `:root`                  | The CSS selector to apply the theme to.                                          |
-| shouldTransformValue | `Function` | `(path: string) => true` | A function that determines if a value should be transformed into a CSS variable. |
+| Parameter            | Type                        | Default      | Description                                                                      |
+| -------------------- | --------------------------- | ------------ | -------------------------------------------------------------------------------- |
+| selector             | `string`                    | `:root`      | The CSS selector to apply the theme to.                                          |
+| shouldTransformValue | `(path: string) => boolean` | `() => true` | A function that determines if a value should be transformed into a CSS variable. |
 
 #### Example // config-example
 

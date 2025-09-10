@@ -2,4 +2,24 @@
 title: invariant
 ---
 
-tbd.
+A helper function that throws an error if the condition is not met.
+
+## The Gist
+
+```tsx
+import { invariant } from '@weser/errors'
+
+function parseData(data: any) {
+  invariant(data, 'Data is required.')
+  invariant(typeof data === 'object', 'Data must be an object.')
+
+  return data.raw
+}
+```
+
+## Parameters
+
+| Property  | Type    | Description                                           |
+| --------- | ------- | ----------------------------------------------------- |
+| condition | boolean | A boolean indicating whether the invariant is valid.  |
+| message   | string  | A message to display when the invariant is not valid. |

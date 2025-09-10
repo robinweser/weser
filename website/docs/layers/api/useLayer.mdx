@@ -1,0 +1,37 @@
+---
+title: useLayer
+---
+
+A hook that provides the basic mechanics for toggling a layer.<br />
+It returns a ref and a boolean indicating whether the layer is active. Only one layer can be active at a time and the most recent one is the active one.
+
+## The Gist
+
+```tsx
+import { useLayer } from '@weser/layers'
+
+import Modal from './Modal'
+
+type Props = {
+  visible: boolean
+}
+function Modal({ visible, children }: PropsWithChildren<Props>) {
+  const [ref, active] = useLayer(visible)
+
+  return (
+    <Overlay visible={visible} zIndex={10}>
+      <Dialog ref={ref}>{children}</Dialog>
+    </Overlay>
+  )
+}
+```
+
+## Parameters
+
+| Property | Type    | Description                                        |
+| -------- | ------- | -------------------------------------------------- |
+| visible  | boolean | A boolean indicating whether the layer is visible. |
+
+## Returns
+
+(`[RefObject, boolean]`) A tuple where the first element is a ref object that is used to reference the layer and the second element is a boolean indicating whether the layer is active.

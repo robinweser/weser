@@ -1,0 +1,53 @@
+---
+title: createKeyframe
+---
+
+The only export of this package.<br />
+It takes a keyframe style object and an optional nonce and returns both the keyframe name as well as a single React `<style>` node.
+
+It converts camel case properties to dash case equivalent, but it does not add units to numbers.
+
+## The Gist
+
+```tsx
+import { createKeyframe } from '@weser/keyframes'
+
+const [animationName, node] = createKeyframe({
+  from: {
+    backgroundColor: 'red',
+  },
+  to: {
+    backgroundColor: 'blue',
+    transform: 'rotate(360deg)',
+  },
+})
+
+function Component() {
+  return (
+    <>
+      {node}
+      <div
+        style={{
+          width: 50,
+          height: 50,
+          backgroundColor: 'red',
+          animationName,
+          animationDuration: '1s',
+          animationIterationCount: 'infinite',
+        }}
+      />
+    </>
+  )
+}
+```
+
+## Parameters
+
+| Parameter | Type                                          | Description             |
+| --------- | --------------------------------------------- | ----------------------- |
+| keyframe  | [T_Keyframe](/keyframes/api/types/T_Keyframe) | A keyframe style object |
+| nonce     | `string?`                                     | A nonce string          |
+
+## Returns
+
+(`[string, React.ReactNode]`) A tuple where the first element is the keyframe name and the second element is the React `<style>` node.

@@ -2,4 +2,8 @@
 title: T_Keyframe
 ---
 
-tbd.
+```tsx
+import { CSSProperties } from 'react'
+
+type T_Keyframe = Partial<Record<'from' | 'to' | `${number}%`, CSSProperties>>
+```

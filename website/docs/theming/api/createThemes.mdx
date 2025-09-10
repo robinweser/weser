@@ -6,7 +6,7 @@ order: 2
 Similar to [createTheme](/theming/api/createTheme), but for multiple themes.<br />
 Useful for reusing the same tokens when creating e.g. a dark and a light theme.
 
-## Example
+## The Gist
 
 ```ts
 import { createThemes } from '@weser/theming'
@@ -46,7 +46,7 @@ console.log(theme.colors.foreground)
 | Parameter | Type                     | Description                                           |
 | --------- | ------------------------ | ----------------------------------------------------- |
 | themes    | `Record<string, Object>` | A map of theme objects with the theme name as the key |
-| config    | `Config`                 |                                                       |
+| config    | [Config](#config)        |                                                       |
 
 ### Config
 

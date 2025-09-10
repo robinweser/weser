@@ -1,0 +1,21 @@
+---
+title: LayerContextProvider
+---
+
+A React context provider that wraps your application and makes the layer context available to all components.
+
+## The Gist
+
+```tsx
+import { LayerContextProvider } from '@weser/layers'
+
+import App from './App'
+
+function Page() {
+  return (
+    <LayerContextProvider>
+      <App />
+    </LayerContextProvider>
+  )
+}
+```

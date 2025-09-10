@@ -1,0 +1,55 @@
+{
+  "name": "@weser/markdown",
+  "version": "0.0.7",
+  "description": "Helpers for working with markdown files",
+  "author": "Robin Weser <robin@weser.io>",
+  "license": "MIT",
+  "homepage": "https://github.com/robinweser/weser.git",
+  "repository": "https://github.com/robinweser/weser.git",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "dist/**"
+  ],
+  "browserslist": [
+    "IE >= 11",
+    "Firefox >= 60",
+    "Safari >= 11.1",
+    "Chrome >= 66",
+    "ChromeAndroid >= 66",
+    "iOS >= 11.3",
+    "Edge >= 15"
+  ],
+  "scripts": {
+    "setup": "pnpm build",
+    "clean": "rimraf dist",
+    "build": "tsc -b",
+    "dev": "pnpm build -w",
+    "test": "echo 1"
+  },
+  "keywords": [
+    "react",
+    "react-hook",
+    "react hooks",
+    "hooks",
+    "utils"
+  ],
+  "dependencies": {
+    "fast-loops": "^1.1.4",
+    "gray-matter": "^4.0.3",
+    "mdast-util-from-markdown": "^2.0.2"
+  },
+  "devDependencies": {
+    "ava": "^6.1.3",
+    "rimraf": "^3.0.2",
+    "typescript": "^5.4.5"
+  }
+}

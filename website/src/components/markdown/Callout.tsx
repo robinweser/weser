@@ -39,10 +39,13 @@ export default function Callout({
           marginTop: 0,
         },
         '[data-id="note"] + &': {
-          marginTop: 0,
+          marginTop: -6,
         },
         '[data-id="anchor"] + &': {
           marginTop: 0,
+        },
+        '[data-id="code"] + &': {
+          marginTop: 12,
         },
       }}>
       {title && (

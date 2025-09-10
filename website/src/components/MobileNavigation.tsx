@@ -64,13 +64,18 @@ export default function MobileNavigation({
         zIndex={theme.zIndex.OVERLAY_1}
         inset={0}
         bottom={0}
-        style={{ backgroundColor: theme.colors.background.menu }}>
+        style={{
+          backgroundColor: theme.colors.background.menu,
+          overflow: 'hidden',
+        }}>
         <Box
           ref={menuRef}
           paddingInline={5}
           paddingBlock={3.5}
           gap={2}
-          marginTop={-1}>
+          marginTop={-1}
+          height="100%"
+          shrink={1}>
           <Box
             direction="row"
             justifyContent="space-between"
@@ -89,12 +94,13 @@ export default function MobileNavigation({
               />
             </Bleed>
           </Box>
-
-          <Box alignSelf={['stretch', 'flex-start']} minWidth={['auto', 250]}>
-            <PackagesPicker packages={packages} activePackage={packageName} />
-          </Box>
-          <Box paddingTop={5}>
-            <Navigation structure={structure} packageName={packageName} />
+          <Box gap={4} shrink={1} overflow="hidden">
+            <Box alignSelf={['stretch', 'flex-start']} minWidth={['auto', 250]}>
+              <PackagesPicker packages={packages} activePackage={packageName} />
+            </Box>
+            <Box paddingBlock={3} overflow="auto">
+              <Navigation structure={structure} packageName={packageName} />
+            </Box>
           </Box>
         </Box>
       </Overlay>
