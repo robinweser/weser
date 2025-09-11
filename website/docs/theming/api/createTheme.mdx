@@ -35,17 +35,17 @@ console.log(theme.colors.brand500)
 
 ## Parameters
 
-| Parameter | Type              | Description |
-| --------- | ----------------- | ----------- |
-| tokens    | `Object`          |             |
-| config    | [Config](#config) |             |
+| Parameter | Type               | Description |
+| --------- | ------------------ | ----------- |
+| tokens    | `Object`           |             |
+| config    | [Config](#config)? |             |
 
 ### Config
 
-| Parameter            | Type                        | Default      | Description                                                                      |
-| -------------------- | --------------------------- | ------------ | -------------------------------------------------------------------------------- |
-| selector             | `string`                    | `:root`      | The CSS selector to apply the theme to.                                          |
-| shouldTransformValue | `(path: string) => boolean` | `() => true` | A function that determines if a value should be transformed into a CSS variable. |
+| Parameter            | Type                         | Default      | Description                                                                      |
+| -------------------- | ---------------------------- | ------------ | -------------------------------------------------------------------------------- |
+| selector             | `string?`                    | `:root`      | The CSS selector to apply the theme to.                                          |
+| shouldTransformValue | `(path: string) => boolean?` | `() => true` | A function that determines if a value should be transformed into a CSS variable. |
 
 #### Example // config-example
 

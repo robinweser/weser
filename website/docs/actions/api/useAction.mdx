@@ -46,10 +46,10 @@ function Component() {
 
 ## Parameters
 
-| Parameter | Type                                           | Description                       |
-| --------- | ---------------------------------------------- | --------------------------------- |
-| action    | `(payload: P) => Promise<T_ActionResponse<T>>` | The action to execute.            |
-| callbacks | [Callbacks](#callbacks)                        | The configuration for the action. |
+| Parameter | Type                                           | Description                   |
+| --------- | ---------------------------------------------- | ----------------------------- |
+| action    | `(payload: P) => Promise<T_ActionResponse<T>>` | The action to execute.        |
+| callbacks | [Callbacks](#callbacks)                        | The callbacks for the action. |
 
 ### Callbacks
 
@@ -60,10 +60,7 @@ function Component() {
 
 ## Returns
 
-| Return | Type                            | Description                         |
-| ------ | ------------------------------- | ----------------------------------- |
-| state  | [State](#state)                 | The state of the action.            |
-| run    | `(payload: P) => Promise<void>` | The function to execute the action. |
+(`[State<T>, (payload: P) => Promise<void>]`) A tuple where the first element is the state of the action and the second element is the function to execute the action.
 
 ### State
 

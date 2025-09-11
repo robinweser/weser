@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import { ComponentProps, PropsWithChildren } from 'react'
 
 import ActionButton from '@/components/system/ActionButton'
@@ -13,6 +14,17 @@ import Footer from '@/components/Footer'
 import theme from '@/utils/theme'
 import getAllPackages from '@/utils/getAllPackages'
 import capitalize from '@/utils/capitalize'
+
+import { baseUrl } from '@/data/meta'
+
+export const metadata: Metadata = {
+  title: 'Weser Packages',
+  description:
+    'A collection of packages that make it easy to build web applications.',
+  alternates: {
+    canonical: baseUrl,
+  },
+}
 
 export default async function Page() {
   const packages = await getAllPackages()

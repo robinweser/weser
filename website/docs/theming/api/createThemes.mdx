@@ -46,14 +46,14 @@ console.log(theme.colors.foreground)
 | Parameter | Type                     | Description                                           |
 | --------- | ------------------------ | ----------------------------------------------------- |
 | themes    | `Record<string, Object>` | A map of theme objects with the theme name as the key |
-| config    | [Config](#config)        |                                                       |
+| config    | [Config](#config)?       |                                                       |
 
 ### Config
 
-| Parameter            | Type                        | Default              | Description                                                                      |
-| -------------------- | --------------------------- | -------------------- | -------------------------------------------------------------------------------- |
-| getSelector          | `(name: string) => string`  | `name => "." + name` | The CSS selector to apply the theme to. Gets the theme name as a parameter.      |
-| shouldTransformValue | `(path: string) => boolean` | `() => true`         | A function that determines if a value should be transformed into a CSS variable. |
+| Parameter            | Type                         | Default              | Description                                                                      |
+| -------------------- | ---------------------------- | -------------------- | -------------------------------------------------------------------------------- |
+| getSelector          | `(name: string) => string?`  | `name => "." + name` | The CSS selector to apply the theme to. Gets the theme name as a parameter.      |
+| shouldTransformValue | `(path: string) => boolean?` | `() => true`         | A function that determines if a value should be transformed into a CSS variable. |
 
 #### Example // config-example
 

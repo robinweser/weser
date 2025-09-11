@@ -12,6 +12,7 @@ import getPageById from '@/utils/getPageById'
 import BackToTop from '@/components/BackTopTop'
 
 import capitalize from '@/utils/capitalize'
+import { baseUrl } from '@/data/meta'
 
 type Props = {
   params: Promise<{
@@ -22,14 +23,21 @@ type Props = {
 export async function generateMetadata({ params }: Props) {
   const { package: packageName, slug } = await params
 
-  const [error, data] = await getPageById([packageName, ...slug].join('/'))
+  const path = [packageName, ...slug].join('/')
+  const [error, data] = await getPageById(path)
 
   if (error !== null) {
     return
   }
 
+  const url = baseUrl + '/' + path
+
   return {
+    alternates: {
+      canonical: url,
+    },
     title: capitalize(packageName) + ' / ' + data.meta.title,
+    description: `Package documentation for @weser/${packageName}. Learn all about ${data.meta.title}.`,
   }
 }
 
