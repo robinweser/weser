@@ -28,7 +28,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 }
 
 function getPages(structure: Array<T_PageStructureItem>) {
-  const pages = []
+  const pages: MetadataRoute.Sitemap = []
+
   for (const item of structure) {
     if (item.items) {
       pages.push(...getPages(item.items))

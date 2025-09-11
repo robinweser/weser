@@ -1,5 +1,5 @@
-import { PropsWithChildren } from 'react'
 import Image from 'next/image'
+import { PropsWithChildren } from 'react'
 
 import Heading from '@/components/markdown/Heading'
 import Box from '@/components/system/Box'

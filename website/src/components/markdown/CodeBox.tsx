@@ -1,55 +1,27 @@
-import { getHighlighter, DecorationItem } from 'shiki'
+import { codeToHtml } from 'shiki'
+
+import useMode from '@/hooks/useMode'
 
 import './shiki.css'
 
 type Props = {
   code: string
   language: string
-  decorations?: Array<DecorationItem>
 }
-export default async function CodeBox({ code, language, decorations }: Props) {
-  const markup = await highlight(code, language, decorations)
+export default async function CodeBox({ code, language }: Props) {
+  const markup = await highlight(code, language)
 
   return (
     <div className={language} dangerouslySetInnerHTML={{ __html: markup }} />
   )
 }
 
-let highlighter: any
-async function highlight(
-  code: string,
-  language: string,
-  decorations?: Array<DecorationItem>
-) {
-  if (!highlighter) {
-    highlighter = await getHighlighter({
-      themes: ['github-light', 'nord'],
-      langs: [
-        'javascript',
-        'bash',
-        'graphql',
-        'css',
-        'typescript',
-        'jsx',
-        'json',
-        'html',
-        'tsx',
-        'sh',
-        'xml',
-        'yaml',
-        'sql',
-        'md',
-      ],
-    })
-  }
-
-  return await highlighter.codeToHtml(code, {
+async function highlight(code: string, language: string) {
+  return await codeToHtml(code, {
     lang: language,
     themes: {
-      // min-light
       light: 'github-light',
       dark: 'nord',
     },
-    decorations,
   })
 }
