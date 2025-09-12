@@ -32,6 +32,7 @@ type PathsForShape<Shape extends ZodRawShape> = {
 
 type FieldsMap = Record<string, ReturnType<typeof useField<any, any>>>
 
+// TODO: inflate data with array values
 function mapFieldsToData(fields: Record<string, any>): Record<string, any> {
   const obj: Record<string, any> = {}
 
@@ -117,6 +118,12 @@ export default function useForm<S extends ZodRawShape>(
 
     function remove(id: FieldArrayId) {
       setRows(rows.filter((row) => row.id !== id))
+
+      for (const _name in fields.current) {
+        if (_name.includes(id)) {
+          delete fields.current[_name]
+        }
+      }
     }
 
     return [rows, { append, remove }]
