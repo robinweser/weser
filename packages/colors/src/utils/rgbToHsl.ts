@@ -3,7 +3,7 @@ export default function rgbToHsl(r: number, g: number, b: number) {
 
   var max = Math.max(r, g, b),
     min = Math.min(r, g, b)
-  var h,
+  var h = 0,
     s,
     l = (max + min) / 2
 
