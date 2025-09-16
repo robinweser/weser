@@ -1,0 +1,44 @@
+---
+title: Overview
+order: -1
+---
+
+A tiny date formatting library with built-in i18n support.
+
+<PackageBadges package="@weser/dates" />
+
+## Installation
+
+```sh
+# npm
+npm i --save @weser/dates
+
+# yarn
+yarn add @weser/dates
+
+# pnpm
+pnpm add @weser/dates
+```
+
+## Motivation
+
+There are several date formatting libraries out there. It all started with [Moment](https://momentjs.com), while nowadays smaller alternatives such as [date-fns](https://date-fns.org), [DayJS](https://day.js.org) and [Luxon](https://moment.github.io/luxon/#/) among others are raising in popularity.<br />
+While [date-fns](https://date-fns.org) already comes in a really small format, it was still way to big for my most common use case: Format a date with a given pattern.<br />
+So I created this tiny library as an attempt to solve this specific problem with as little bytes as possible.
+
+## How it works
+
+I was using [Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat) previously and really liked it. So I had the idea to use that under the hood while providing a nice API that accepts a pattern in a widely used format.<br />
+The nice thing about [Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat) is that it has built-in i18n support.
+
+## Benefits
+
+tbd.
+
+## Limitations
+
+1. It only supports valid CSS color string to be passed in
+2. It currently only supports rgb(a) and hsl(a) color values
+3. It does not optimize output values (e.g. round decimals to X digits)
+4. It does not validate input values
+5. It always returns `hsla` or `rgba` (even if alpha=1)

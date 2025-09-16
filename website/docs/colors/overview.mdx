@@ -1,0 +1,41 @@
+---
+title: Overview
+order: -1
+---
+
+A tiny, tree-shakable alternative to [color](https://github.com/Qix-/color).<br />
+It is very limited and optimized for runtime usage in the browser.<br />
+It only supports a subset of color and does not have input validation.<br />
+
+It has zero dependencies and supports tree-shaking making its size even smaller depending on the functions used.
+
+<PackageBadges package="@weser/colors" />
+
+## Installation
+
+```sh
+# npm
+npm i --save @weser/colors
+
+# yarn
+yarn add @weser/colors
+
+# pnpm
+pnpm add @weser/colors
+```
+
+## Motivation
+
+tbd.
+
+## Benefits
+
+tbd.
+
+## Limitations
+
+1. It only supports valid CSS color string to be passed in
+2. It currently only supports rgb(a) and hsl(a) color values
+3. It does not optimize output values (e.g. round decimals to X digits)
+4. It does not validate input values
+5. It always returns `hsla` or `rgba` (even if alpha=1)
