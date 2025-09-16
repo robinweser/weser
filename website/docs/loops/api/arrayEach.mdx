@@ -1,0 +1,24 @@
+---
+title: arrayEach
+---
+
+Iterates over each value in the array.<br />
+Similar to `Array.prototype.forEach`.
+
+## The Gist
+
+```ts
+import { arrayEach } from '@weser/loops'
+
+arrayEach([1, 2, 3], (value) => console.log(value))
+// 1
+// 2
+// 3
+```
+
+## Parameters
+
+| Parameter | Type                                                               | Description                             |
+| --------- | ------------------------------------------------------------------ | --------------------------------------- |
+| arr       | `Array<T>`                                                         | The array to iterate over.              |
+| iterator  | `(value: T, index: number, length: number, arr: Array<T>) => void` | The iterator method with the signature. |
