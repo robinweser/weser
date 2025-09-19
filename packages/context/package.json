@@ -1,6 +1,6 @@
 {
   "name": "@weser/context",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "React helpers for working with context",
   "author": "Robin Weser <robin@weser.io>",
   "license": "MIT",

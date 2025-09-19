@@ -1,6 +1,6 @@
 {
   "name": "@weser/schema",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Helpers for working with Zod and JSON Schema",
   "author": "Robin Weser <robin@weser.io>",
   "license": "MIT",

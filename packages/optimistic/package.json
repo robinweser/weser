@@ -1,6 +1,6 @@
 {
   "name": "@weser/optimistic",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "React hooks for working with optimistic updates",
   "author": "Robin Weser <robin@weser.io>",
   "license": "MIT",
