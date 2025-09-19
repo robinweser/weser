@@ -1,6 +1,6 @@
 {
   "name": "@weser/markdown",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Helpers for working with markdown files",
   "author": "Robin Weser <robin@weser.io>",
   "license": "MIT",

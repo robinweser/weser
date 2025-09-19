@@ -1,6 +1,6 @@
 {
   "name": "@weser/colors",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "A tiny, limited & tree-shakable color manipulation library",
   "author": "Robin Weser <robin@weser.io>",
   "license": "MIT",
