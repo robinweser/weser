@@ -77,6 +77,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
             <ModeProvider>{children}</ModeProvider>
           </ScrollBlockingLayer>
         </LayerContextProvider>
+        <Script src="https://sa.weser.io/latest.js" />
       </body>
     </html>
   )
