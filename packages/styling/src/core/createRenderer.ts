@@ -1,4 +1,3 @@
-import { CSSProperties } from 'react'
 import { createHooks as baseCreateHooks } from '@css-hooks/react'
 import { WithHooks } from '@css-hooks/core'
 import { assignStyle } from 'css-in-js-utils'
@@ -6,7 +5,7 @@ import { assignStyle } from 'css-in-js-utils'
 import fallbackValuePlugin from './fallbackValuePlugin.js'
 import getFallbackCSS from './getFallbackCSS.js'
 
-import { T_Fallback } from '../types.js'
+import { T_Fallback, T_RawStyle } from '../types.js'
 
 type Plugin<T> = (style: T) => T
 
@@ -27,10 +26,10 @@ type Properties<T, Hooks> =
   | undefined
 type CSSFunction<T, Hooks> = (
   ...style: Array<Properties<T, Hooks>>
-) => CSSProperties
+) => T_RawStyle
 export default function createRenderer<
   Hooks extends Record<string, string>,
-  T extends Record<string, any> = CSSProperties,
+  T extends Record<string, any> = T_RawStyle,
 >({
   hooks,
   fallbacks = [],

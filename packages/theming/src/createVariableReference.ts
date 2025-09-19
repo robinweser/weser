@@ -1,11 +1,7 @@
-import { useId } from 'react'
-
-export default function useCSSVariable(
+export default function createVariableReference(
+  name: string,
   fallbackValue?: string
 ): [`--${string}`, string] {
-  const id = useId()
-
-  const name = id.replace(/:/g, '_')
   const variable = `--${name}` as const
 
   if (fallbackValue) {

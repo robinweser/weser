@@ -9,6 +9,6 @@ export type T_Fallback = {
 type T_VariableStyle = {
   [key: `--${string}`]: string | number
 }
-type T_RawStyle = CSSProperties
+export type T_RawStyle = CSSProperties
 
 export type T_Style = T_RawStyle & T_VariableStyle
