@@ -54,7 +54,7 @@ export default function Accordion({
         <Box shrink={0}>
           <Icon
             color={theme.colors.foreground.secondary}
-            style={{ marginRight: -2 }}
+            style={{ marginRight: -2, pointerEvents: 'none' }}
           />
         </Box>
       </Box>

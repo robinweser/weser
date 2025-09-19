@@ -26,8 +26,8 @@ export function inputStyle(
     disabled = false,
   }: T_InputProps,
   focus = ':focus-visible'
-): T_Style {
-  const baseStyle: T_Style = {
+) {
+  const baseStyle = {
     background: 'transparent',
     width: '100%',
     flexShrink: 1,
@@ -67,7 +67,7 @@ export function inputStyle(
         },
       },
     ],
-  }
+  } as const
 
   if (variant === 'function') {
     const spacing = getSpacing(variant, 0)
@@ -94,7 +94,7 @@ export function inputStyle(
         ...theme.focusRing,
         outlineOffset: 0,
       },
-    }
+    } as const
   }
 
   return {
@@ -132,5 +132,5 @@ export function inputStyle(
         },
       },
     ],
-  }
+  } as const
 }

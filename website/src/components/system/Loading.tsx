@@ -30,6 +30,7 @@ export default function Loading({
         stroke={color}
         viewBox="0 0 40 40"
         style={{
+          pointerEvents: 'none',
           transformOrigin: 'center',
           animationDuration: '1300ms',
           animationName,

@@ -35,7 +35,7 @@ export default function MobileNavigation({
   packages,
   hierarchy,
 }: Props) {
-  const [isVisible, setVisible] = useTrigger()
+  const [isVisible, setVisible, triggerRef] = useTrigger()
   const [menuRef, active] = useLayer<HTMLDivElement>(isVisible)
 
   useScrollBlocking(isVisible)
@@ -132,7 +132,7 @@ export default function MobileNavigation({
 
               <Bleed size={3}>
                 <IconButton
-                  // ref={trigger}
+                  ref={triggerRef}
                   variant="function"
                   iconSize={30}
                   icon={Menu}

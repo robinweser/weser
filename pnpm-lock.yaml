@@ -283,6 +283,41 @@ importers:
         specifier: ^5.4.5
         version: 5.4.5
 
+  packages/styling:
+    dependencies:
+      css-in-js-utils:
+        specifier: ^3.1.0
+        version: 3.1.0
+      isobject:
+        specifier: ^4.0.0
+        version: 4.0.0
+    optionalDependencies:
+      styles-debugger:
+        specifier: ^1.0.0
+        version: 1.0.0
+    devDependencies:
+      '@css-hooks/core':
+        specifier: 1.8.2
+        version: 1.8.2
+      '@css-hooks/react':
+        specifier: 1.8.2
+        version: 1.8.2(@types/react@18.2.55)
+      '@types/react':
+        specifier: 18.2.55
+        version: 18.2.55
+      ava:
+        specifier: ^6.1.3
+        version: 6.1.3
+      react:
+        specifier: ^19.1.0
+        version: 19.1.1
+      rimraf:
+        specifier: ^3.0.2
+        version: 3.0.2
+      typescript:
+        specifier: ^5.9.2
+        version: 5.9.2
+
   packages/theming:
     dependencies:
       isobject:
@@ -458,7 +493,6 @@ packages:
 
   /@css-hooks/core@1.8.2:
     resolution: {integrity: sha512-4EMR8uH83Ym22z5oOTBSeznLkd1B8pgMsNgrPzA+Q4YSegGv3aQECQQDfqRg20MDYGrtv+sAuahcsaiaaph0Ig==}
-    dev: false
 
   /@css-hooks/react@1.8.2(@types/react@18.2.55):
     resolution: {integrity: sha512-sZpoIOipBJPJt7/yMjhOtvKRjX+OOoW2A6PZcXRO4I9/LQgDIZX7tkAm4DwPg1X+KOQ1p1M89Z6s1TOtzRFqiQ==}
@@ -470,7 +504,6 @@ packages:
     dependencies:
       '@css-hooks/core': 1.8.2
       '@types/react': 18.2.55
-    dev: false
 
   /@discoveryjs/json-ext@0.5.7:
     resolution: {integrity: sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==}
@@ -7614,7 +7647,6 @@ packages:
   /react@19.1.1:
     resolution: {integrity: sha512-w8nqGImo45dmMIfljjMwOGtbmC/mk4CMYhWIicdSflH91J9TyCyczcPFXJzrZ/ZXcgGRFeP6BU0BEJTw6tZdfQ==}
     engines: {node: '>=0.10.0'}
-    dev: false
 
   /react@19.2.0-canary-7513996f-20250722:
     resolution: {integrity: sha512-uBcU4jl2agw2+tjZ7CprDuX0TcmauGwmPsDcckkprRFgCXaJgBSRHJeTq3PQDGLNX8je982NGwDB9DnI0a8/vw==}

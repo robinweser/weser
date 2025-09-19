@@ -79,6 +79,7 @@ export default function InputContainer<T extends ElementType>({
             justifyContent="center"
             marginRight={2}
             height="100%"
+            minHeight={variantStyle.minHeight - 2}
             style={{
               paddingBlock: variantStyle.paddingBlock,
               marginInlineStart: -(variantStyle.paddingInline || 0),
@@ -108,7 +109,12 @@ export default function InputContainer<T extends ElementType>({
             <Icon
               size={20}
               color={theme.colors.foreground.secondary}
-              style={{ flexShrink: 0, marginRight: 8, strokeWidth: 1.5 }}
+              style={{
+                flexShrink: 0,
+                marginRight: 8,
+                strokeWidth: 1.5,
+                pointerEvents: 'none',
+              }}
             />
           )}
           {children}
@@ -116,7 +122,12 @@ export default function InputContainer<T extends ElementType>({
             <Icon
               size={20}
               color={theme.colors.foreground.secondary}
-              style={{ flexShrink: 0, marginLeft: 8, strokeWidth: 1.5 }}
+              style={{
+                flexShrink: 0,
+                marginLeft: 8,
+                strokeWidth: 1.5,
+                pointerEvents: 'none',
+              }}
             />
           )}
         </Box>
@@ -128,7 +139,7 @@ export default function InputContainer<T extends ElementType>({
             marginLeft={2}
             height="100%"
             minHeight="auto"
-            // minHeight={variantStyle.minHeight - 2}
+            minHeight={variantStyle.minHeight - 2}
             style={{
               paddingBlock: variantStyle.paddingBlock,
               marginInlineEnd: -(variantStyle.paddingInline || 0),

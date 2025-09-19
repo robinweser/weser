@@ -186,6 +186,9 @@ export default function IconButton({
         }
         focusable={false}
         strokeWidth={1.5}
+        style={{
+          pointerEvents: 'none',
+        }}
       />
       <VisuallyHidden>{label}</VisuallyHidden>
     </Click>

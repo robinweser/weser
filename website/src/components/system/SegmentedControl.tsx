@@ -128,7 +128,11 @@ function Segment({
         onChange={onChange}
         style={{ appearance: 'none' }}
       />
-      {Icon ? <Icon size={20} /> : <Text height={1}>{label}</Text>}
+      {Icon ? (
+        <Icon size={20} style={{ pointerEvents: 'none' }} />
+      ) : (
+        <Text height={1}>{label}</Text>
+      )}
     </Box>
   )
 }

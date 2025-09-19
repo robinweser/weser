@@ -4,7 +4,6 @@ type Props<T> = {
   defaultVisible?: boolean
   getTrigger?: () => T | null
 }
-
 export default function useTrigger<T extends HTMLElement = HTMLButtonElement>({
   defaultVisible = false,
   getTrigger,
@@ -28,7 +27,7 @@ export default function useTrigger<T extends HTMLElement = HTMLButtonElement>({
         const trigger = getTriggerElement()
 
         if (trigger) {
-          trigger.focus()
+          trigger.focus({ preventScroll: true })
         }
       }
     }

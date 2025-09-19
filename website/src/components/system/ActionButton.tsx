@@ -42,7 +42,14 @@ export default function ActionButton({
     stretch,
   }
 
-  const icon = Icon ? <Icon size={20} /> : undefined
+  const icon = Icon && (
+    <Icon
+      size={20}
+      style={{
+        pointerEvents: 'none',
+      }}
+    />
+  )
 
   return (
     // @ts-ignore

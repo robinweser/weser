@@ -1,0 +1,60 @@
+{
+  "name": "@weser/styling",
+  "version": "0.0.8",
+  "description": "Utils for styling with CSS hooks",
+  "author": "Robin Weser <robin@weser.io>",
+  "license": "MIT",
+  "homepage": "https://github.com/robinweser/weser.git",
+  "repository": "https://github.com/robinweser/weser.git",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "dist/**"
+  ],
+  "browserslist": [
+    "IE >= 11",
+    "Firefox >= 60",
+    "Safari >= 11.1",
+    "Chrome >= 66",
+    "ChromeAndroid >= 66",
+    "iOS >= 11.3",
+    "Edge >= 15"
+  ],
+  "scripts": {
+    "setup": "pnpm build",
+    "clean": "rimraf dist",
+    "build": "tsc -b",
+    "dev": "pnpm build -w",
+    "test": "ava"
+  },
+  "keywords": [],
+  "dependencies": {
+    "css-in-js-utils": "^3.1.0",
+    "isobject": "^4.0.0"
+  },
+  "peerDependencies": {
+    "@css-hooks/core": "^1.0.0",
+    "@css-hooks/react": "^1.0.0"
+  },
+  "optionalDependencies": {
+    "styles-debugger": "^1.0.0"
+  },
+  "devDependencies": {
+    "@css-hooks/core": "1.8.2",
+    "@css-hooks/react": "1.8.2",
+    "@types/react": "18.2.55",
+    "ava": "^6.1.3",
+    "react": "^19.1.0",
+    "rimraf": "^3.0.2",
+    "styles-debugger": "^1.0.0",
+    "typescript": "^5.9.2"
+  }
+}
