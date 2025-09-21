@@ -1,11 +1,13 @@
 import { createHooks as baseCreateHooks } from '@css-hooks/react'
-import { WithHooks } from '@css-hooks/core'
+import { WithHooks as BaseWithHooks } from '@css-hooks/core'
 import { assignStyle } from 'css-in-js-utils'
 
 import fallbackValuePlugin from './fallbackValuePlugin.js'
 import getFallbackCSS from './getFallbackCSS.js'
 
 import { T_Fallback, T_RawStyle } from '../types.js'
+
+type WithHooks<Hooks, T> = BaseWithHooks<Hooks, T>
 
 type Plugin<T> = (style: T) => T
 
@@ -20,11 +22,11 @@ type Config<T, Hooks extends string> = {
   mergeStyle?: typeof assignStyle
 }
 
-type Properties<T, Hooks> =
+export type Properties<T, Hooks> =
   | Array<Properties<T, Hooks>>
   | WithHooks<Hooks, T>
   | undefined
-type CSSFunction<T, Hooks> = (
+export type CSSFunction<T, Hooks> = (
   ...style: Array<Properties<T, Hooks>>
 ) => T_RawStyle
 export default function createRenderer<

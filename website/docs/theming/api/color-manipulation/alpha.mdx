@@ -1,11 +1,10 @@
 ---
 title: alpha
 last-updated: 2025-09-03
-order: 4
 ---
 
 A small utility function that applies an alpha channel to a CSS color value.<br />
-It uses the `hsl` color model to apply the alpha channel.
+It uses the `hsl` color model to do so.
 
 ## The Gist
 
@@ -18,10 +17,10 @@ const transparentVariable = alpha('var(--background)', 0.5)
 
 ## Parameters
 
-| Parameter | Type     | Description                               |
-| --------- | -------- | ----------------------------------------- |
-| value     | `string` | The CSS color value to apply the alpha to |
-| alpha     | `0-1`    | The alpha value as a float from 0 to 1    |
+| Parameter | Type     | Description                                |
+| --------- | -------- | ------------------------------------------ |
+| value     | `string` | The CSS color value to apply the alpha to. |
+| alpha     | `0-1`    | The alpha value as a float from 0 to 1.    |
 
 ## Returns
 

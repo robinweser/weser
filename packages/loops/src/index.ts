@@ -1,5 +1,6 @@
 export { default as arrayEach } from './arrayEach.js'
 export { default as arrayFilter } from './arrayFilter.js'
+export { default as arrayGroupBy } from './arrayGroupBy.js'
 export { default as arrayMap } from './arrayMap.js'
 export { default as arrayReduce } from './arrayReduce.js'
 

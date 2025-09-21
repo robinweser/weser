@@ -1,0 +1,29 @@
+---
+title: createVariableReference
+order: 4
+---
+
+## The Gist
+
+```ts
+import { createVariableReference } from '@weser/theming'
+
+const [name, reference] = createVariableReference('brand-color', 'red')
+
+// => '--brand-color'
+console.log(name)
+
+// => 'var(--brand-color, red)'
+console.log(reference)
+```
+
+## Parameters
+
+| Parameter     | Type      | Description                                     |
+| ------------- | --------- | ----------------------------------------------- |
+| name          | `string`  | The CSS variable name                           |
+| fallbackValue | `string?` | The fallback value assigned to the CSS variable |
+
+## Returns
+
+(`[string, string]`) A tuple where the first element is a string referencing the name of the CSS variable and the second element is a string referencing the CSS variable reference value.

@@ -1,0 +1,26 @@
+---
+title: lighten
+---
+
+A small utility function that lightens a CSS color value by a relative amount.<br />
+It uses the `hsl` color model to do so.
+
+## The Gist
+
+```tsx
+import { lighten } from '@weser/theming'
+
+const lighterRed = lighten('red', 0.5)
+const lighterVariable = lighten('var(--background)', 0.5)
+```
+
+## Parameters
+
+| Parameter | Type     | Description                                |
+| --------- | -------- | ------------------------------------------ |
+| value     | `string` | The CSS color value to apply the alpha to. |
+| amount    | `0-1`    | The relative amount to lighten the color.  |
+
+## Returns
+
+(`string`) A string that references a CSS color value with with a lightened channel applied.

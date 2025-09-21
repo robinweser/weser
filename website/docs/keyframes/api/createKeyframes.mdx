@@ -1,0 +1,61 @@
+---
+title: createKeyframes
+---
+
+A function that takes a map of keyframe style objects and an optional nonce and returns both a map with the keyframe names as well as a single React `<style>` node.
+
+It converts camel case properties to dash case equivalent, but it does not add units to numbers.
+
+## The Gist
+
+```tsx
+import { createKeyframes } from '@weser/keyframes'
+
+const [keyframes, node] = createKeyframes({
+  fadeIn: {
+    from: {
+      opacity: 0,
+    },
+    to: {
+      opacity: 1,
+    },
+  },
+  fadeOut: {
+    from: {
+      opacity: 1,
+    },
+    to: {
+      opacity: 0,
+    },
+  },
+})
+
+function Component() {
+  return (
+    <>
+      {node}
+      <div
+        style={{
+          width: 50,
+          height: 50,
+          backgroundColor: 'red',
+          animationName: keyframes.fadeIn,
+          animationDuration: '1s',
+          animationIterationCount: 'infinite',
+        }}
+      />
+    </>
+  )
+}
+```
+
+## Parameters
+
+| Parameter | Type                         | Description                     |
+| --------- | ---------------------------- | ------------------------------- |
+| keyframes | `Record<string, T_Keyframe>` | A map of keyframe style objects |
+| nonce     | `string?`                    | A nonce string                  |
+
+## Returns
+
+(`[Record<string, string>, React.ReactNode]`) A tuple where the first element is a map with the keyframe names as keys and the keyframe CSS as values and the second element is the React `<style>` node.

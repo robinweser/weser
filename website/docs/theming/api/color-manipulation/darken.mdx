@@ -1,0 +1,26 @@
+---
+title: darken
+---
+
+A small utility function that darkens a CSS color value by a relative amount.<br />
+It uses the `hsl` color model to do so.
+
+## The Gist
+
+```tsx
+import { darken } from '@weser/theming'
+
+const darkerRed = darken('red', 0.5)
+const darkerVariable = alpha('var(--background)', 0.5)
+```
+
+## Parameters
+
+| Parameter | Type     | Description                                |
+| --------- | -------- | ------------------------------------------ |
+| value     | `string` | The CSS color value to apply the alpha to. |
+| amount    | `0-1`    | The relative amount to darken the color.   |
+
+## Returns
+
+(`string`) A string that references a CSS color value with with a darkened channel applied.
