@@ -1,14 +1,16 @@
 export default function arrayGroupBy<T extends Record<string, any>>(
   arr: Array<T>,
-  key: keyof T
+  key: keyof T | ((item: T) => PropertyKey)
 ) {
   return arr.reduce(
     (grouped, item) => {
-      grouped[item[key]] = grouped[item[key]] || []
-      grouped[item[key]].push(item)
+      const group = typeof key === 'function' ? key(item) : item[key]
+
+      grouped[group] = grouped[group] || []
+      grouped[group].push(item)
 
       return grouped
     },
-    {} as Record<Array<T>[number][keyof T], Array<T>>
+    {} as Record<PropertyKey, Array<T>>
   )
 }
