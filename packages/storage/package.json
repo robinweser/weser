@@ -1,6 +1,6 @@
 {
   "name": "@weser/storage",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "React hooks for working with persisted state",
   "author": "Robin Weser <robin@weser.io>",
   "license": "MIT",

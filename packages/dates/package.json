@@ -1,6 +1,6 @@
 {
   "name": "@weser/dates",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Tiny date formatting library with built-in i18n",
   "author": "Robin Weser <robin@weser.io>",
   "license": "MIT",

@@ -1,6 +1,6 @@
 {
   "name": "@weser/hooks",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "React hooks for building apps",
   "author": "Robin Weser <robin@weser.io>",
   "license": "MIT",
