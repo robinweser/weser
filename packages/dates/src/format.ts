@@ -1,22 +1,7 @@
 const PATTERN_REGEX = /(M|y|d|D|h|H|m|s|S|G|Z|P|a)+/g
 const ESCAPE_REGEX = /\\"|"((?:\\"|[^"])*)"|(\+)/g
 
-type PatternType =
-  | 'y'
-  | 'M'
-  | 'd'
-  | 'D'
-  | 'S'
-  | 'G'
-  | 'Z'
-  | 'P'
-  | 'a'
-  | 'h'
-  | 'H'
-  | 'm'
-  | 's'
-
-const optionNames: Record<PatternType, string> = {
+const optionNames = {
   y: 'year',
   M: 'month',
   d: 'day',
@@ -30,9 +15,9 @@ const optionNames: Record<PatternType, string> = {
   H: 'hour',
   m: 'minute',
   s: 'second',
-}
+} as const
 
-const values: Record<PatternType, (string | undefined | number | boolean)[]> = {
+const values = {
   y: ['numeric', '2-digit', undefined, 'numeric'],
   M: ['narrow', '2-digit', 'short', 'long'],
   d: ['numeric', '2-digit'],
@@ -46,65 +31,9 @@ const values: Record<PatternType, (string | undefined | number | boolean)[]> = {
   H: ['numeric', '2-digit'],
   m: ['numeric', '2-digit'],
   s: ['numeric', '2-digit'],
-}
+} as const
 
-function padIf(condition: boolean, value: number, length: number) {
-  return condition && length === 2 && value / 10 < 1 ? '0' + value : value
-}
-
-function formatType(
-  date: Date,
-  type: PatternType,
-  length: number,
-  config: Config = {}
-) {
-  if (!Intl.DateTimeFormat) {
-    throw new Error('Intl.DateTimeFormat is not supported')
-  }
-
-  const { locale, timeZone } = config
-
-  const option = optionNames[type]
-  const value = values[type][length - 1]
-
-  if (!value) {
-    return
-  }
-
-  const options = {
-    [option]: value,
-    timeZone,
-  }
-
-  if (type === 'a') {
-    return Intl.DateTimeFormat(locale, {
-      hour: 'numeric',
-    })
-      .formatToParts(date)
-      .pop()?.value
-  }
-
-  if (type === 'G' || type === 'Z') {
-    return Intl.DateTimeFormat(locale, options).formatToParts(date).pop()?.value
-  }
-
-  if (type === 'H' || type === 'h') {
-    return Intl.DateTimeFormat('en-GB', {
-      ...options,
-      hourCycle: type === 'H' ? 'h23' : 'h11',
-    })
-      .format(date)
-      .toLocaleLowerCase()
-      .replace(' am', '')
-      .replace(' pm', '')
-  }
-
-  return padIf(
-    ['m', 's'].includes(type) && value === '2-digit',
-    parseInt(Intl.DateTimeFormat(locale, options).format(date)),
-    2
-  )
-}
+type PatternType = keyof typeof optionNames
 
 type Config = {
   locale?: string
@@ -133,4 +62,62 @@ export default function format(
       })
     })
     .join('')
+}
+function formatType(
+  date: Date,
+  type: PatternType,
+  length: number,
+  { locale, timeZone }: Config = {}
+) {
+  const option = optionNames[type]
+  const value = values[type][length - 1]
+
+  if (!value) {
+    return
+  }
+
+  const options = {
+    [option]: value,
+    timeZone,
+  }
+
+  if (type === 'a') {
+    return Intl.DateTimeFormat(locale, {
+      ...options,
+      hour: 'numeric',
+    })
+      .formatToParts(date)
+      .pop()?.value
+  }
+
+  if (type === 'G' || type === 'Z') {
+    return Intl.DateTimeFormat(locale, options).formatToParts(date).pop()?.value
+  }
+
+  if (type === 'H' || type === 'h') {
+    return Intl.DateTimeFormat('en-GB', {
+      ...options,
+      hourCycle: type === 'H' ? 'h23' : 'h11',
+    })
+      .format(date)
+      .toLocaleLowerCase()
+      .replace(' am', '')
+      .replace(' pm', '')
+  }
+
+  return padIf(
+    ['m', 's'].includes(type) && value === '2-digit',
+    Intl.DateTimeFormat(locale, options).format(date),
+    2
+  )
+}
+
+function padIf(condition: boolean, value: string | number, length: number) {
+  if (typeof value === 'string') {
+    return condition && length === 2 && parseInt(value) / 10 < 1
+      ? '0' + value
+      : value
+  }
+
+  return condition && length === 2 && value / 10 < 1 ? '0' + value : value
 }

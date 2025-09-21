@@ -33,7 +33,7 @@
     "clean": "rimraf dist",
     "build": "tsc -b",
     "dev": "pnpm build -w",
-    "test": "echo 1"
+    "test": "ava"
   },
   "keywords": [
     "date",
