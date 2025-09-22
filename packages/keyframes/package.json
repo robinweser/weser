@@ -1,6 +1,6 @@
 {
   "name": "@weser/keyframes",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Tiny helpers for CSS keyframes in React",
   "author": "Robin Weser <robin@weser.io>",
   "license": "MIT",
