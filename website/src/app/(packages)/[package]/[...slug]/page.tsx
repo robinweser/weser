@@ -6,12 +6,14 @@ import MobileNavigation from '@/components/MobileNavigation'
 import ThemeToggle from '@/components/ThemeToggle'
 import Bleed from '@/components/system/Bleed'
 
+import BackToTop from '@/components/BackTopTop'
+import EditThisPage from '@/components/EditThisPage'
+
 import getPageStructure from '@/utils/getPageStructure'
 import getAllPackages from '@/utils/getAllPackages'
 import getPageById from '@/utils/getPageById'
-import BackToTop from '@/components/BackTopTop'
-
 import capitalize from '@/utils/capitalize'
+
 import { baseUrl } from '@/data/meta'
 
 type Props = {
@@ -121,7 +123,10 @@ export default async function Page({ params }: Props) {
             )}
             <Headings headings={headings} />
           </Box>
-          <BackToTop />
+          <Box gap={4}>
+            <BackToTop />
+            <EditThisPage path={packageName + '/' + slug.join('/')} />
+          </Box>
         </Box>
       </Box>
     </Box>
