@@ -12,6 +12,8 @@ export {
 export { default as debugPlugin } from './plugins/debug.js'
 export { default as enforceLonghandPlugin } from './plugins/enforceLonghand.js'
 export { default as sortPropertyPlugin } from './plugins/sortProperty.js'
+export { default as unitPlugin } from './plugins/unit.js'
+export { default as extendPlugin, T_ExtendStyle } from './plugins/extend.js'
 
 export { default as useCSSVariable } from './helpers/useCSSVariable.js'
 
