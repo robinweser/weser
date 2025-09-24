@@ -1,6 +1,6 @@
 import { useRef, FormEvent, ChangeEvent } from 'react'
 import { z, ZodObject, ZodError, ZodRawShape, ZodType } from 'zod'
-import { $ZodIssue } from '@zod/core'
+import { $ZodIssue } from 'zod/v4/core'
 
 import { Options } from './types.js'
 import defaultFormatErrorMessage from './defaultFormatErrorMessage.js'

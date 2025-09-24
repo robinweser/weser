@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import { ZodType } from 'zod'
-import { $ZodIssue } from '@zod/core'
+import { $ZodIssue } from 'zod/v4/core'
 
 import { Field, Options } from './types.js'
 import defaultFormatErrorMessage from './defaultFormatErrorMessage.js'
@@ -24,7 +24,7 @@ export default function useField<T = string, C = ChangeEvent<HTMLInputElement>>(
   function _validate(value: T): undefined | string {
     const { success, error } = schema.safeParse(value)
 
-    if (!success) {
+    if (!success && error.issues.length > 0) {
       return formatErrorMessage(error.issues[0], value, name)
     }
   }

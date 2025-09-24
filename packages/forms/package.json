@@ -43,9 +43,6 @@
     "forms",
     "zod"
   ],
-  "dependencies": {
-    "@zod/core": "^0.11.6"
-  },
   "peerDependencies": {
     "react": ">16.3.0",
     "zod": ">=4"

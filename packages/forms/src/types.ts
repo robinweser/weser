@@ -1,4 +1,4 @@
-import { $ZodIssue } from '@zod/core'
+import { $ZodIssue } from 'zod/v4/core'
 
 export type Field<T> = {
   value: T
