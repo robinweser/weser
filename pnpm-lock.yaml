@@ -120,8 +120,8 @@ importers:
         specifier: ^5.4.5
         version: 5.4.5
       zod:
-        specifier: 4.0.0-beta.20250505T195954
-        version: 4.0.0-beta.20250505T195954
+        specifier: ^4.1.11
+        version: 4.1.11
 
   packages/hooks:
     devDependencies:
@@ -12917,6 +12917,13 @@ packages:
       }
     dependencies:
       '@zod/core': 0.11.6
+    dev: true
+
+  /zod@4.1.11:
+    resolution:
+      {
+        integrity: sha512-WPsqwxITS2tzx1bzhIKsEs19ABD5vmCVa4xBo2tq/SrV4RNZtfws1EnCWQXM6yh8bD08a1idvkB5MZSBiZsjwg==,
+      }
     dev: true
 
   /zwitch@2.0.4:
