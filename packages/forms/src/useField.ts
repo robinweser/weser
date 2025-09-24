@@ -1,5 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import { ZodType } from 'zod'
+import { $ZodIssue } from '@zod/core'
 
 import { Field, Options } from './types.js'
 import defaultFormatErrorMessage from './defaultFormatErrorMessage.js'
@@ -117,6 +118,15 @@ export default function useField<T = string, C = ChangeEvent<HTMLInputElement>>(
     }
   }
 
+  function _applyError(issue: $ZodIssue) {
+    const errorMessage = formatErrorMessage(issue, field.value, name)
+
+    setField((field: Field<T>) => ({
+      ...field,
+      errorMessage,
+    }))
+  }
+
   const inputProps = {
     value: field.value,
     disabled: field.disabled,
@@ -146,5 +156,6 @@ export default function useField<T = string, C = ChangeEvent<HTMLInputElement>>(
     inputProps,
     props,
     _initial: initialField,
+    _applyError,
   }
 }

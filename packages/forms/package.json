@@ -43,9 +43,12 @@
     "forms",
     "zod"
   ],
+  "dependencies": {
+    "@zod/core": "^0.11.6"
+  },
   "peerDependencies": {
     "react": ">16.3.0",
-    "zod": ">=3"
+    "zod": ">=4"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
@@ -53,9 +56,6 @@
     "react": "canary",
     "rimraf": "^3.0.2",
     "typescript": "^5.4.5",
-    "zod": "4.0.0-beta.20250505T195954"
-  },
-  "dependencies": {
-    "@zod/core": "^0.11.6"
+    "zod": "^4.1.11"
   }
 }

@@ -64,7 +64,11 @@ export default function useForm<S extends ZodRawShape>(
 
   function touchFields() {
     for (const name in fields.current) {
-      fields.current[name].update({ touched: true })
+      fields.current[name].update({
+        touched: true,
+        // force revalidate
+        value: fields.current[name].value,
+      })
     }
   }
 
@@ -101,8 +105,22 @@ export default function useForm<S extends ZodRawShape>(
         onSubmit(parsed.data)
       } else {
         if (onError) {
+          if (parsed.error.issues.length > 0) {
+            _applyErrors(parsed.error.issues)
+          }
+
           onError(parsed.error)
         }
+      }
+    }
+  }
+
+  function _applyErrors(issues: Array<$ZodIssue>) {
+    for (const issue of issues) {
+      const field = fields.current[issue.path[0] as string]
+
+      if (field) {
+        field._applyError(issue)
       }
     }
   }
