@@ -4,6 +4,7 @@ import { createContext } from 'react'
 export type T_Layer = {
   id: string
   element: Object
+  data?: Record<string, any>
 }
 
 type LayerContext = {

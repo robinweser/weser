@@ -3,7 +3,7 @@ title: Overview
 order: -1
 ---
 
-A package for working with Zod and JSON Schemas.<br />
+A package for working with [Zod](https://zod.dev) and [JSON Schemas](https://json-schema.org).<br />
 It ships many small helpers for a schema-first approach to building user interfaces.
 
 <PackageBadges package="@weser/schema" />
@@ -23,8 +23,16 @@ pnpm add @weser/schema
 
 ## Motivation
 
-tbd.
+Schema validation is a core part of any modern, type-safe application.
+With Zod as a popular and powerful library, we can do all sorts of things from API requests to form validation.<br />
+However, since everything is stored as objects and functions, we can't really store them in a database or iterate over them in a more straight forward way.
+That's where this package comes in. It ships a set of helpers for converting Zod schemas to JSON Schemas and vice versa for full end-to-end type safety.
 
 ## Benefits
 
-tbd.
+Being able to turn complex Zod schemas into JSON Schemas comes with two main benefits:
+
+1. Being able to store the schema in a database
+2. Being able to iterate over the schema in a more straight forward way
+
+This allows for a schema-first approach where the schema is the single source of truth and the UI is generated based on it.

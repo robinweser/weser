@@ -28,10 +28,11 @@ function Modal({ visible, children }: PropsWithChildren<Props>) {
 
 ## Parameters
 
-| Property | Type    | Description                                        |
-| -------- | ------- | -------------------------------------------------- |
-| visible  | boolean | A boolean indicating whether the layer is visible. |
+| Property | Type                  | Description                                                    |
+| -------- | --------------------- | -------------------------------------------------------------- |
+| visible  | `boolean`             | A boolean indicating whether the layer is visible.             |
+| data     | `Record<string, any>` | An optional object that can be used to pass data to the layer. |
 
 ## Returns
 
-(`[RefObject, boolean]`) A tuple where the first element is a ref object that is used to reference the layer and the second element is a boolean indicating whether the layer is active.
+(`[RefObject, boolean, id]`) A tuple where the first element is a ref object that is used to reference the layer, the second element is a boolean indicating whether the layer is active and the third element is the id of the layer.

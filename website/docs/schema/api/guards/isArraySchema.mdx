@@ -2,4 +2,29 @@
 title: isArraySchema
 ---
 
-tbd.
+A function that checks if a JSON schema is an JSON array schema.
+
+## The Gist
+
+```ts
+import { isArraySchema, T_JSONSchema } from '@weser/schema'
+
+const schema: T_JSONSchema = {
+  type: 'array',
+  items: {
+    type: 'string',
+  },
+}
+
+const isArray = isArraySchema(schema)
+```
+
+## Parameters
+
+| Parameter | Type                                           | Description               |
+| --------- | ---------------------------------------------- | ------------------------- |
+| schema    | [T_JSONSchema](/schema/api/types/T_JSONSchema) | The JSON schema to check. |
+
+## Returns
+
+(`boolean`) Whether the schema is an array schema.

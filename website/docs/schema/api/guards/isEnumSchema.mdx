@@ -2,4 +2,26 @@
 title: isEnumSchema
 ---
 
-tbd.
+A function that checks if a JSON schema is an JSON enum schema.
+
+## The Gist
+
+```ts
+import { isEnumSchema, T_JSONSchema } from '@weser/schema'
+
+const schema: T_JSONSchema = {
+  enum: ['foo', 'bar'],
+}
+
+const isEnum = isEnumSchema(schema)
+```
+
+## Parameters
+
+| Parameter | Type                                           | Description               |
+| --------- | ---------------------------------------------- | ------------------------- |
+| schema    | [T_JSONSchema](/schema/api/types/T_JSONSchema) | The JSON schema to check. |
+
+## Returns
+
+(`boolean`) Whether the schema is an enum schema.

@@ -4,15 +4,16 @@ import { RefObject, useEffect, useId, useRef } from 'react'
 import useLayerContext from './useLayerContext.js'
 
 export default function useLayer<T extends HTMLElement>(
-  visible: boolean
-): [RefObject<T>, boolean] {
+  visible: boolean,
+  data?: Record<string, any>
+): [RefObject<T>, boolean, string] {
   const id = useId()
   const ref = useRef<T>(null)
   const { layers, addLayer, removeLayer, hasLayer } = useLayerContext()
 
   useEffect(() => {
     if (visible) {
-      addLayer({ id, element: ref })
+      addLayer({ id, element: ref, data })
     } else {
       if (hasLayer(id)) {
         removeLayer(id)
@@ -24,5 +25,5 @@ export default function useLayer<T extends HTMLElement>(
 
   const active = layers[layers.length - 1]?.id === id
 
-  return [ref, active]
+  return [ref, active, id]
 }

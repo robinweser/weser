@@ -2,4 +2,24 @@
 title: isStringSchema
 ---
 
-tbd.
+A function that checks if a JSON schema is an JSON string schema.
+
+## The Gist
+
+```ts
+import { isStringSchema, T_JSONSchema } from '@weser/schema'
+
+const schema: T_JSONSchema = { type: 'string' }
+
+const isString = isStringSchema(schema)
+```
+
+## Parameters
+
+| Parameter | Type                                           | Description               |
+| --------- | ---------------------------------------------- | ------------------------- |
+| schema    | [T_JSONSchema](/schema/api/types/T_JSONSchema) | The JSON schema to check. |
+
+## Returns
+
+(`boolean`) Whether the schema is a string schema.
