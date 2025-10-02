@@ -4,12 +4,12 @@ import { T_ActionResponse } from './types.js'
 
 type State<T> = {
   loading: boolean
-  data?: T | null
+  data: T | null
   error: string | null
 }
 
 type T_ActionConfig<T> = {
-  onSuccess?: (data?: T) => void
+  onSuccess?: (data: T) => void
   onError?: (error: string) => void
 }
 const initialState = {
@@ -17,7 +17,6 @@ const initialState = {
   data: null,
   error: null,
 }
-
 export default function useAction<T, P extends Array<any>>(
   action: (...payload: P) => Promise<T_ActionResponse<T>>,
   config: T_ActionConfig<T> = {}
@@ -34,9 +33,9 @@ export default function useAction<T, P extends Array<any>>(
 
     const [error, data] = await action(...payload)
 
-    if (error !== null) {
+    if (error !== null || !data) {
       if (onError) {
-        onError(error)
+        onError(error as string)
       }
 
       setState({

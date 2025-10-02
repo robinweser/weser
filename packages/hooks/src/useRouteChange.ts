@@ -2,13 +2,14 @@ import { useEffect } from 'react'
 
 export default function useRouteChange(
   onRouteChange: (path: string) => void,
-  pathname?: string
+  pathname?: string,
+  dependencies: any[] = []
 ) {
   useEffect(() => {
     if (pathname) {
       onRouteChange(pathname)
     }
-  }, [pathname])
+  }, [pathname, ...dependencies])
 
   // track clicks on links with the current path
   useEffect(() => {
@@ -26,7 +27,7 @@ export default function useRouteChange(
 
     window.addEventListener('click', onClick)
     return () => window.removeEventListener('click', onClick)
-  }, [pathname])
+  }, [pathname, ...dependencies])
 }
 
 function getContainingAnchor(
