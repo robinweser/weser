@@ -24,8 +24,8 @@ export default async function Layout({
 }: PropsWithChildren<Props>) {
   const { package: packageName } = await params
 
-  const structure = await getPageStructure(packageName)
   const packages = await getAllPackages()
+  const structure = await getPageStructure(packageName)
 
   return (
     <Box direction="row" grow={1} minHeight="100vh">
@@ -85,7 +85,11 @@ export default async function Layout({
             borderTopStyle: 'solid',
             borderTopColor: theme.colors.border,
           }}>
-          <Footer packages={packages} />
+          <Box width="100%" maxWidth={1090} alignItems="center">
+            <Box width="100%" maxWidth={800}>
+              <Footer packages={packages} />
+            </Box>
+          </Box>
         </Box>
       </Box>
     </Box>

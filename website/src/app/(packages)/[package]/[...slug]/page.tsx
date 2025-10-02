@@ -9,18 +9,19 @@ import Bleed from '@/components/system/Bleed'
 import BackToTop from '@/components/BackTopTop'
 import EditThisPage from '@/components/EditThisPage'
 
-import getPageStructure from '@/utils/getPageStructure'
+import getPageStructure, { T_PageStructureItem } from '@/utils/getPageStructure'
 import getAllPackages from '@/utils/getAllPackages'
 import getPageById from '@/utils/getPageById'
 import capitalize from '@/utils/capitalize'
 
 import { baseUrl } from '@/data/meta'
 
+type Params = {
+  package: string
+  slug: Array<string>
+}
 type Props = {
-  params: Promise<{
-    package: string
-    slug: Array<string>
-  }>
+  params: Promise<Params>
 }
 export async function generateMetadata({ params }: Props) {
   const { package: packageName, slug } = await params
@@ -41,6 +42,19 @@ export async function generateMetadata({ params }: Props) {
     title: capitalize(packageName) + ' / ' + data.meta.title,
     description: `Package documentation for @weser/${packageName}. Learn all about ${data.meta.title}.`,
   }
+}
+
+export async function generateStaticParams() {
+  const packages = await getAllPackages()
+
+  const paths: Array<Params> = []
+  for (const packageName of packages) {
+    const structure = await getPageStructure(packageName)
+
+    paths.push(...getPaths(structure))
+  }
+
+  return paths
 }
 
 export default async function Page({ params }: Props) {
@@ -153,4 +167,20 @@ async function getPageHierarchy(packageName: string, slugs: Array<string>) {
   }
 
   return hierarchy
+}
+
+function getPaths(structure: Array<T_PageStructureItem>) {
+  const paths: Array<Params> = []
+  for (const item of structure) {
+    const [packageName, ...slug] = item.path.split('/')
+
+    paths.push({
+      package: packageName,
+      slug,
+    })
+
+    paths.push(...getPaths(item.items ?? []))
+  }
+
+  return paths
 }
