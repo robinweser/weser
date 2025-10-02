@@ -2,6 +2,23 @@
 title: objectEach
 ---
 
+Iterates over each value in the object.<br />
+Similar to `Array.prototype.forEach`, but for objects.
+
 ## The Gist
 
+```ts
+import { objectEach } from '@weser/loops'
+
+objectEach({ a: 1, b: 2, c: 3 }, (value) => console.log(value, key))
+// 1 a
+// 2 b
+// 3 c
+```
+
 ## Parameters
+
+| Parameter | Type                                                                    | Description                             |
+| --------- | ----------------------------------------------------------------------- | --------------------------------------- |
+| obj       | `Record<PropertyKey, any>`                                              | The object to iterate over.             |
+| iterator  | `(value: any, key: PropertyKey, obj: Record<PropertyKey, any>) => void` | The iterator method with the signature. |

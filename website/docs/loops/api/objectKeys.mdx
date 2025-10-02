@@ -2,6 +2,26 @@
 title: objectKeys
 ---
 
+Returns the keys of the object.<br />
+Similar to `Object.keys`, but with proper type inference.
+
 ## The Gist
 
+```ts
+import { objectKeys } from '@weser/loops'
+
+const keys = objectKeys({ a: 1, b: 2, c: 3 })
+
+// => ['a', 'b', 'c']
+console.log(keys)
+```
+
 ## Parameters
+
+| Parameter | Type                       | Description                    |
+| --------- | -------------------------- | ------------------------------ |
+| obj       | `Record<PropertyKey, any>` | The object to get the keys of. |
+
+## Returns
+
+(`Array<PropertyKey>`) The keys of the object.

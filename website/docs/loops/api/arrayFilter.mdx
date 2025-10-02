@@ -2,6 +2,27 @@
 title: arrayFilter
 ---
 
+Filters the array based on the provided filter function.<br />
+Similar to `Array.prototype.filter`.
+
 ## The Gist
 
+```ts
+import { arrayFilter } from '@weser/loops'
+
+const filteredArray = arrayFilter([1, 2, 3], (value) => value > 1)
+
+// => [2, 3]
+console.log(filteredArray)
+```
+
 ## Parameters
+
+| Parameter | Type                                                                    | Description          |
+| --------- | ----------------------------------------------------------------------- | -------------------- |
+| arr       | `Array<T>`                                                              | The array to filter. |
+| filter    | `(value: T, index: number, length: number, array: Array<T>) => boolean` | The filter function. |
+
+## Returns
+
+(`Array<T>`) The filtered array.

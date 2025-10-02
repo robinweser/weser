@@ -2,6 +2,32 @@
 title: arrayReduce
 ---
 
+Reduces the array based on the provided reducer function.<br />
+Similar to `Array.prototype.reduce`.
+
 ## The Gist
 
+```ts
+import { arrayReduce } from '@weser/loops'
+
+const reducedArray = arrayReduce(
+  [1, 2, 3],
+  (accumulator, value) => accumulator + value,
+  0
+)
+
+// => 6
+console.log(reducedArray)
+```
+
 ## Parameters
+
+| Parameter    | Type                                                                              | Description           |
+| ------------ | --------------------------------------------------------------------------------- | --------------------- |
+| arr          | `Array<T>`                                                                        | The array to reduce.  |
+| reducer      | `(accumulator: B, value: T, index: number, length: number, array: Array<T>) => B` | The reducer function. |
+| initialValue | `B`                                                                               | The initial value.    |
+
+## Returns
+
+(`B`) The reduced value.

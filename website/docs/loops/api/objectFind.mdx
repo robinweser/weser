@@ -2,6 +2,27 @@
 title: objectFind
 ---
 
+Finds the first key-value pair in the object that matches the provided query function.<br />
+Similar to `Array.prototype.find`, but for objects.
+
 ## The Gist
 
+```ts
+import { objectFind } from '@weser/loops'
+
+const foundObject = objectFind({ a: 1, b: 2, c: 3 }, (value) => value > 1)
+
+// => 'b'
+console.log(foundObject)
+```
+
 ## Parameters
+
+| Parameter | Type                                                                       | Description         |
+| --------- | -------------------------------------------------------------------------- | ------------------- |
+| obj       | `Record<PropertyKey, any>`                                                 | The object to find. |
+| query     | `(value: any, key: PropertyKey, obj: Record<PropertyKey, any>) => boolean` | The query function. |
+
+## Returns
+
+(`PropertyKey | undefined`) The found object key or `undefined` if no match is found.

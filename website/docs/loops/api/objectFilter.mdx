@@ -2,6 +2,27 @@
 title: objectFilter
 ---
 
+Filters the object based on the provided filter function.<br />
+Similar to `Array.prototype.filter`, but for objects.
+
 ## The Gist
 
+```ts
+import { objectFilter } from '@weser/loops'
+
+const filteredObject = objectFilter({ a: 1, b: 2, c: 3 }, (value) => value > 1)
+
+// => { b: 2, c: 3 }
+console.log(filteredObject)
+```
+
 ## Parameters
+
+| Parameter | Type                                                                       | Description           |
+| --------- | -------------------------------------------------------------------------- | --------------------- |
+| obj       | `Record<PropertyKey, any>`                                                 | The object to filter. |
+| filter    | `(value: any, key: PropertyKey, obj: Record<PropertyKey, any>) => boolean` | The filter function.  |
+
+## Returns
+
+(`Record<PropertyKey, any>`) The filtered object.

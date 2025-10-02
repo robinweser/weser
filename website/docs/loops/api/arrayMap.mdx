@@ -2,6 +2,27 @@
 title: arrayMap
 ---
 
+Maps the array based on the provided mapper function.<br />
+Similar to `Array.prototype.map`.
+
 ## The Gist
 
+```ts
+import { arrayMap } from '@weser/loops'
+
+const mappedArray = arrayMap([1, 2, 3], (value) => value * 2)
+
+// => [2, 4, 6]
+console.log(mappedArray)
+```
+
 ## Parameters
+
+| Parameter | Type                                                              | Description          |
+| --------- | ----------------------------------------------------------------- | -------------------- |
+| arr       | `Array<T>`                                                        | The array to map.    |
+| mapper    | `(value: T, index: number, length: number, array: Array<T>) => R` | The mapper function. |
+
+## Returns
+
+(`Array<R>`) The mapped array.

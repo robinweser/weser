@@ -2,6 +2,35 @@
 title: objectMergeDeep
 ---
 
+Merges multiple objects deeply.<br />
+Similar to `Object.assign`, but with deep merging of objects.
+
 ## The Gist
 
+```ts
+import { objectMergeDeep } from '@weser/loops'
+
+const mergedObject = objectMergeDeep(
+  {
+    a: 1,
+    b: {
+      foo: 1,
+    },
+  },
+  { b: { bar: 2 }, c: 3, d: 4 }
+)
+
+// => { a: 1, b: { foo: 1, bar: 2 }, c: 3, d: 4 }
+console.log(mergedObject)
+```
+
 ## Parameters
+
+`Record<PropertyKey, any>`
+
+Takes multiple objects as parameters.<br />
+At least two objects are required.
+
+## Returns
+
+(`Record<PropertyKey, any>`) The merged object.

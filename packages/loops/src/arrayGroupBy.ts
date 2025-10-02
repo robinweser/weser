@@ -1,6 +1,6 @@
 export default function arrayGroupBy<T extends Record<string, any>>(
   arr: Array<T>,
-  key: keyof T | ((item: T) => PropertyKey)
+  key: keyof T | ((item: T) => string)
 ) {
   return arr.reduce(
     (grouped, item) => {
@@ -11,6 +11,6 @@ export default function arrayGroupBy<T extends Record<string, any>>(
 
       return grouped
     },
-    {} as Record<PropertyKey, Array<T>>
+    {} as Record<string, Array<T>>
   )
 }

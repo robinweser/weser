@@ -2,6 +2,32 @@
 title: objectReduce
 ---
 
+Reduces the object based on the provided reducer function.<br />
+Similar to `Array.prototype.reduce`, but for objects.
+
 ## The Gist
 
+```ts
+import { objectReduce } from '@weser/loops'
+
+const reducedObject = objectReduce(
+  { a: 1, b: 2, c: 3 },
+  (accumulator, value) => accumulator + value,
+  0
+)
+
+// => 6
+console.log(reducedObject)
+```
+
 ## Parameters
+
+| Parameter    | Type                                                             | Description           |
+| ------------ | ---------------------------------------------------------------- | --------------------- |
+| obj          | `Record<PropertyKey, any>`                                       | The object to reduce. |
+| reducer      | `(accumulator: B, value: T[keyof T], key: keyof T, obj: T) => B` | The reducer function. |
+| initialValue | `B`                                                              | The initial value.    |
+
+## Returns
+
+(`B`) The reduced value.

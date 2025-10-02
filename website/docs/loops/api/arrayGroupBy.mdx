@@ -2,6 +2,57 @@
 title: arrayGroupBy
 ---
 
+Groups an array of objects based on the provided object key.
+
 ## The Gist
 
+```ts
+import { arrayGroupBy } from '@weser/loops'
+
+const data = [
+  { country: 'us', name: 'John' },
+  { country: 'us', name: 'Jane' },
+  { country: 'de', name: 'Jim' },
+]
+
+const groups = arrayGroupBy(data, 'country')
+
+// => [{ country: 'de', name: 'Jim' }]
+console.log(groups.de)
+
+// => [{ country: 'us', name: 'John' }, { country: 'us', name: 'Jane' }]
+console.log(groups.us)
+```
+
 ## Parameters
+
+| Parameter | Type                               | Description                                              |
+| --------- | ---------------------------------- | -------------------------------------------------------- |
+| arr       | `Array<T>`                         | The array to group.                                      |
+| key       | `keyof T` \| `(item: T) => string` | The key to group by or a computed key based on the item. |
+
+## Returns
+
+(`Record<string, Array<T>>`) The grouped array.
+
+## Computed Keys
+
+If a function is provided for the `key` parameter, it will be called for each item in the array and the result will be used as the key.
+
+```ts
+import { arrayGroupBy } from '@weser/loops'
+
+const data = [
+  { country: 'us', name: 'John' },
+  { country: 'us', name: 'Jane' },
+  { country: 'de', name: 'Jim' },
+]
+
+const groups = arrayGroupBy(data, (item) => item.country.toUpperCase())
+
+// => [{ country: 'de', name: 'Jim' }]
+console.log(groups.DE)
+
+// => [{ country: 'us', name: 'John' }, { country: 'us', name: 'Jane' }]
+console.log(groups.US)
+```

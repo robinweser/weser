@@ -3,7 +3,7 @@ title: Overview
 order: -1
 ---
 
-A collection of small, typescript-friendly, performant & immutable iteration utilities for arrays and objects.
+A collection of small, type-safe, performant & immutable iteration utilities for arrays and objects.
 
 <PackageBadges package="@weser/loops" />
 
@@ -27,8 +27,8 @@ pnpm add @weser/actions
 
 ## Motivation
 
-Because JavaScript's native "functional" APIs such as `forEach`, `reduce`, `map` and `filter` are slow. There're many different utility packages out there already, e.g. lodash. But lodash's `reduce` method itself is 4.5kb gzipped which is way too much for a simple Array/Object reduce utility.
+Because JavaScript's native "functional" APIs such as `forEach`, `reduce`, `map` and `filter` are slow and limited to arrays only.<br />
+There're many different utility packages out there already, e.g. [lodash](https://lodash.com).
+But lodash's `reduce` method itself is 4.5kb gzipped which is way too much for a simple array/object reduce utility.
 
-## Benefits
-
-tbd.
+Additionally, it provides better type inference compared to the built-in methods.
