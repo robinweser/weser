@@ -2,4 +2,26 @@
 title: isValidBooleanSchema
 ---
 
-tbd.
+A function that checks whether a given JSON schema is a valid JSON boolean schema.
+
+## The Gist
+
+```ts
+import { isValidBooleanSchema, T_JSONSchema } from '@weser/schema'
+
+const schema: T_JSONSchema = {
+  type: 'boolean',
+}
+
+const isValid = isValidBooleanSchema(schema)
+```
+
+## Parameters
+
+| Parameter | Type                                           | Description               |
+| --------- | ---------------------------------------------- | ------------------------- |
+| schema    | [T_JSONSchema](/schema/api/types/T_JSONSchema) | The JSON schema to check. |
+
+## Returns
+
+(`boolean`) Whether the schema is a valid JSON boolean schema.

@@ -2,4 +2,108 @@
 title: Generating Forms
 ---
 
-A guide on how to generate forms from JSON schemas.
+One powerful use case for JSON schemas is generating forms.<br />
+For this guide, we'll use [React](https://react.dev), but you it basically works the same in any view library.
+
+Let's imagine we have the following Zod schema:
+
+```ts
+import { z } from 'zod'
+
+const schema = z.object({
+  name: z.string(),
+  age: z.number(),
+  email: z.string().email(),
+})
+```
+
+## Rendering Inputs
+
+We can now use [fromZod](/schema/api/fromZod) together with our [guards](/schema/api/guards) to render inputs based on the schema:
+
+```tsx
+import { ComponentProps } from 'react'
+import { fromZod } from '@weser/schema'
+
+const json = fromZod(schema)
+const fields = Object.entries(json.properties)
+
+function Form() {
+  return (
+    <form>
+      {fields.map(([name, field]) => {
+        if (isNumberSchema(field)) {
+          return <Input name={name} label={name} type="number" />
+        }
+
+        return (
+          <Input
+            name={name}
+            label={name}
+            type={field.format === 'email' ? 'email' : 'text'}
+          />
+        )
+      })}
+    </form>
+  )
+}
+
+function Input({ name, label, type }: ComponentProps<'input'>) {
+  return (
+    <label htmlFor={name}>
+      <span>{label}</span>
+      <input name={name} id={name} type={type} />
+    </label>
+  )
+}
+```
+
+## Using @weser/forms
+
+Going a step further, we can use [@weser/forms](/forms) to manage the form state and validation.
+
+```tsx
+import { ZodError } from 'zod'
+import { ComponentProps } from 'react'
+import { fromZod } from '@weser/schema'
+import { useForm } from '@weser/forms'
+
+type T_Schema = z.infer<typeof schema>
+
+const json = fromZod(schema)
+const fields = Object.entries(json.properties)
+
+function Form() {
+  const { useFormField, handleSubmit, reset } = useForm(schema)
+
+  function onSuccess(data: T_Schema) {
+    // do something with the data
+    console.log(data)
+    reset()
+  }
+
+  function onFailure(error: ZodError) {
+    console.error(error)
+  }
+
+  return (
+    <form onSubmit={handleSubmit(onSuccess, onFailure)}>
+      {fields.map(([name, field]) => {
+        const field = useFormField(name)
+
+        if (isNumberSchema(field)) {
+          return <Input label={name} type="number" {...field.inputProps} />
+        }
+
+        return (
+          <Input
+            label={name}
+            type={field.format === 'email' ? 'email' : 'text'}
+            {...field.inputProps}
+          />
+        )
+      })}
+    </form>
+  )
+}
+```

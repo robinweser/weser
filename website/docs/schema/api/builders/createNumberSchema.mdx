@@ -2,4 +2,31 @@
 title: createNumberSchema
 ---
 
-tbd.
+A function that creates a JSON number schema.
+
+## The Gist
+
+```ts
+import { createNumberSchema } from '@weser/schema'
+
+const schema = createNumberSchema()
+const schemaWithOptions = createNumberSchema({
+  minimum: 0,
+  maximum: 100,
+})
+```
+
+## Parameters
+
+| Parameter | Type                 | Description                        |
+| --------- | -------------------- | ---------------------------------- |
+| options   | [Options](#options)? | The options for the number schema. |
+
+### Options
+
+| Parameter   | Type      | Description                             |
+| ----------- | --------- | --------------------------------------- |
+| minimum     | `number`? | The minimum value of the number schema. |
+| maximum     | `number`? | The maximum value of the number schema. |
+| description | `string`? | The description of the number schema.   |
+| default     | `number`? | The default value of the number schema. |

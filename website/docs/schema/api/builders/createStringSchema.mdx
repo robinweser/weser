@@ -2,4 +2,38 @@
 title: createStringSchema
 ---
 
-tbd.
+A function that creates a JSON string schema.
+
+## The Gist
+
+```ts
+import { createStringSchema } from '@weser/schema'
+
+const schema = createStringSchema()
+const schemaWithOptions = createStringSchema({
+  minLength: 10,
+})
+const dateSchema = createStringSchema({
+  format: 'date',
+})
+```
+
+## Parameters
+
+| Parameter | Type                 | Description                        |
+| --------- | -------------------- | ---------------------------------- |
+| options   | [Options](#options)? | The options for the string schema. |
+
+### Options
+
+| Parameter   | Type                              | Description                       |
+| ----------- | --------------------------------- | --------------------------------- |
+| minLength   | `number`?                         | The minimum length of the string. |
+| maxLength   | `number`?                         | The maximum length of the string. |
+| format      | `'date'` \| `'uri'` \| `'email'`? | The format of the string.         |
+| description | `string`?                         | The description of the string.    |
+| default     | `string`?                         | The default value of the string.  |
+
+## Returns
+
+([T_JSONSchemaString](/schema/api/types/T_JSONSchemaString)) A JSON string schema.

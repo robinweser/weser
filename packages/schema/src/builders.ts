@@ -19,7 +19,7 @@ export function createStringSchema(
   options: {
     minLength?: number
     maxLength?: number
-    format?: 'date' | 'uri'
+    format?: 'date' | 'uri' | 'email'
     description?: string
     default?: string
   } = {}

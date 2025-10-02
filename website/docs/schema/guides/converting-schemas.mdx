@@ -3,4 +3,62 @@ title: Converting Schemas
 order: 1
 ---
 
-A guide on how to convert JSON schemas to Zod schemas and vice versa.
+A common use case is storing your JSON schemas in a database and then converting them to Zod schemas when you need to use them.
+
+Let's imagine we have the following Zod schema:
+
+```ts
+import { z } from 'zod'
+
+const schema = z.object({
+  name: z.string(),
+  age: z.number(),
+  items: z.array(z.string()),
+})
+```
+
+Using it to validate data is straightforward:
+
+```ts
+const data = {
+  name: 'John Doe',
+  age: 30,
+  items: ['foo', 'bar'],
+}
+
+const result = schema.safeParse(data)
+
+if (!result.success) {
+  console.error(result.error)
+}
+```
+
+But what if the schema is dynamic and needs to be stored in a database?<br />
+This is where we can use [fromZod](/schema/api/fromZod) to convert the Zod schema to a JSON schema and store it in a database:
+
+```ts
+import { fromZod } from '@weser/schema'
+// pseudo-code for the database
+import db from './db'
+
+const json = fromZod(schema)
+
+db.save(json)
+```
+
+Now, whenever we need to validate data, we can convert the JSON schema back to a Zod schema using the `toZod` function:
+
+```ts
+import { toZod } from '@weser/schema'
+// pseudo-code for the database
+import db from './db'
+
+const json = db.load()
+const zodSchema = toZod(json)
+
+const result = zodSchema.safeParse(data)
+
+if (!result.success) {
+  console.error(result.error)
+}
+```

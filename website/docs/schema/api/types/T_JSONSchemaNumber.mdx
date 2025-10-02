@@ -2,4 +2,13 @@
 title: T_JSONSchemaNumber
 ---
 
-tbd.
+```ts
+type T_JSONSchemaNumber = {
+  type: 'number'
+  minimum?: number
+  maximum?: number
+  default?: number
+  description?: string
+  [key: string]: any
+}
+```

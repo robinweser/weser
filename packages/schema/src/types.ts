@@ -24,7 +24,7 @@ export type T_JSONSchemaString = T_JSONSchemaRaw & {
   type: 'string'
   minLength?: number
   maxLength?: number
-  format?: 'date' | 'uri'
+  format?: 'date' | 'uri' | 'email'
   default?: string
 }
 

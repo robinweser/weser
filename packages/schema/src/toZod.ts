@@ -59,6 +59,8 @@ export function toZodString({
     type = type.url()
   } else if (format === 'date') {
     type = type.date()
+  } else if (format === 'email') {
+    type = type.email()
   }
 
   type = type.meta({ ...meta, ...(format ? { format } : {}) })

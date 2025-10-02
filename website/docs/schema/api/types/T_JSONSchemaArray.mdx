@@ -2,4 +2,12 @@
 title: T_JSONSchemaArray
 ---
 
-tbd.
+```ts
+type T_JSONSchemaArray<T = T_JSONValue> = {
+  type: 'array'
+  items: T_JSONSchema
+  default?: Array<T>
+  description?: string
+  [key: string]: any
+}
+```

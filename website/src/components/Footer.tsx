@@ -2,10 +2,7 @@ import Box from '@/components/system/Box'
 import Text from '@/components/system/Text'
 import Link from '@/components/system/Link'
 
-type Props = {
-  packages: Array<string>
-}
-export default function Footer({ packages }: Props) {
+export default function Footer() {
   return (
     <Box gap={8} paddingBlock={10}>
       <Box gap={2}>

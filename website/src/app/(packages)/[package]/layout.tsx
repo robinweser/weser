@@ -80,16 +80,19 @@ export default async function Layout({
         <Box
           paddingLeft={[5, , 12, 16, 20, 25]}
           paddingRight={[5, , 12, , , 25]}
+          gap={[5, , 12, 16, 20, 25]}
+          direction="row"
           style={{
             borderTopWidth: 2,
             borderTopStyle: 'solid',
             borderTopColor: theme.colors.border,
           }}>
-          <Box width="100%" maxWidth={1090} alignItems="center">
+          <Box grow={1} shrink={1} alignItems="center">
             <Box width="100%" maxWidth={800}>
-              <Footer packages={packages} />
+              <Footer />
             </Box>
           </Box>
+          <Box display={['none', , , , 'flex']} width={250} shrink={0} />
         </Box>
       </Box>
     </Box>

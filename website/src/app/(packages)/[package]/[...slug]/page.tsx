@@ -117,7 +117,7 @@ export default async function Page({ params }: Props) {
         </Box>
 
         <Box
-          display={['none', , , 'flex']}
+          display={['none', , , , 'flex']}
           position="sticky"
           alignSelf="flex-start"
           maxHeight="100vh"

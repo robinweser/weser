@@ -2,4 +2,29 @@
 title: createEnumSchema
 ---
 
-tbd.
+A function that creates a JSON enum schema.
+
+## The Gist
+
+```ts
+import { createEnumSchema } from '@weser/schema'
+
+const schema = createEnumSchema(['foo', 'bar'])
+const schemaWithOptions = createEnumSchema(['foo', 'bar'], {
+  default: 'foo',
+})
+```
+
+## Parameters
+
+| Parameter | Type                 | Description                      |
+| --------- | -------------------- | -------------------------------- |
+| values    | `Array<string>`      | The values of the enum schema.   |
+| options   | [Options](#options)? | The options for the enum schema. |
+
+### Options
+
+| Parameter   | Type      | Description                           |
+| ----------- | --------- | ------------------------------------- |
+| description | `string`? | The description of the enum schema.   |
+| default     | `string`? | The default value of the enum schema. |

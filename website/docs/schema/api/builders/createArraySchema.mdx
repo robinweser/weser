@@ -2,4 +2,35 @@
 title: createArraySchema
 ---
 
-tbd.
+A function that creates a JSON array schema.
+
+## The Gist
+
+```ts
+import { createArraySchema, createStringSchema } from '@weser/schema'
+
+const stringSchema = createStringSchema()
+
+const schema = createArraySchema(stringSchema)
+const schemaWithOptions = createArraySchema(stringSchema, {
+  default: ['foo', 'bar'],
+})
+```
+
+## Parameters
+
+| Parameter | Type                                           | Description                                |
+| --------- | ---------------------------------------------- | ------------------------------------------ |
+| items     | [T_JSONSchema](/schema/api/types/T_JSONSchema) | The JSON schema of the items in the array. |
+| options   | [Options](#options)?                           | The options for the array schema.          |
+
+### Options
+
+| Parameter   | Type        | Description                            |
+| ----------- | ----------- | -------------------------------------- |
+| description | `string`?   | The description of the array schema.   |
+| default     | `Array<T>`? | The default value of the array schema. |
+
+## Returns
+
+([T_JSONSchemaArray](/schema/api/types/T_JSONSchemaArray)) A JSON array schema.

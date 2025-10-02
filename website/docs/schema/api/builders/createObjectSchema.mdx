@@ -2,4 +2,40 @@
 title: createObjectSchema
 ---
 
-tbd.
+A function that creates a JSON object schema.
+
+## The Gist
+
+```ts
+import { createObjectSchema } from '@weser/schema'
+
+const schema = createObjectSchema({
+  name: createStringSchema(),
+})
+const schemaWithOptions = createObjectSchema(
+  {
+    name: createStringSchema(),
+  },
+  {
+    required: ['name'],
+    default: {
+      name: 'John Doe',
+    },
+  }
+)
+```
+
+## Parameters
+
+| Parameter  | Type                           | Description                          |
+| ---------- | ------------------------------ | ------------------------------------ |
+| properties | `Record<string, T_JSONSchema>` | The properties of the object schema. |
+| options    | [Options](#options)?           | The options for the object schema.   |
+
+### Options
+
+| Parameter   | Type              | Description                                   |
+| ----------- | ----------------- | --------------------------------------------- |
+| required    | `Array<keyof T>`? | The required properties of the object schema. |
+| description | `string`?         | The description of the object schema.         |
+| default     | `T`?              | The default value of the object schema.       |

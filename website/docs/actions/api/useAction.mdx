@@ -49,14 +49,14 @@ function Component() {
 | Parameter | Type                                           | Description                   |
 | --------- | ---------------------------------------------- | ----------------------------- |
 | action    | `(payload: P) => Promise<T_ActionResponse<T>>` | The action to execute.        |
-| callbacks | [Callbacks](#callbacks)                        | The callbacks for the action. |
+| callbacks | [Callbacks](#callbacks)?                       | The callbacks for the action. |
 
 ### Callbacks
 
-| Parameter | Type                      | Description                                    |
-| --------- | ------------------------- | ---------------------------------------------- |
-| onSuccess | `(data: T) => void`       | The function to call when the action succeeds. |
-| onError   | `(error: string) => void` | The function to call when the action fails.    |
+| Parameter | Type                       | Description                                    |
+| --------- | -------------------------- | ---------------------------------------------- |
+| onSuccess | `(data: T) => void`?       | The function to call when the action succeeds. |
+| onError   | `(error: string) => void`? | The function to call when the action fails.    |
 
 ## Returns
 

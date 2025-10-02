@@ -2,4 +2,13 @@
 title: T_JSONSchemaObject
 ---
 
-tbd.
+```ts
+type T_JSONSchemaObject<T extends Record<string, any> = {
+  type: 'object'
+  required?: Array<keyof T>
+  properties: Record<string, T_JSONSchema>
+  default?: T
+  description?: string
+  [key: string]: any
+}
+```

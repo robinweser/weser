@@ -2,4 +2,29 @@
 title: isValidArraySchema
 ---
 
-tbd.
+A function that checks whether a given JSON schema is a valid JSON array schema.
+
+## The Gist
+
+```ts
+import { isValidArraySchema, T_JSONSchema } from '@weser/schema'
+
+const schema: T_JSONSchema = {
+  type: 'array',
+  items: {
+    type: 'string',
+  },
+}
+
+const isValid = isValidArraySchema(schema)
+```
+
+## Parameters
+
+| Parameter | Type                                           | Description               |
+| --------- | ---------------------------------------------- | ------------------------- |
+| schema    | [T_JSONSchema](/schema/api/types/T_JSONSchema) | The JSON schema to check. |
+
+## Returns
+
+(`boolean`) Whether the schema is a valid JSON array schema.

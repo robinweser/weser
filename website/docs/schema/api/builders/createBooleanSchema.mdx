@@ -2,4 +2,28 @@
 title: createBooleanSchema
 ---
 
-tbd.
+A function that creates a JSON boolean schema.
+
+## The Gist
+
+```ts
+import { createBooleanSchema } from '@weser/schema'
+
+const schema = createBooleanSchema()
+const schemaWithOptions = createBooleanSchema({
+  default: true,
+})
+```
+
+## Parameters
+
+| Parameter | Type                 | Description                         |
+| --------- | -------------------- | ----------------------------------- |
+| options   | [Options](#options)? | The options for the boolean schema. |
+
+### Options
+
+| Parameter   | Type       | Description                              |
+| ----------- | ---------- | ---------------------------------------- |
+| description | `string`?  | The description of the boolean schema.   |
+| default     | `boolean`? | The default value of the boolean schema. |

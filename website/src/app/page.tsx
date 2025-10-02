@@ -95,7 +95,7 @@ export default async function Page() {
         </Layout>
       </Box>
       <Layout>
-        <Footer packages={packages} />
+        <Footer />
       </Layout>
     </Box>
   )
