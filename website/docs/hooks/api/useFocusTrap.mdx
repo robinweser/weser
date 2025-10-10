@@ -2,4 +2,39 @@
 title: useFocusTrap
 ---
 
-tbd.
+A hook that traps focus within a given element.<br />
+This is useful for components like modals or popovers.
+
+<Callout title="Tip">
+  Use `active` if your component is hidden via CSS `display`, but always
+  mounted. Otherwise the focus will be trapped in whatever component is rendered
+  last.
+</Callout>
+
+## The Gist
+
+```tsx
+'use client'
+import { useFocusTrap } from '@weser/hooks'
+
+function Component() {
+  const ref = useRef<HTMLDivElement>(null)
+
+  useFocusTrap(ref)
+
+  return (
+    <div ref={ref}>
+      <button>Button 1</button>
+      <button>Button 2</button>
+      <button>Button 3</button>
+    </div>
+  )
+}
+```
+
+## Parameters
+
+| Parameter | Type                                                                | Default | Description                 |
+| --------- | ------------------------------------------------------------------- | ------- | --------------------------- |
+| ref       | [RefObject](https://react.dev/learn/manipulating-the-dom-with-refs) |         | The ref object to use.      |
+| active    | `boolean`?                                                          | true    | Whether the hook is active. |

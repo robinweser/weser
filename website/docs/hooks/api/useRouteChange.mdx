@@ -2,4 +2,41 @@
 title: useRouteChange
 ---
 
-tbd.
+A hook that calls a callback when a link is clicked or the `pathname` changes.
+
+## The Gist
+
+```tsx
+'use client'
+import { useRouteChange } from '@weser/hooks'
+
+function Component() {
+  useRouteChange(() => console.log('route changed'))
+}
+```
+
+## Parameters
+
+| Parameter    | Type          | Description                                                                          |
+| ------------ | ------------- | ------------------------------------------------------------------------------------ |
+| callback     | `() => void`  | The callback to call when the route changes.                                         |
+| pathname     | `string`?     | An optional pathname to listen for.                                                  |
+| dependencies | `Array<any>`? | The dependencies passed to [useEffect](https://react.dev/reference/react/useEffect). |
+
+## Usage with Frameworks
+
+Most full-stack frameworks provide a way to get the current pathname.<br />
+This can be passed as the second parameter to the hook to ensure that programmatic route changes trigger the callback as well.
+
+Here's an example how this looks like in [Next.js](https://nextjs.org):
+
+```tsx
+'use client'
+import { usePathname } from 'next/navigation'
+
+function Component() {
+  const pathname = usePathname()
+
+  useRouteChange(() => console.log('route changed'), pathname)
+}
+```

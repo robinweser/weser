@@ -104,11 +104,11 @@ export default function useForm<S extends ZodRawShape>(
       if (parsed.success) {
         onSubmit(parsed.data)
       } else {
-        if (onError) {
-          if (parsed.error.issues.length > 0) {
-            _applyErrors(parsed.error.issues)
-          }
+        if (parsed.error.issues.length > 0) {
+          _applyErrors(parsed.error.issues)
+        }
 
+        if (onError) {
           onError(parsed.error)
         }
       }

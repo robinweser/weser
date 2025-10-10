@@ -2,4 +2,25 @@
 title: useClientOnly
 ---
 
-tbd.
+A hook that returns a boolean indicating whether the component is mounted on the client side.
+
+## The Gist
+
+```tsx
+'use client'
+import { useClientOnly } from '@weser/hooks'
+
+function Component() {
+  const isClientOnly = useClientOnly()
+
+  if (!isClientOnly) {
+    return null
+  }
+
+  return <div>I only render on the client side</div>
+}
+```
+
+## Returns
+
+(`boolean`) A boolean indicating whether the component is mounted on the client side.

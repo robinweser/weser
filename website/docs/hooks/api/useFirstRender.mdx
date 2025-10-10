@@ -2,4 +2,27 @@
 title: useFirstRender
 ---
 
-tbd.
+A hook that returns a boolean indicating whether the component is rendering for the first time.
+
+## The Gist
+
+```tsx
+'use client'
+import { useFirstRender } from '@weser/hooks'
+
+function Component() {
+  const isFirstRender = useFirstRender()
+
+  useEffect(() => {
+    if (isFirstRender) {
+      console.log('This is the first render.')
+    }
+  }, [isFirstRender])
+
+  return <div>Lorem ipsum.</div>
+}
+```
+
+## Returns
+
+(`boolean`) A boolean indicating whether the component is rendering for the first time.

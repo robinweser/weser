@@ -348,6 +348,7 @@ export function SelectInput<T>({
                           : 40
                     }
                     style={{
+                      fontSize: 15,
                       borderRadius: 4,
                       extend: {
                         condition: isSelected,
@@ -369,9 +370,9 @@ export function SelectInput<T>({
                       {activeOptions.find(
                         (item) => item.value === option.value
                       ) ? (
-                        <Check size={20} />
+                        <Check size={18} />
                       ) : (
-                        <div style={{ width: 20 }} />
+                        <div style={{ width: 18 }} />
                       )}
                     </Box>
                   </Box>

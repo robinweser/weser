@@ -2,4 +2,38 @@
 title: useKeyDown
 ---
 
-tbd.
+A hook that calls a callback when a key is pressed.<br />
+By default, the hook listens for the key press on the `document` element.
+
+<Callout title="Tip">
+  Use `active` if multiple components with the same hook are mounted. Then only
+  the ones with `active` will trigger. No need to stop popagation in this case.
+</Callout>
+
+## The Gist
+
+```tsx
+'use client'
+import { useKeyDown } from '@weser/hooks'
+
+function Component() {
+  useKeyDown('Enter', () => console.log('Enter key pressed'))
+
+  return <div>Press Enter to log</div>
+}
+```
+
+## Parameters
+
+| Parameter | Type                 | Description                                   |
+| --------- | -------------------- | --------------------------------------------- |
+| keyCode   | `string`             | The key code to listen for.                   |
+| callback  | `() => void`         | The callback to call when the key is pressed. |
+| options   | [Options](#options)? | The options for the hook.                     |
+
+### Options
+
+| Parameter | Type         | Default    | Description                             |
+| --------- | ------------ | ---------- | --------------------------------------- |
+| target    | `RefObject`? | `document` | The target to listen for the key press. |
+| active    | `boolean`?   | `true`     | Whether the hook is active.             |

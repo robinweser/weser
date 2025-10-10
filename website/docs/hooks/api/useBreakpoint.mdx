@@ -2,4 +2,34 @@
 title: useBreakpoint
 ---
 
-tbd.
+A hook that provides a boolean indicating whether the current viewport matches a given breakpoint.
+
+<Callout variant="warning" title="Warning">
+  Using this hook with server rendering could cause layout shifts.
+  <br />
+  Prefer using pure CSS for layout.
+</Callout>
+
+## The Gist
+
+```tsx
+'use client'
+import { useBreakpoint } from '@weser/hooks'
+
+function Component() {
+  const isMobile = useBreakpoint('(max-width: 768px)')
+
+  return <div>Is mobile: {isMobile ? 'yes' : 'no'}</div>
+}
+```
+
+## Parameters
+
+| Parameter  | Type      | Default | Description                                             |
+| ---------- | --------- | ------- | ------------------------------------------------------- |
+| breakpoint | `string`  |         | The breakpoint to check against.                        |
+| delay      | `number`? | 250     | The delay in milliseconds to debounce the resize event. |
+
+## Returns
+
+(`boolean`) A boolean indicating whether the current viewport matches the given breakpoint.

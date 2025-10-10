@@ -2,4 +2,47 @@
 title: useList
 ---
 
-tbd.
+A hook that provides a list of items and actions to manipulate it.
+
+## The Gist
+
+```tsx
+'use client'
+import { useList } from '@weser/hooks'
+
+function Component() {
+  const [list, actions] = useList()
+
+  return (
+    <div>
+      <button onClick={() => actions.add(Math.random())}>Add Item</button>
+      <button onClick={() => actions.clear()}>Clear List</button>
+      {list.map((item, index) => (
+        <div key={item}>
+          {item}
+          <button onClick={() => actions.removeAt(index)}>Remove</button>
+        </div>
+      ))}
+    </div>
+  )
+}
+```
+
+## Parameters
+
+| Parameter   | Type        | Default | Description                |
+| ----------- | ----------- | ------- | -------------------------- |
+| defaultList | `Array<T>`? | `[]`    | The default list of items. |
+
+## Returns
+
+(`[Array<T>, Object]`) A tuple where the first element is the list of items and the second element is an object with the following properties:
+
+| Action   | Type                               | Description                         |
+| -------- | ---------------------------------- | ----------------------------------- |
+| set      | `(list: Array<T>) => void`         | Set the list of items.              |
+| add      | `(item: T) => void`                | Add an item to the list.            |
+| removeAt | `(index: number) => void`          | Remove an item from the list.       |
+| updateAt | `(index: number, item: T) => void` | Update an item in the list.         |
+| insertAt | `(index: number, item: T) => void` | Insert an item at a specific index. |
+| clear    | `() => void`                       | Clear the list.                     |

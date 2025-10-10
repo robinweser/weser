@@ -11,15 +11,16 @@ export default function useDisclosure(defaultExpanded: boolean = false) {
   const toggleProps = {
     id: id + '-toggle',
     onClick: toggle,
-    type: 'button' as const,
+    type: 'button',
     'aria-expanded': isExpanded,
     'aria-controls': id + '-content',
-  }
+  } as const
+
   const contentProps = {
     id: id + '-content',
     'aria-hidden': !isExpanded,
     'aria-labelledby': id + '-toggle',
-  }
+  } as const
 
   return {
     toggleProps,

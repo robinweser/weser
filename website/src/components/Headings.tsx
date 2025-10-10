@@ -22,7 +22,7 @@ export default function Headings({ headings }: Props) {
             window.location.hash = ''
             window.location.hash = encodeURIComponent(id)
           }}>
-          <Text size={depth === 2 ? 16 : depth === 3 ? 14 : 13} height={1.25}>
+          <Text size={depth === 2 ? 15 : depth === 3 ? 14 : 13} height={1.25}>
             {children}
           </Text>
         </Box>

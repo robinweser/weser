@@ -2,4 +2,27 @@
 title: useRerender
 ---
 
-tbd.
+A hook that rerenders the component after a given interval.
+
+## The Gist
+
+```tsx
+'use client'
+import { useRerender } from '@weser/hooks'
+
+function Component() {
+  useRerender(1000)
+
+  return <div>Current time: {new Date().toLocaleTimeString()}</div>
+}
+```
+
+## Parameters
+
+| Parameter | Type      | Default | Description                   |
+| --------- | --------- | ------- | ----------------------------- |
+| interval  | `number`? | `60000` | The interval in milliseconds. |
+
+## Returns
+
+(`Date`) A reference to the current date and time at the time of the last rerender.

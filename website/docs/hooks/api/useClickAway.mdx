@@ -2,4 +2,32 @@
 title: useClickAway
 ---
 
-tbd.
+A hook that calls a callback when the user clicks outside of a given element.
+
+<Callout title="Tip">
+  Use `active` if multiple components with the same hook are mounted. Then only
+  the ones with `active` will trigger. No need to stop popagation in this case.
+</Callout>
+
+## The Gist
+
+```tsx
+'use client'
+import { useClickAway } from '@weser/hooks'
+
+function Component() {
+  const ref = useRef<HTMLDivElement>(null)
+
+  useClickAway(ref, () => console.log('clicked outside'))
+
+  return <div ref={ref}>Click me</div>
+}
+```
+
+## Parameters
+
+| Parameter | Type                                                                | Default | Description                             |
+| --------- | ------------------------------------------------------------------- | ------- | --------------------------------------- |
+| ref       | [RefObject](https://react.dev/learn/manipulating-the-dom-with-refs) |         | The ref object to use.                  |
+| callback  | `() => void`                                                        |         | The callback to call when clicked away. |
+| active    | `boolean`?                                                          | `true`  | Whether the hook is active.             |

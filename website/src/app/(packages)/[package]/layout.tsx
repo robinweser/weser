@@ -6,6 +6,7 @@ import Navigation from '@/components/Navigation'
 import Text from '@/components/system/Text'
 import IconButton from '@/components/system/IconButton'
 import Bleed from '@/components/system/Bleed'
+import Click from '@/components/system/Click'
 import PackagesPicker from '@/components/PackagesPicker'
 import Footer from '@/components/Footer'
 
@@ -45,9 +46,11 @@ export default async function Layout({
             direction="row"
             justifyContent="space-between"
             alignItems="center">
-            <Text variant="highlight" weight={600}>
-              Weser Packages
-            </Text>
+            <Click action="/">
+              <Text variant="highlight" weight={600}>
+                Weser Packages
+              </Text>
+            </Click>
 
             <Bleed size={2}>
               <IconButton

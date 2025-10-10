@@ -25,8 +25,11 @@ pnpm add @weser/context
 
 ## Motivation
 
-tbd.
+[Context](https://react.dev/reference/react/createContext) in React is a great way to pass data through the component tree.<br />
+But the provided API is not very ergonomic. This package provides a convenience helper function to create both a use context hook as well as a provider component.
 
 ## Benefits
 
-tbd.
+The same functionality that the built-in API provides, but in a more ergonomic way.<br />
+Additionally, ever context automatically accepts `null` as a value to indicate "not set".<br />
+The hook will throw an error if you try to use the context without a provider.

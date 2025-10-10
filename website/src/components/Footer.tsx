@@ -5,7 +5,7 @@ import Link from '@/components/system/Link'
 export default function Footer() {
   return (
     <Box gap={8} paddingBlock={10}>
-      <Box gap={2}>
+      <Box gap={2} style={{ fontSize: 15 }}>
         {links.map(({ label, href }) => (
           <Link key={href} href={href} underline={false} showExternIcon={false}>
             {label}

@@ -28,6 +28,7 @@ export function inputStyle(
   focus = ':focus-visible'
 ) {
   const baseStyle = {
+    fontSize: 15,
     background: 'transparent',
     width: '100%',
     flexShrink: 1,
@@ -81,7 +82,6 @@ export function inputStyle(
       width,
       maxWidth: width,
       borderRadius: 4,
-      fontSize: 16,
       ':hover': {
         backgroundColor: 'rgba(0, 0, 0, 0.05)',
       },
@@ -104,7 +104,6 @@ export function inputStyle(
     backgroundColor: theme.colors.background.input,
     boxShadow: theme.shadows.small,
     borderRadius: 4,
-    fontSize: 16,
     borderWidth: 1,
     borderColor: theme.colors.borderInput,
     borderStyle: 'solid',

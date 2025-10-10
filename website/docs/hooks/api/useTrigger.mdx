@@ -2,4 +2,40 @@
 title: useTrigger
 ---
 
-tbd.
+A hook that provides the basic mechanics for toggling a state via a trigger element.<br />
+It automatically returns focus to the trigger element when the state is toggled off.
+This is useful for components like modals or popovers where you want to return focus once the layer is closed.
+
+## The Gist
+
+```tsx
+'use client'
+import { useTrigger } from '@weser/hooks'
+
+function Component() {
+  const [isVisible, setVisible, ref] = useTrigger()
+
+  return (
+    <div>
+      <button ref={ref} onClick={() => setVisible(!isVisible)}>
+        Toggle
+      </button>
+      <Modal visible={isVisible}>
+        <div>Modal</div>
+        <button onClick={() => setVisible(false)}>Close</button>
+      </Modal>
+    </div>
+  )
+}
+```
+
+## Parameters
+
+| Parameter      | Type                 | Default | Description                                                                                               |
+| -------------- | -------------------- | ------- | --------------------------------------------------------------------------------------------------------- |
+| defaultVisible | `boolean`?           | `false` | Whether the state is visible by default.                                                                  |
+| getTrigger     | `() => HTMLElement`? |         | A function that returns the trigger element.<br />This is useful if you can't pass a ref object directly. |
+
+## Returns
+
+(`[boolean, (visible: boolean) => void, RefObject]`) A tuple where the first element is the state, the second element is the function to toggle the state and the third element is a ref object that is used to reference the trigger element.

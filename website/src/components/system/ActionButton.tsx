@@ -128,7 +128,7 @@ function style({
     position: 'relative',
     borderWidth: 0,
     appearance: 'none',
-    fontSize: size === 'large' ? 18 : 16,
+    fontSize: size === 'large' ? 18 : size === 'default' ? 16 : 15,
     fontWeight: 500,
     fontFamily: 'inherit',
     lineHeight: 1,

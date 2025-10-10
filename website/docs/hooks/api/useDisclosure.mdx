@@ -2,4 +2,40 @@
 title: useDisclosure
 ---
 
-tbd.
+A hook that provides the basic mechanics for toggling a layer in the most accessible way.<br />
+Useful for components like expandables or accordions.
+
+## The Gist
+
+```tsx
+'use client'
+import { useDisclosure } from '@weser/hooks'
+
+function Component() {
+  const { toggleProps, contentProps, isExpanded, toggle } = useDisclosure()
+
+  return (
+    <div>
+      <button {...toggleProps}>{isExpanded ? 'Collapse' : 'Expand'}</button>
+      <div {...contentProps}>Content</div>
+    </div>
+  )
+}
+```
+
+## Parameters
+
+| Parameter       | Type       | Default | Description                               |
+| --------------- | ---------- | ------- | ----------------------------------------- |
+| defaultExpanded | `boolean`? | `false`   | Whether the layer is expanded by default. |
+
+## Returns
+
+(`Object`) An object with the following properties:
+
+| Property     | Type                  | Description                       |
+| ------------ | --------------------- | --------------------------------- |
+| toggleProps  | `Record<string, any>` | The props for the toggle button.  |
+| contentProps | `Record<string, any>` | The props for the content.        |
+| isExpanded   | `boolean`             | Whether the layer is expanded.    |
+| toggle       | `() => void`          | The function to toggle the layer. |

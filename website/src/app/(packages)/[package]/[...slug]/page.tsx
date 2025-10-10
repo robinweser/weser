@@ -133,7 +133,7 @@ export default async function Page({ params }: Props) {
           </Bleed>
           <Box gap={2} overflow="hidden">
             {headings.length > 0 && (
-              <Text variant="heading4">On this page</Text>
+              <Text variant="heading5">On this page</Text>
             )}
             <Headings headings={headings} />
           </Box>
