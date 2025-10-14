@@ -22,10 +22,17 @@ type Config<T, Hooks extends string> = {
   mergeStyle?: typeof assignStyle
 }
 
-export type Properties<T, Hooks> =
-  | Array<Properties<T, Hooks>>
-  | WithHooks<Hooks, T>
-  | undefined
+// Depth-limited recursive array type to preserve nested array support
+// while bounding TypeScript's type instantiation cost
+type Depth = 0 | 1 | 2 | 3 | 4 | 5
+type Decrement = { 0: 0; 1: 0; 2: 1; 3: 2; 4: 3; 5: 4 }
+
+type StyleLeaf<T, Hooks> = WithHooks<Hooks, T> | undefined
+type PropertiesDepth<T, Hooks, D extends Depth = 5> =
+  | StyleLeaf<T, Hooks>
+  | ReadonlyArray<PropertiesDepth<T, Hooks, Decrement[D]>>
+
+export type Properties<T, Hooks> = PropertiesDepth<T, Hooks, 5>
 export type CSSFunction<T, Hooks> = (
   ...style: Array<Properties<T, Hooks>>
 ) => T_RawStyle

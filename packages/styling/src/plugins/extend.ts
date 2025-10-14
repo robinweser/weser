@@ -2,17 +2,27 @@ import isPlainObject from 'isobject'
 import { assignStyle } from 'css-in-js-utils'
 import { WithHooks } from '@css-hooks/core'
 
-type Extension<T, Hooks> = {
+// Depth-limited recursive type to bound TypeScript instantiation cost
+type Depth = 0 | 1 | 2 | 3 | 4 | 5
+type Decrement = { 0: 0; 1: 0; 2: 1; 3: 2; 4: 3; 5: 4 }
+
+type ExtensionDepth<T, Hooks, D extends Depth> = {
   condition: boolean | undefined
-  style: T_ExtendStyle<T, Hooks>
+  style: T_ExtendStyleDepth<T, Hooks, Decrement[D]>
 }
 
-export type T_ExtendStyle<T, Hooks> = WithHooks<keyof Hooks & string, T> & {
+export type T_ExtendStyleDepth<T, Hooks, D extends Depth = 3> = WithHooks<
+  keyof Hooks & string,
+  T
+> & {
   extend?:
-    | Extension<T, Hooks>
-    | T_ExtendStyle<T, Hooks>
-    | Array<Extension<T, Hooks>>
+    | ExtensionDepth<T, Hooks, D>
+    | T_ExtendStyleDepth<T, Hooks, Decrement[D]>
+    | Array<ExtensionDepth<T, Hooks, D>>
 }
+
+// Default export type with moderate recursion cap
+export type T_ExtendStyle<T, Hooks> = T_ExtendStyleDepth<T, Hooks, 3>
 
 type T_Extend = Record<string, any> & { condition?: never; style?: never }
 
