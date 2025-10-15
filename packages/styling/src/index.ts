@@ -4,6 +4,7 @@ export { default as fallbackValue } from './core/fallbackValue.js'
 export {
   default as responsiveValuePlugin,
   T_ResponsiveStyle,
+  T_ResponsiveValue,
 } from './plugins/responsiveValue.js'
 export {
   default as prefixerPlugin,
@@ -13,7 +14,6 @@ export { default as debugPlugin } from './plugins/debug.js'
 export { default as enforceLonghandPlugin } from './plugins/enforceLonghand.js'
 export { default as sortPropertyPlugin } from './plugins/sortProperty.js'
 export { default as unitPlugin } from './plugins/unit.js'
-export { default as extendPlugin, T_ExtendStyle } from './plugins/extend.js'
 
 export { default as useCSSVariable } from './helpers/useCSSVariable.js'
 

@@ -3,10 +3,10 @@ import { assignStyle } from 'css-in-js-utils'
 
 import { T_Style } from '../types.js'
 
-type T_Responsive<T> = T | (T | undefined)[]
+export type T_ResponsiveValue<T> = T | (T | undefined)[]
 
 export type T_ResponsiveStyle<T = T_Style> = {
-  [P in keyof T]: T_Responsive<T[P]>
+  [P in keyof T]: T_ResponsiveValue<T[P]>
 }
 
 function resolveResponsiveValues<T = T_Style>(
