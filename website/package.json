@@ -1,6 +1,6 @@
 {
   "name": "packages.weser.io",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "private": true,
   "scripts": {
     "analyze": "ANALYZE=true yarn build",
