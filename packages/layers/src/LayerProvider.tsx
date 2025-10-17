@@ -7,7 +7,7 @@ type Props = {
   onLayerAdded?: (layers: Array<T_Layer>) => void
   onLayerRemoved?: (layers: Array<T_Layer>) => void
 }
-export default function LayerContextProvider({
+export default function LayerProvider({
   children,
   onLayerAdded,
   onLayerRemoved,

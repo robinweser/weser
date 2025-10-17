@@ -1,0 +1,52 @@
+---
+title: LayerProvider
+---
+
+A React context provider that wraps your application and makes the layer context available to all components.
+
+## The Gist
+
+```tsx
+import { LayerProvider } from '@weser/layers'
+
+import App from './App'
+
+function Page() {
+  return (
+    <LayerProvider>
+      <App />
+    </LayerProvider>
+  )
+}
+```
+
+## Props
+
+| Property       | Type                               | Description                                                 |
+| -------------- | ---------------------------------- | ----------------------------------------------------------- |
+| onLayerAdded   | `(layers: Array<T_Layer>) => void` | A callback function that is called when a layer is added.   |
+| onLayerRemoved | `(layers: Array<T_Layer>) => void` | A callback function that is called when a layer is removed. |
+
+## Change Listeners
+
+```tsx
+import { LayerProvider, T_Layer } from '@weser/layers'
+
+import App from './App'
+
+function onLayerAdded(layers: Array<T_Layer>) {
+  console.log('Layer added', layers)
+}
+
+function onLayerRemoved(layers: Array<T_Layer>) {
+  console.log('Layer removed', layers)
+}
+
+function Page() {
+  return (
+    <LayerProvider onLayerAdded={onLayerAdded} onLayerRemoved={onLayerRemoved}>
+      <App />
+    </LayerProvider>
+  )
+}
+```

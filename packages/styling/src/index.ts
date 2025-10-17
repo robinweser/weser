@@ -3,6 +3,7 @@ export { default as fallbackValue } from './core/fallbackValue.js'
 
 export {
   default as responsiveValuePlugin,
+  responsiveValue,
   T_ResponsiveStyle,
   T_ResponsiveValue,
 } from './plugins/responsiveValue.js'

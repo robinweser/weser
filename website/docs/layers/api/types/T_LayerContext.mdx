@@ -1,0 +1,12 @@
+---
+title: T_LayerContext
+---
+
+```tsx
+type T_LayerContext = {
+  layers: Array<T_Layer>
+  addLayer: (layer: T_Layer) => void
+  removeLayer: (id: T_Layer['id']) => void
+  hasLayer: (id: T_Layer['id']) => boolean
+}
+```
