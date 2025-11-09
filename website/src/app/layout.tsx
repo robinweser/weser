@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react'
 import { Viewport } from 'next'
 import Script from 'next/script'
 import { Inter } from 'next/font/google'
-import { LayerContextProvider } from '@weser/layers'
+import { LayerProvider } from '@weser/layers'
 
 import ScrollBlockingLayer from '@/components/ScrollBlockingLayer'
 import ModeProvider from '@/components/ModeProvider'
@@ -72,11 +72,11 @@ export default function RootLayout({ children }: PropsWithChildren) {
             `,
           }}
         />
-        <LayerContextProvider>
+        <LayerProvider>
           <ScrollBlockingLayer>
             <ModeProvider>{children}</ModeProvider>
           </ScrollBlockingLayer>
-        </LayerContextProvider>
+        </LayerProvider>
         <Script src="https://sa.weser.io/latest.js" />
       </body>
     </html>
