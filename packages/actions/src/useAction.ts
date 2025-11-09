@@ -8,9 +8,9 @@ type State<T> = {
   error: string | null
 }
 
-type T_ActionConfig<T> = {
-  onSuccess?: (data: T) => void
-  onError?: (error: string) => void
+type T_ActionConfig<T, P> = {
+  onSuccess?: (data: T, payload: P) => void
+  onError?: (error: string, payload: P) => void
 }
 const initialState = {
   loading: false,
@@ -19,7 +19,7 @@ const initialState = {
 }
 export default function useAction<T, P extends Array<any>>(
   action: (...payload: P) => Promise<T_ActionResponse<T>>,
-  config: T_ActionConfig<T> = {}
+  config: T_ActionConfig<T, P> = {}
 ): [State<T>, (...payload: P) => void] {
   const { onSuccess, onError } = config
 
@@ -35,7 +35,7 @@ export default function useAction<T, P extends Array<any>>(
 
     if (error !== null || !data) {
       if (onError) {
-        onError(error as string)
+        onError(error as string, payload)
       }
 
       setState({
@@ -46,7 +46,7 @@ export default function useAction<T, P extends Array<any>>(
       })
     } else {
       if (onSuccess) {
-        onSuccess(data)
+        onSuccess(data, payload)
       }
 
       setState({

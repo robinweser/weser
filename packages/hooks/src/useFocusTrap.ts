@@ -105,5 +105,5 @@ export default function useFocusTrap(
     // 1. focus the first focusable
     // @ts-ignore, TODO: fix typing
     focusableElements[0]?.focus()
-  }, [visible, ref, autoFocus])
+  }, [visible, ref.current, autoFocus])
 }

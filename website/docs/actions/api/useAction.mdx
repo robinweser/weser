@@ -53,10 +53,10 @@ function Component() {
 
 ### Callbacks
 
-| Parameter | Type                       | Description                                    |
-| --------- | -------------------------- | ---------------------------------------------- |
-| onSuccess | `(data: T) => void`?       | The function to call when the action succeeds. |
-| onError   | `(error: string) => void`? | The function to call when the action fails.    |
+| Parameter | Type                                   | Description                                    |
+| --------- | -------------------------------------- | ---------------------------------------------- |
+| onSuccess | `(data: T, payload: P) => void`?       | The function to call when the action succeeds. |
+| onError   | `(error: string, payload: P) => void`? | The function to call when the action fails.    |
 
 ## Returns
 
