@@ -1,6 +1,6 @@
 {
   "name": "@weser/styling",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Utils for styling with CSS hooks",
   "author": "Robin Weser <robin@weser.io>",
   "license": "MIT",
