@@ -59,7 +59,7 @@ export default function useStoreFactory<T>(useState: UseState<T>) {
               // safety checks for a more convenient DX
               if (!Array.isArray(result)) {
                 throw Error(
-                  `Wrong format returned from action ("${name.toString()}"). Expected a tuple of [newState, effect], but got ${typeof result}. Make sure to wrap your state with an additional array. See https://alveron.js.org/concepts/action`
+                  `Wrong format returned from action ("${name.toString()}"). Expected a tuple of [newState, effect], but got ${typeof result}. Make sure to wrap your state with an additional array. See https://stack.weser.io/state/concepts/action`
                 )
               }
 
@@ -68,7 +68,7 @@ export default function useStoreFactory<T>(useState: UseState<T>) {
               // safety checks for a more convenient DX
               if (rest.length > 0) {
                 throw Error(
-                  `Too many values return from an action ("${name.toString()}"). Expected a tuple of [newState, effect]. If your state is an array, make sure to wrap it with an additional array when you return it. See https://alveron.js.org/concepts/action`
+                  `Too many values return from an action ("${name.toString()}"). Expected a tuple of [newState, effect]. If your state is an array, make sure to wrap it with an additional array when you return it. See https://stack.weser.io/state/concepts/action`
                 )
               }
 
