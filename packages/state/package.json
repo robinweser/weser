@@ -1,6 +1,6 @@
 {
   "name": "@weser/state",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "React hooks for simple state management",
   "author": "Robin Weser <robin@weser.io>",
   "license": "MIT",
