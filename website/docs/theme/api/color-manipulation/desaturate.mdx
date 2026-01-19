@@ -1,0 +1,27 @@
+---
+title: desaturate
+---
+
+A small utility function that decreases the saturation of a CSS color value by a relative amount.<br />
+It uses the `hsl` color model to do so.
+
+## The Gist
+
+```tsx
+import { desaturate } from '@weser/theme'
+
+const lessSaturated = desaturate('red', 0.2)
+const desaturatedVariable = desaturate('var(--background)', 0.5)
+```
+
+## Parameters
+
+| Parameter | Type     | Description                                      |
+| --------- | -------- | ------------------------------------------------ |
+| value     | `string` | The CSS color value to decrease the saturation.  |
+| amount    | `0-1`    | The relative amount to decrease the saturation.  |
+
+## Returns
+
+(`string`) A string that references a CSS color value with the saturation decreased.
+

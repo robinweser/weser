@@ -33,7 +33,17 @@ function Component() {
 
 ### Options
 
-| Parameter | Type         | Default    | Description                             |
-| --------- | ------------ | ---------- | --------------------------------------- |
-| target    | `RefObject`? | `document` | The target to listen for the key press. |
-| active    | `boolean`?   | `true`     | Whether the hook is active.             |
+| Parameter  | Type         | Default    | Description                             |
+| ---------- | ------------ | ---------- | --------------------------------------- |
+| target     | `RefObject`? | `document` | The target to listen for the key press. |
+| active     | `boolean`?   | `true`     | Whether the hook is active.             |
+| modifiers  | `Modifiers`? | `{}`       | The modifier keys that must be pressed. |
+
+### Modifiers
+
+| Parameter | Type      | Default  | Description                                    |
+| --------- | --------- | -------- | ---------------------------------------------- |
+| ctrl      | `boolean`? | `false`  | Whether the Ctrl key must be pressed.          |
+| meta      | `boolean`? | `false`  | Whether the Meta (Cmd on Mac) key must be pressed. |
+| alt       | `boolean`? | `false`  | Whether the Alt key must be pressed.           |
+| shift     | `boolean`? | `false`  | Whether the Shift key must be pressed.          |

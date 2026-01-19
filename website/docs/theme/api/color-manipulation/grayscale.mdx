@@ -1,0 +1,34 @@
+---
+title: grayscale
+---
+
+A small utility function that converts a CSS color value to grayscale by removing all saturation.<br />
+It uses the `hsl` color model to do so.
+
+## The Gist
+
+```tsx
+import { grayscale } from '@weser/theme'
+
+const gray = grayscale('red')
+const grayVariable = grayscale('var(--background)')
+```
+
+## Parameters
+
+| Parameter | Type     | Description                                |
+| --------- | -------- | ------------------------------------------ |
+| value     | `string` | The CSS color value to convert to grayscale. |
+
+## Returns
+
+(`string`) A string that references a CSS color value with saturation set to 0.
+
+## Import Alias
+
+For convenience, we also export a British English spelling alias.
+
+```ts
+import { greyscale } from '@weser/theme'
+```
+

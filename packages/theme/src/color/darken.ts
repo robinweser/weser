@@ -3,3 +3,4 @@ export default function darken(color: string, amount: number) {
 
   return `hsl(from ${color} h s calc(max(0, min(100, l - ${percentage}))))`
 }
+

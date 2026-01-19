@@ -1,0 +1,27 @@
+---
+title: saturate
+---
+
+A small utility function that increases the saturation of a CSS color value by a relative amount.<br />
+It uses the `hsl` color model to do so.
+
+## The Gist
+
+```tsx
+import { saturate } from '@weser/theme'
+
+const moreSaturated = saturate('red', 0.2)
+const saturatedVariable = saturate('var(--background)', 0.5)
+```
+
+## Parameters
+
+| Parameter | Type     | Description                                      |
+| --------- | -------- | ------------------------------------------------ |
+| value     | `string` | The CSS color value to increase the saturation.  |
+| amount    | `0-1`    | The relative amount to increase the saturation.  |
+
+## Returns
+
+(`string`) A string that references a CSS color value with the saturation increased.
+

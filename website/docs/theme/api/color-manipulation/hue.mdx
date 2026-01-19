@@ -1,0 +1,35 @@
+---
+title: hue
+---
+
+A small utility function that sets the hue of a CSS color value to an absolute degree.<br />
+It uses the `hsl` color model to do so.
+
+## The Gist
+
+```tsx
+import { hue } from '@weser/theme'
+
+const blueHue = hue('red', 240)
+const variableHue = hue('var(--background)', 180)
+```
+
+## Parameters
+
+| Parameter | Type     | Description                            |
+| --------- | -------- | -------------------------------------- |
+| value     | `string` | The CSS color value to set the hue of. |
+| degrees   | `0-360`  | The absolute hue value in degrees.     |
+
+## Returns
+
+(`string`) A string that references a CSS color value with the hue set to the specified degree.
+
+## Import Alias
+
+For convenience, we also export a shorthand import alias.
+
+```ts
+import { h } from '@weser/theme'
+```
+

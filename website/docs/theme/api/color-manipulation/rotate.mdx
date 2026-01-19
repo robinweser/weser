@@ -1,0 +1,27 @@
+---
+title: rotate
+---
+
+A small utility function that rotates the hue of a CSS color value by a given number of degrees.<br />
+It uses the `hsl` color model to do so.
+
+## The Gist
+
+```tsx
+import { rotate } from '@weser/theme'
+
+const rotated = rotate('red', 90)
+const rotatedVariable = rotate('var(--background)', -45)
+```
+
+## Parameters
+
+| Parameter | Type     | Description                                  |
+| --------- | -------- | -------------------------------------------- |
+| value     | `string` | The CSS color value to rotate the hue of.    |
+| degrees   | `number` | The number of degrees to rotate the hue by.  |
+
+## Returns
+
+(`string`) A string that references a CSS color value with the hue rotated.
+
