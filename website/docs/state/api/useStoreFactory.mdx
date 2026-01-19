@@ -1,0 +1,27 @@
+---
+title: useStoreFactory
+---
+
+useStoreFactory is the core factory function that creates store hooks.
+It's used internally by [useStore](/state/api/useStore) and [useOptimisticStore](/state/api/useOptimisticStore), but can also be used to create custom store implementations.
+
+## Arguments
+
+| Argument | Type     | Description                                                          |
+| -------- | -------- | -------------------------------------------------------------------- |
+| useState | _Function_ | A useState-like hook that takes an initial state and returns [state, setState] |
+
+## Returns
+
+_(Function)_ A function that takes middleware and returns a useStore hook.
+
+## Example
+
+```js
+import { useStoreFactory } from '@weser/state'
+import { useState } from 'react'
+
+const useStore = useStoreFactory(useState)()
+```
+
+

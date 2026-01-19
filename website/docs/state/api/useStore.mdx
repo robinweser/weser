@@ -1,0 +1,46 @@
+---
+title: useStore
+---
+
+useStore is the main API for state management.
+It uses React's [useState](https://react.dev/reference/react/useState) under the hood.
+
+If an updated `model` is passed in, the store will reset to the new model.
+
+## Arguments
+
+| Argument | Type      | Description                                                                                                              |
+| -------- | --------- | ------------------------------------------------------------------------------------------------------------------------ |
+| actions  | _Object?_ | A map of [actions](/state/concepts/action) where the key represents the action name and the value represents the action reducer |
+| model    | _any?_    | Our store model reflecting the initial state shape                                                                       |
+
+## Returns
+
+_(Array)_ an array containing the state and actions to be used inside a React component.
+
+## Example
+
+```jsx
+import * as React from 'react'
+import { useStore } from '@weser/state'
+
+const model = 0
+const actions = {
+  increment: (prevState) => [prevState + 1],
+  decrement: (prevState) => [prevState - 1],
+}
+
+function Counter() {
+  const [state, { increment, decrement }] = useStore(actions, model)
+
+  return (
+    <div>
+      Count: {state}
+      <button onClick={increment}>+</button>
+      <button onClick={decrement}>-</button>
+    </div>
+  )
+}
+```
+
+

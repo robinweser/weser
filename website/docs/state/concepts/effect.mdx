@@ -1,0 +1,48 @@
+---
+title: Effect
+---
+
+Apart from pure state updates, this package also supports side effects out of the box.
+Effects can only be triggered by invoking an action.
+They are passed as the second item in the array returned from actions.
+
+```ts
+type Effect = (actions: Object) => void
+```
+
+Asynchronous behaviour is very common in software, but deailing with it oftentimes is very painful.
+Unpredictable side effects are one of the main sources for errors in modern software. They are oftentimes very hard to debug and sometimes even hard to reproduce.
+But it doesn't have to be like that! In order to prevent that, effects in this package are very limited making it much safer without loosing the flexibility:
+Effects do not update the state directly, but rather invoke actions themselves, bringing back the predictable nature of synchronous actions.
+
+## Example
+
+The following example shows a basic API call scenario where we fetch some data with a loading spinner and eventually get either data or an error back.
+
+```js
+const model = {
+  loading: false,
+  error: null,
+  data: null,
+}
+
+const effect = async (onSuccess, onFailure) => {
+  const res = await fetch('...')
+
+  if (res.status === 200) {
+    const data = await res.json()
+    onSuccess(data)
+  } else {
+    onFailure(res.error)
+  }
+}
+
+const actions = {
+  setSuccess: (prevState, data) => [{ loading: false, error: null, data }],
+  setError: (prevState, error) => [{ loading: false, error, data: null }],
+  fetchData: (prevState) => [
+    { ...prevState, loading: true },
+    (actions) => effect(actions.setSuccess, actions.setError),
+  ],
+}
+```

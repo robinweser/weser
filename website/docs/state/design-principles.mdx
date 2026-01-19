@@ -1,0 +1,35 @@
+---
+title: Design Principles
+order: 0
+---
+
+## State is read-only
+
+> This principle is inspired by [Redux](https://redux.js.org) and is basically a rewritten copy of their documentation.
+
+State itself is read-only and can only be updated by invoking [actions](/state/concepts/action).
+Actions are so-called reducers. They take the previous state and a payload and reduce those to the next state.
+Actions are the single source of truth in terms of state updates.
+
+This ensures predictable state updates as our state can always only have a predefined shape.
+
+> **Important Note**: Technically, it's impossible to enforce immutability on pure JavaScript objects. So it's more of a rule that requires discipline from it's users. If we want to be more safe, we can use a library such as [Immutable](https://immutable-js.com).
+
+## Actions are pure functions
+
+> Learn what a [pure function](/state/concepts/action#pure-function) is.
+
+As mentioned above, in order to update the state, we invoke actions.
+Actions are pure reducer functions that return a new state based on the previous state and an optional payload.
+
+> **Important Note**: Once again, we can't technically enforce pure functions in JavaScript, but it is highly recommended to follow this rule to avoid unexpected side effects.
+> While we can't enforce pure reducers, it's highly recommended and for your own good.
+
+## Effects must invoke actions to update state
+
+Performing side effects, such as API calls, can be done using [effects](/state/concepts/effect).
+Effects are always triggered by invoking actions and in return invoke actions to update state.
+They may invoke multiple actions, but must never mutate state directly, as our first principles applies here as well.
+
+This again ensures predictable state at any given point of time.
+

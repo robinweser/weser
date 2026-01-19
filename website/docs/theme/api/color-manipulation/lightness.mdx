@@ -1,0 +1,35 @@
+---
+title: lightness
+---
+
+A small utility function that sets the lightness of a CSS color value to an absolute percentage.<br />
+It uses the `hsl` color model to do so.
+
+## The Gist
+
+```tsx
+import { lightness } from '@weser/theme'
+
+const halfLight = lightness('red', 50)
+const variableLightness = lightness('var(--background)', 25)
+```
+
+## Parameters
+
+| Parameter | Type     | Description                                 |
+| --------- | -------- | ------------------------------------------- |
+| value     | `string` | The CSS color value to set the lightness.   |
+| percent   | `0-100`  | The absolute lightness value as percentage. |
+
+## Returns
+
+(`string`) A string that references a CSS color value with the lightness set to the specified percentage.
+
+## Import Alias
+
+For convenience, we also export a shorthand import alias.
+
+```ts
+import { l } from '@weser/theme'
+```
+

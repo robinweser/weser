@@ -1,0 +1,27 @@
+---
+title: opacify
+---
+
+A small utility function that increases the alpha (opacity) of a CSS color value by a relative amount.<br />
+It uses the `hsl` color model to do so.
+
+## The Gist
+
+```tsx
+import { opacify } from '@weser/theme'
+
+const moreOpaque = opacify('rgba(255, 0, 0, 0.5)', 0.2)
+const opacifiedVariable = opacify('var(--background)', 0.3)
+```
+
+## Parameters
+
+| Parameter | Type     | Description                                |
+| --------- | -------- | ------------------------------------------ |
+| value     | `string` | The CSS color value to increase the alpha. |
+| amount    | `0-1`    | The relative amount to increase the alpha. |
+
+## Returns
+
+(`string`) A string that references a CSS color value with the alpha increased.
+

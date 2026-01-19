@@ -1,0 +1,43 @@
+---
+title: useOptimisticStore
+---
+
+useOptimisticStore is similar to [useStore](/state/api/useStore), but uses React's [useOptimistic](https://react.dev/reference/react/useOptimistic) under the hood for optimistic updates.
+
+## Arguments
+
+| Argument | Type      | Description                                                                                                              |
+| -------- | --------- | ------------------------------------------------------------------------------------------------------------------------ |
+| actions  | _Object?_ | A map of [actions](/state/concepts/action) where the key represents the action name and the value represents the action reducer |
+| model    | _any?_    | Our store model reflecting the initial state shape                                                                       |
+
+## Returns
+
+_(Array)_ an array containing the state and actions to be used inside a React component.
+
+## Example
+
+```jsx
+import * as React from 'react'
+import { useOptimisticStore } from '@weser/state'
+
+const model = 0
+const actions = {
+  increment: (prevState) => [prevState + 1],
+  decrement: (prevState) => [prevState - 1],
+}
+
+function Counter() {
+  const [state, { increment, decrement }] = useOptimisticStore(actions, model)
+
+  return (
+    <div>
+      Count: {state}
+      <button onClick={increment}>+</button>
+      <button onClick={decrement}>-</button>
+    </div>
+  )
+}
+```
+
+

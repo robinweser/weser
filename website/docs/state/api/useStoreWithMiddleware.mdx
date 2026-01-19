@@ -1,0 +1,26 @@
+---
+title: useStoreWithMiddleware
+---
+
+useStoreWithMiddleware is very similar to [useStore](/state/api/useStore).
+It is a so-called factory that adds middleware to the default useStore.
+
+## Arguments
+
+| Argument   | Type     | Description                                                                       |
+| ---------- | -------- | --------------------------------------------------------------------------------- |
+| middleware | _Array?_ | A list of [middleware](/state/concepts/middleware) that is added to the default useStore |
+
+## Returns
+
+_([useStore](/state/api/useStore))_ instance of useStore with added middleware
+
+## Example
+
+```js
+import { useStoreWithMiddleware, logger } from '@weser/state'
+
+const useStore = useStoreWithMiddleware([logger()])
+```
+
+

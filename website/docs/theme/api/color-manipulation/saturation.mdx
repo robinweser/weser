@@ -1,0 +1,35 @@
+---
+title: saturation
+---
+
+A small utility function that sets the saturation of a CSS color value to an absolute percentage.<br />
+It uses the `hsl` color model to do so.
+
+## The Gist
+
+```tsx
+import { saturation } from '@weser/theme'
+
+const halfSaturated = saturation('red', 50)
+const variableSaturation = saturation('var(--background)', 75)
+```
+
+## Parameters
+
+| Parameter | Type     | Description                                  |
+| --------- | -------- | -------------------------------------------- |
+| value     | `string` | The CSS color value to set the saturation.   |
+| percent   | `0-100`  | The absolute saturation value as percentage. |
+
+## Returns
+
+(`string`) A string that references a CSS color value with the saturation set to the specified percentage.
+
+## Import Alias
+
+For convenience, we also export a shorthand import alias.
+
+```ts
+import { s } from '@weser/theme'
+```
+

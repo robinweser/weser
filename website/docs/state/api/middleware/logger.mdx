@@ -1,0 +1,25 @@
+---
+title: logger
+---
+
+A middleware for logging state changes to the console.
+
+## Arguments
+
+| Argument | Type     | Default      | Description                    |
+| -------- | -------- | ------------ | ------------------------------ |
+| prefix   | _string?_ | `'ALVERON:'` | Prefix to add before log messages |
+
+## Returns
+
+_(Middleware)_ A middleware object that can be passed to [useStoreWithMiddleware](/state/api/useStoreWithMiddleware) or [useOptimisticStoreWithMiddleware](/state/api/useOptimisticStoreWithMiddleware).
+
+## Example
+
+```js
+import { useStoreWithMiddleware, logger } from '@weser/state'
+
+const useStore = useStoreWithMiddleware([logger({ prefix: 'MY_APP: ' })])
+```
+
+

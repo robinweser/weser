@@ -1,0 +1,35 @@
+---
+title: persistence
+---
+
+A middleware for persisting state to storage (localStorage, sessionStorage, or custom storage).
+
+## Arguments
+
+| Argument   | Type                          | Description                                                                       |
+| ---------- | ----------------------------- | --------------------------------------------------------------------------------- |
+| key        | _string_                      | The key to use for storing the state                                              |
+| getStorage | _Function_                    | A function that returns the storage object (localStorage, sessionStorage, etc.)   |
+| actions    | _Array&lt;string&gt;?_        | Optional array of action names to persist. If not provided, all actions are persisted. |
+| onHydrated | _Function?_                   | Optional callback function called when state is hydrated from storage              |
+| encode     | _Function?_                   | Optional function to encode data before storing (default: JSON.stringify)          |
+| decode     | _Function?_                   | Optional function to decode data after retrieving (default: JSON.parse)            |
+
+## Returns
+
+_(Middleware)_ A middleware object that can be passed to [useStoreWithMiddleware](/state/api/useStoreWithMiddleware) or [useOptimisticStoreWithMiddleware](/state/api/useOptimisticStoreWithMiddleware).
+
+## Example
+
+```js
+import { useStoreWithMiddleware, persistence } from '@weser/state'
+
+const useStore = useStoreWithMiddleware([
+  persistence({
+    key: 'my-app-state',
+    getStorage: () => localStorage,
+  }),
+])
+```
+
+

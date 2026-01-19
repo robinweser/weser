@@ -1,0 +1,26 @@
+---
+title: complement
+---
+
+A small utility function that returns the complementary color by rotating the hue by 180 degrees.<br />
+It uses the `hsl` color model to do so.
+
+## The Gist
+
+```tsx
+import { complement } from '@weser/theme'
+
+const complementary = complement('red')
+const complementVariable = complement('var(--background)')
+```
+
+## Parameters
+
+| Parameter | Type     | Description                                      |
+| --------- | -------- | ------------------------------------------------ |
+| value     | `string` | The CSS color value to get the complement of.    |
+
+## Returns
+
+(`string`) A string that references a CSS color value with the hue rotated by 180 degrees.
+

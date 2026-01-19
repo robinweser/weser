@@ -1,0 +1,26 @@
+---
+title: useOptimisticStoreWithMiddleware
+---
+
+useOptimisticStoreWithMiddleware is very similar to [useOptimisticStore](/state/api/useOptimisticStore).
+It is a so-called factory that adds middleware to the default useOptimisticStore.
+
+## Arguments
+
+| Argument   | Type     | Description                                                                       |
+| ---------- | -------- | --------------------------------------------------------------------------------- |
+| middleware | _Array?_ | A list of [middleware](/state/concepts/middleware) that is added to the default useOptimisticStore |
+
+## Returns
+
+_([useOptimisticStore](/state/api/useOptimisticStore))_ instance of useOptimisticStore with added middleware
+
+## Example
+
+```js
+import { useOptimisticStoreWithMiddleware, logger } from '@weser/state'
+
+const useOptimisticStore = useOptimisticStoreWithMiddleware([logger()])
+```
+
+

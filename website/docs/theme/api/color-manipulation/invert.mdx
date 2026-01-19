@@ -1,0 +1,26 @@
+---
+title: invert
+---
+
+A small utility function that inverts a CSS color value by rotating the hue by 180 degrees and inverting the lightness.<br />
+It uses the `hsl` color model to do so.
+
+## The Gist
+
+```tsx
+import { invert } from '@weser/theme'
+
+const inverted = invert('red')
+const invertedVariable = invert('var(--background)')
+```
+
+## Parameters
+
+| Parameter | Type     | Description                        |
+| --------- | -------- | ---------------------------------- |
+| value     | `string` | The CSS color value to invert.     |
+
+## Returns
+
+(`string`) A string that references a CSS color value with the hue rotated and lightness inverted.
+
