@@ -1,19 +1,13 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`createKeyframe > creating keyframes should return a unique animationName 1`] = `
-{
-  "$$typeof": Symbol(react.transitional.element),
-  "_owner": null,
-  "_store": {},
-  "key": null,
-  "props": {
-    "dangerouslySetInnerHTML": {
+<style
+  dangerouslySetInnerHTML={
+    {
       "__html": "@keyframes _x9ioxkw{from{color:blue}to{font-size:16px;color:red}}",
-    },
-    "href": "_x9ioxkw",
-    "nonce": undefined,
-    "precedence": "low",
-  },
-  "type": "style",
-}
+    }
+  }
+  href="_x9ioxkw"
+  precedence="low"
+/>
 `;

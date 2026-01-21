@@ -52,13 +52,13 @@
   },
   "devDependencies": {
     "@testing-library/react": "^16.0.0",
-    "@types/react": "^18.3.3",
+    "@types/react": "^19.0.0",
     "jsdom": "^25.0.1",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "19.3.0-canary-d2908752-20260119",
+    "react-dom": "19.3.0-canary-d2908752-20260119",
     "rimraf": "^3.0.2",
     "typescript": "^5.4.5",
-    "vitest": "^2.1.8",
+    "vitest": "^3.0.0",
     "zod": "^4.1.11"
   }
 }

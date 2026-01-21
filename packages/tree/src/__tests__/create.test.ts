@@ -1,10 +1,11 @@
 import { describe, test, expect } from 'vitest'
 
 import create from '../create'
+import { type TestNode } from './helpers'
 
 describe('create', () => {
   test('creates node with auto-generated id', () => {
-    const node = create({ name: 'Test', children: null })
+    const node = create<TestNode>({ name: 'Test', children: null })
 
     expect(node.id).toBeDefined()
     expect(typeof node.id).toBe('string')
@@ -12,21 +13,21 @@ describe('create', () => {
   })
 
   test('preserves other properties', () => {
-    const node = create({ name: 'Test Node', children: null })
+    const node = create<TestNode>({ name: 'Test Node', children: null })
 
     expect(node.name).toBe('Test Node')
     expect(node.children).toBeNull()
   })
 
   test('generates unique ids', () => {
-    const node1 = create({ name: 'Node 1', children: null })
-    const node2 = create({ name: 'Node 2', children: null })
+    const node1 = create<TestNode>({ name: 'Node 1', children: null })
+    const node2 = create<TestNode>({ name: 'Node 2', children: null })
 
     expect(node1.id).not.toBe(node2.id)
   })
 
   test('handles nodes with children', () => {
-    const node = create({
+    const node = create<TestNode>({
       name: 'Parent',
       children: [{ id: 'child', name: 'Child', children: null }],
     })
@@ -35,4 +36,3 @@ describe('create', () => {
     expect(node.children![0].id).toBe('child')
   })
 })
-

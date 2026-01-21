@@ -18,7 +18,8 @@
     },
     "test": {
       "dependsOn": ["^build"],
-      "outputs": ["**/__snapshots__/**"]
+      "outputs": [],
+      "cache": false
     }
   }
 }

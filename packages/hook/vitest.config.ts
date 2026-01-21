@@ -5,12 +5,9 @@ export default defineConfig({
     include: ['**/__tests__/**/*.test.{js,ts,tsx}'],
     environment: 'jsdom',
     globals: false,
-    pool: 'forks',
-    poolOptions: {
-      forks: {
-        singleFork: true,
-      },
-    },
+    fileParallelism: true, // Run test files in parallel
+    maxConcurrency: 10, // Tests within files run concurrently
+    testTimeout: 10000,
   },
   esbuild: {
     target: 'esnext',

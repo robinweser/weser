@@ -1,6 +1,6 @@
-export default function mergeDeep<T extends Record<PropertyKey, any>>(
-  base: T,
-  ...objs: Array<T>
+export default function mergeDeep(
+  base: Record<PropertyKey, any>,
+  ...objs: Array<Record<PropertyKey, any>>
 ) {
   for (let i = 0, len = objs.length; i < len; ++i) {
     const obj = objs[i]

@@ -1,8 +1,9 @@
 // Shared test helpers and fixtures for tree tests
-import type { BaseNode } from '../types'
 
-export type TestNode = BaseNode<TestNode> & {
+export type TestNode = {
+  id: string
   name: string
+  children: TestNode[] | null
 }
 
 export function createTestTree(): TestNode {
@@ -43,4 +44,3 @@ export function createParentNode(
 ): TestNode {
   return { id, name, children }
 }
-

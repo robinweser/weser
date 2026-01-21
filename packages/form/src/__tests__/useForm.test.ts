@@ -214,4 +214,3 @@ describe('useForm', () => {
     expect(result.current.nameField.errorMessage).toBe('Custom error')
   })
 })
-

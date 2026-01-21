@@ -92,4 +92,3 @@ describe('mergeDeep', () => {
     expect(result).toEqual({ level1: { level2: { level3: { a: 1, b: 2 } } } })
   })
 })
-
