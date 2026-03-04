@@ -1,6 +1,6 @@
 {
   "name": "@weser/tree",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Tiny helpers for working with tree data structure",
   "author": "Robin Weser <robin@weser.io>",
   "license": "MIT",

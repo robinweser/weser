@@ -1,6 +1,6 @@
 {
   "name": "@weser/error",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Tiny helpers for error handling",
   "author": "Robin Weser <robin@weser.io>",
   "license": "MIT",
