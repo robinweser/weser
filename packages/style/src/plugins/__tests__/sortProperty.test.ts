@@ -58,28 +58,29 @@ describe('sortPropertyPlugin', () => {
     const plugin = sortPropertyPlugin({
       padding: 1,
       paddingLeft: 2,
-    } as any)
+    })
 
-    const style = { padding: 'second', paddingLeft: 'first' }
+    const style = { padding: 10, paddingLeft: 20 }
 
-    const result = plugin(style as any)
+    const result = plugin(style)
 
-    expect(result.padding).toBe('first')
-    expect(result.paddingLeft).toBe('second')
+    expect(Object.keys(result)).toEqual(['padding', 'paddingLeft'])
   })
 
   test('handles equal priorities', () => {
     const plugin = sortPropertyPlugin({
       margin: 1,
       padding: 1,
-    } as any)
-
-    const style = { padding: 10, margin: 5 }
-
-    const result = plugin(style as any)
+    })
 
     // Both have same priority, order may vary but both should exist
-    expect(result.margin).toBe(5)
-    expect(result.padding).toBe(10)
+    expect(Object.keys(plugin({ padding: 10, margin: 5 }))).toEqual([
+      'padding',
+      'margin',
+    ])
+    expect(Object.keys(plugin({ margin: 5, padding: 10 }))).toEqual([
+      'margin',
+      'padding',
+    ])
   })
 })
