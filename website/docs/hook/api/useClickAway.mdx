@@ -26,8 +26,33 @@ function Component() {
 
 ## Parameters
 
-| Parameter | Type                                                                | Default | Description                             |
-| --------- | ------------------------------------------------------------------- | ------- | --------------------------------------- |
-| ref       | [RefObject](https://react.dev/learn/manipulating-the-dom-with-refs) |         | The ref object to use.                  |
-| callback  | `() => void`                                                        |         | The callback to call when clicked away. |
-| active    | `boolean`?                                                          | `true`  | Whether the hook is active.             |
+| Parameter  | Type                                                                | Default | Description                                                             |
+| ---------- | ------------------------------------------------------------------- | ------- | ----------------------------------------------------------------------- |
+| ref        | [RefObject](https://react.dev/learn/manipulating-the-dom-with-refs) |         | The ref object to use.                                                  |
+| callback   | `() => void`                                                        |         | The callback to call when clicked away.                                 |
+| active     | `boolean`?                                                          | `true`  | Whether the hook is active.                                             |
+| ignoreRefs | `Array<RefObject<HTMLElement \| null>>`?                            |         | Refs to ignore—clicks inside these elements won't trigger the callback. |
+
+### Ignoring elements
+
+Use `ignoreRefs` when you have elements outside the main ref (e.g. a trigger button or a floating tooltip) that should not trigger the callback when clicked:
+
+```tsx
+'use client'
+import { useRef } from 'react'
+import { useClickAway } from '@weser/hook'
+
+function Dropdown() {
+  const dropdownRef = useRef<HTMLDivElement>(null)
+  const triggerRef = useRef<HTMLButtonElement>(null)
+
+  useClickAway(dropdownRef, () => console.log('closed'), true, [triggerRef])
+
+  return (
+    <>
+      <button ref={triggerRef}>Toggle</button>
+      <div ref={dropdownRef}>Dropdown content</div>
+    </>
+  )
+}
+```
