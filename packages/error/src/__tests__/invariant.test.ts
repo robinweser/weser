@@ -27,8 +27,8 @@ describe('invariant', () => {
   })
 
   test('works with falsy values as condition', () => {
+    // @ts-expect-error - we want to test the falsy values
     expect(() => invariant(1 === 2, 'Error')).toThrow()
     expect(() => invariant(Boolean(''), 'Error')).toThrow()
   })
 })
-

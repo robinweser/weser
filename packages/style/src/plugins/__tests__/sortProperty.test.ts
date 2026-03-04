@@ -47,8 +47,8 @@ describe('sortPropertyPlugin', () => {
       },
     }
 
-    const result = plugin(style as any)
-    const hoverKeys = Object.keys(result[':hover'])
+    const result = plugin(style)
+    const hoverKeys = Object.keys(result[':hover']!)
 
     expect(hoverKeys[0]).toBe('padding')
     expect(hoverKeys[1]).toBe('paddingLeft')
@@ -56,16 +56,16 @@ describe('sortPropertyPlugin', () => {
 
   test('preserves property values', () => {
     const plugin = sortPropertyPlugin({
-      a: 1,
-      b: 2,
+      padding: 1,
+      paddingLeft: 2,
     } as any)
 
-    const style = { b: 'second', a: 'first' }
+    const style = { padding: 'second', paddingLeft: 'first' }
 
     const result = plugin(style as any)
 
-    expect(result.a).toBe('first')
-    expect(result.b).toBe('second')
+    expect(result.padding).toBe('first')
+    expect(result.paddingLeft).toBe('second')
   })
 
   test('handles equal priorities', () => {
@@ -83,4 +83,3 @@ describe('sortPropertyPlugin', () => {
     expect(result.padding).toBe(10)
   })
 })
-

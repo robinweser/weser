@@ -58,7 +58,7 @@ describe('embeddedPlugin', () => {
 
     const result = plugin(style as any, mockContext as any)
 
-    expect(typeof result[':hover'].animationName).toBe('string')
+    expect(typeof result[':hover']?.animationName).toBe('string')
     expect(mockContext.createNode).toHaveBeenCalled()
   })
 
@@ -95,4 +95,3 @@ describe('embeddedPlugin', () => {
     expect(mockContext.createNode).not.toHaveBeenCalled()
   })
 })
-

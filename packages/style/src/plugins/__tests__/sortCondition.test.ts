@@ -46,7 +46,7 @@ describe('sortConditionPlugin', () => {
     }
 
     const result = plugin(style as any)
-    const nestedKeys = Object.keys(result['@media (min-width: 800px)'])
+    const nestedKeys = Object.keys(result['@media (min-width: 800px)']!)
 
     expect(nestedKeys[0]).toBe('color')
   })
@@ -90,4 +90,3 @@ describe('sortMobileFirst', () => {
     expect(result).toBeLessThan(0)
   })
 })
-

@@ -28,7 +28,9 @@ describe('fallbackValuePlugin', () => {
       {
         property: ['width'],
         fallback: (value) =>
-          value === 'fit-content' ? ['-webkit-fit-content', 'fit-content'] : undefined,
+          value === 'fit-content'
+            ? ['-webkit-fit-content', 'fit-content']
+            : undefined,
       },
     ])
 
@@ -82,7 +84,9 @@ describe('fallbackValuePlugin', () => {
       {
         property: ['width'],
         fallback: (value) =>
-          value === 'max-content' ? ['-webkit-max-content', 'max-content'] : undefined,
+          value === 'max-content'
+            ? ['-webkit-max-content', 'max-content']
+            : undefined,
       },
     ])
 
@@ -92,7 +96,7 @@ describe('fallbackValuePlugin', () => {
 
     const result = plugin(style as any, mockContext as any)
 
-    expect(result[':hover'].width).toContain('var(')
+    expect(result[':hover']?.width).toContain('var(')
   })
 
   test('handles multiple fallback rules', () => {
@@ -119,4 +123,3 @@ describe('fallbackValuePlugin', () => {
     expect(mockContext.createNode).toHaveBeenCalledTimes(2)
   })
 })
-

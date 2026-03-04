@@ -66,7 +66,7 @@ describe('unitPlugin', () => {
     } as any)
 
     expect(result.fontSize).toBe('16px')
-    expect(result[':hover'].padding).toBe('8px')
+    expect(result[':hover']?.padding).toBe('8px')
   })
 
   test('handles array values', () => {
@@ -77,11 +77,10 @@ describe('unitPlugin', () => {
   })
 
   test('uses custom isUnitlessProperty function', () => {
-    const plugin = unitPlugin('px', {}, (prop) => prop === 'customUnitless')
-    const result = plugin({ customUnitless: 10, margin: 20 } as any)
+    const plugin = unitPlugin('px', {}, (prop) => prop === 'padding')
+    const result = plugin({ padding: 10, margin: 20 } as any)
 
-    expect(result.customUnitless).toBe(10)
+    expect(result.padding).toBe(10)
     expect(result.margin).toBe('20px')
   })
 })
-

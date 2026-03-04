@@ -162,7 +162,9 @@ describe('useStorage', () => {
 
       const getStorage = () => ({
         getItem: (key: string) => cache.get(key),
-        setItem: (key: string, value: any) => cache.set(key, value),
+        setItem: (key: string, value: any) => {
+          cache.set(key, value)
+        },
       })
 
       const { result } = renderHook(() => useStorage(getStorage, 'counter', 0))
@@ -219,7 +221,9 @@ describe('useStorage', () => {
 
       const getStorage = () => ({
         getItem: (key: string) => cache.get(key),
-        setItem: (key: string, value: any) => cache.set(key, value),
+        setItem: (key: string, value: any) => {
+          cache.set(key, value)
+        },
       })
 
       const { result } = renderHook(() => useStorage(getStorage, 'counter', 0))
@@ -259,7 +263,9 @@ describe('useStorage', () => {
 
       const getStorage = () => ({
         getItem: (key: string) => cache.get(key),
-        setItem: (key: string, value: any) => cache.set(key, value),
+        setItem: (key: string, value: any) => {
+          cache.set(key, value)
+        },
       })
 
       const { result } = renderHook(() =>

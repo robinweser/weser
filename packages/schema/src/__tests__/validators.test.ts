@@ -134,7 +134,9 @@ describe('isValidObjectSchema', () => {
   })
 
   test('returns false for invalid object schema', () => {
-    expect(isValidObjectSchema({ type: 'array', items: {} })).toBe(false)
+    expect(
+      isValidObjectSchema({ type: 'array', items: { type: 'string' } })
+    ).toBe(false)
   })
 })
 
@@ -154,4 +156,3 @@ describe('isValidSchema', () => {
     expect(isValidSchema({ invalid: true } as any)).toBe(false)
   })
 })
-

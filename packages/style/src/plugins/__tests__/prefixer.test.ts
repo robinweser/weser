@@ -49,7 +49,7 @@ describe('prefixerPlugin', () => {
 
     const result = plugin(style as any)
 
-    expect(result.WebkitColor).toBeUndefined()
+    expect('WebkitColor' in result).toBeFalsy()
     expect(result.color).toBe('red')
   })
 
@@ -63,7 +63,7 @@ describe('prefixerPlugin', () => {
     const result = plugin(style as any)
 
     expect(result.WebkitAppearance).toBe('none')
-    expect(result[':hover'].WebkitUserSelect).toBe('text')
+    expect(result[':hover']?.WebkitUserSelect).toBe('text')
   })
 
   test('prefixes mask properties', () => {
@@ -86,4 +86,3 @@ describe('prefixerPlugin', () => {
     expect(result.clipPath).toBe('circle(50%)')
   })
 })
-

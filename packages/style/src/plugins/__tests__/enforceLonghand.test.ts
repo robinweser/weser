@@ -112,10 +112,9 @@ describe('enforceLonghandPlugin', () => {
     }
 
     const result = plugin(style as any)
-    const hoverKeys = Object.keys(result[':hover'])
+    const hoverKeys = Object.keys(result[':hover']!)
 
     expect(hoverKeys[0]).toBe('padding')
     expect(hoverKeys[1]).toBe('paddingTop')
   })
 })
-

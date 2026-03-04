@@ -82,7 +82,7 @@ describe('pseudoElementPlugin', () => {
     const result = plugin(style as any, mockContext as any)
 
     // The ::before inside :hover should be processed
-    expect(result[':hover']['::before']).toBeUndefined()
+    expect(result[':hover']?.['::before']).toBeUndefined()
     expect(mockContext.createNode).toHaveBeenCalled()
   })
 

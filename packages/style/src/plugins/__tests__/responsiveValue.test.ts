@@ -1,6 +1,6 @@
 import { describe, test, expect } from 'vitest'
 
-import responsiveValuePlugin from '../responsiveValue'
+import responsiveValuePlugin, { responsiveValue } from '../responsiveValue'
 
 describe('responsiveValuePlugin', () => {
   const mediaQueries = [
@@ -11,7 +11,7 @@ describe('responsiveValuePlugin', () => {
 
   test('expands array values to media queries', () => {
     const plugin = responsiveValuePlugin(mediaQueries)
-    const result = plugin({ fontSize: [16, 18, 20, 24] })
+    const result = plugin({ fontSize: responsiveValue([16, 18, 20, 24]) })
 
     expect(result.fontSize).toBe(16)
     expect(result['@media (min-width: 480px)']).toEqual({ fontSize: 18 })
@@ -21,7 +21,7 @@ describe('responsiveValuePlugin', () => {
 
   test('first value is default', () => {
     const plugin = responsiveValuePlugin(mediaQueries)
-    const result = plugin({ padding: [8, 16] })
+    const result = plugin({ padding: responsiveValue([8, 16]) })
 
     expect(result.padding).toBe(8)
     expect(result['@media (min-width: 480px)']).toEqual({ padding: 16 })
@@ -50,8 +50,8 @@ describe('responsiveValuePlugin', () => {
       ':hover': { fontSize: [14, 16] },
     } as any)
 
-    expect(result[':hover'].fontSize).toBe(14)
-    expect(result[':hover']['@media (min-width: 480px)']).toEqual({
+    expect(result[':hover']?.fontSize).toBe(14)
+    expect(result[':hover']?.['@media (min-width: 480px)']).toEqual({
       fontSize: 16,
     })
   })
@@ -59,8 +59,8 @@ describe('responsiveValuePlugin', () => {
   test('handles multiple responsive properties', () => {
     const plugin = responsiveValuePlugin(mediaQueries)
     const result = plugin({
-      fontSize: [16, 18],
-      padding: [8, 12],
+      fontSize: responsiveValue([16, 18]),
+      padding: responsiveValue([8, 12]),
     })
 
     expect(result.fontSize).toBe(16)
@@ -73,7 +73,7 @@ describe('responsiveValuePlugin', () => {
 
   test('limits to number of media queries', () => {
     const plugin = responsiveValuePlugin(['@media (min-width: 480px)'])
-    const result = plugin({ fontSize: [16, 18, 20, 24] })
+    const result = plugin({ fontSize: responsiveValue([16, 18, 20, 24]) })
 
     // Only first media query value used
     expect(result.fontSize).toBe(16)
@@ -81,4 +81,3 @@ describe('responsiveValuePlugin', () => {
     expect(result['@media (min-width: 768px)']).toBeUndefined()
   })
 })
-

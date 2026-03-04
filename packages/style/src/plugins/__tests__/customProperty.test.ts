@@ -3,18 +3,19 @@ import { describe, test, expect, vi } from 'vitest'
 import customPropertyPlugin from '../customProperty'
 
 describe('customPropertyPlugin', () => {
-  const mockContext = {
+  const context = {
     mergeStyle: (target: any, source: any) => Object.assign(target, source),
     createNode: vi.fn(),
-    props: {},
-  }
+    props: { style: {} },
+    devMode: false,
+  } as const
 
   test('resolves custom properties to style objects', () => {
     const plugin = customPropertyPlugin({
       size: (value: number) => ({ width: value, height: value }),
     })
 
-    const result = plugin({ size: 100 } as any, mockContext as any)
+    const result = plugin({ size: 100 }, context)
 
     expect(result.width).toBe(100)
     expect(result.height).toBe(100)
@@ -25,9 +26,9 @@ describe('customPropertyPlugin', () => {
       spacing: (value: number) => ({ padding: value, margin: value }),
     })
 
-    const result = plugin({ spacing: 10 } as any, mockContext as any)
+    const result = plugin({ spacing: 10 }, context)
 
-    expect(result.spacing).toBeUndefined()
+    expect('spacing' in result).toBeFalsy()
     expect(result.padding).toBe(10)
     expect(result.margin).toBe(10)
   })
@@ -37,7 +38,7 @@ describe('customPropertyPlugin', () => {
       padding: (value: number) => ({ padding: value * 2 }),
     })
 
-    const result = plugin({ padding: 10 } as any, mockContext as any)
+    const result = plugin({ padding: 10 }, context)
 
     expect(result.padding).toBe(20)
   })
@@ -50,12 +51,12 @@ describe('customPropertyPlugin', () => {
     const result = plugin(
       {
         ':hover': { size: 50 },
-      } as any,
-      mockContext as any
+      },
+      context
     )
 
-    expect(result[':hover'].width).toBe(50)
-    expect(result[':hover'].height).toBe(50)
+    expect(result[':hover']?.width).toBe(50)
+    expect(result[':hover']?.height).toBe(50)
   })
 
   test('passes through non-custom properties', () => {
@@ -63,10 +64,7 @@ describe('customPropertyPlugin', () => {
       size: (value: number) => ({ width: value }),
     })
 
-    const result = plugin(
-      { size: 100, color: 'red' } as any,
-      mockContext as any
-    )
+    const result = plugin({ size: 100, color: 'red' }, context)
 
     expect(result.color).toBe('red')
     expect(result.width).toBe(100)
@@ -78,11 +76,10 @@ describe('customPropertyPlugin', () => {
       spacing: (value: number) => ({ padding: value }),
     })
 
-    const result = plugin({ size: 100, spacing: 10 } as any, mockContext as any)
+    const result = plugin({ size: 100, spacing: 10 }, context)
 
     expect(result.width).toBe(100)
     expect(result.height).toBe(100)
     expect(result.padding).toBe(10)
   })
 })
-
