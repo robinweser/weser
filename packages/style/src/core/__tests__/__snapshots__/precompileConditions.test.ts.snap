@@ -1,0 +1,38 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`precompileConditions > returns a tuple of the flags and the node 1`] = `
+<style
+  dangerouslySetInnerHTML={
+    {
+      "__html": "*{--3dwc1p-0:initial;--3dwc1p-1: ;}:hover{--3dwc1p-0: ;--3dwc1p-1:initial}",
+    }
+  }
+  href="3dwc1p"
+  precedence="low"
+/>
+`;
+
+exports[`precompileConditions > returns a tuple of the flags and the node in dev mode 1`] = `
+<style
+  dangerouslySetInnerHTML={
+    {
+      "__html": "*{--hover-0:initial;--hover-1: ;}
+:hover{--hover-0: ;--hover-1:initial}",
+    }
+  }
+  href="hover"
+  precedence="low"
+/>
+`;
+
+exports[`precompileConditions > returns multiple flags 1`] = `
+<style
+  dangerouslySetInnerHTML={
+    {
+      "__html": "*{--3dwc1p-0:initial;--3dwc1p-1: ;--1mkb03c-0:initial;--1mkb03c-1: ;}:hover{--3dwc1p-0: ;--3dwc1p-1:initial}:focus{--1mkb03c-0: ;--1mkb03c-1:initial}",
+    }
+  }
+  href="1mkb03c_3dwc1p"
+  precedence="low"
+/>
+`;
