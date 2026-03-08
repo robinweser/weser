@@ -1,0 +1,41 @@
+---
+title: precompileConditions
+order: 2
+---
+
+Pre-compiles conditions (e.g. `:hover`, `@media (min-width: 800px)`) into a shared style node and conditions map. Use with [createRenderer](/style/api/createRenderer)'s `precompiledConditions` option to share condition styles across multiple renderers and avoid duplicate CSS.
+
+## The Gist
+
+```ts
+import { createRenderer, precompileConditions } from '@weser/style'
+
+const [conditionsNode, precompiledConditions] = precompileConditions([
+  ':hover',
+  ':focus',
+  '@media (min-width: 800px)',
+])
+
+const css = createRenderer({
+  precompiledConditions,
+})
+
+// Use the conditions node once in your app (e.g. in a root layout)
+// All css() calls will reuse the same condition flags
+const [props, nodes] = css({
+  color: 'blue',
+  ':hover': { color: 'red' },
+  '@media (min-width: 800px)': { flexDirection: 'row' },
+})
+```
+
+## Parameters
+
+| Parameter  | Type            | Default | Description                                                                      |
+| ---------- | --------------- | ------- | -------------------------------------------------------------------------------- |
+| conditions | `Array<string>` |         | Condition selectors to pre-compile (e.g. `:hover`, `@media (min-width: 800px)`). |
+| devMode    | `boolean`       | `false` | When `true`, uses readable flag names instead of hashes for debugging.           |
+
+## Returns
+
+(`[ReactNode, Record<string, string>]`) A tuple where the first element is a React node containing the shared condition flag CSS to render once at the root of your app, and the second element is a map of condition names to their flag identifiers to pass to [createRenderer](/style/api/createRenderer)'s `precompiledConditions` option.

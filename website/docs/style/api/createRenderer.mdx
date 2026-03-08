@@ -35,12 +35,29 @@ const style = css({
 })
 ```
 
+When using [precompileConditions](/style/api/precompileConditions) to share condition styles across renderers:
+
+```ts
+import { createRenderer, precompileConditions } from '@weser/style'
+
+const [conditionsNode, precompiledConditions] = precompileConditions([
+  ':hover',
+  '@media (min-width: 800px)',
+])
+
+const css = createRenderer({
+  plugins: [/* ... */],
+  precompiledConditions,
+})
+```
+
 ## Parameters
 
-| Parameter  | Type                                                                                                   | Description                                |
-| ---------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------ |
-| plugins    | `Array<Plugin>`                                                                                        | An array of plugins to apply to the style. |
-| mergeStyle | [assignStyle](https://github.com/robinweser/css-in-js-utils?tab=readme-ov-file#assignstylebase-extend) | A function that merges the style object.   |
+| Parameter             | Type                                                                                                   | Description                                                                 |
+| --------------------- | ------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------- |
+| plugins               | `Array<Plugin>`                                                                                        | An array of plugins to apply to the style.                                  |
+| mergeStyle            | [assignStyle](https://github.com/robinweser/css-in-js-utils?tab=readme-ov-file#assignstylebase-extend) | A function that merges the style object.                                    |
+| precompiledConditions | `Record<string, string>`                                                                               | Pre-compiled condition flags from [precompileConditions](/style/api/precompileConditions). Use to share condition styles across renderers. |
 
 ### mergeStyle
 
