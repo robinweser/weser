@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Integrating precompileConditions > returns returns a tuple of the processed style object and a style node 1`] = `
+<style
+  dangerouslySetInnerHTML={
+    {
+      "__html": "*{--3dwc1p-0:initial;--3dwc1p-1: ;}:hover{--3dwc1p-0: ;--3dwc1p-1:initial}",
+    }
+  }
+  href="3dwc1p"
+  precedence="low"
+/>
+`;

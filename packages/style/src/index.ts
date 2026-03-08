@@ -1,4 +1,5 @@
 export { default as createRenderer } from './core/createRenderer'
+export { default as precompileConditions } from './core/precompileConditions'
 
 // plugins
 export {
