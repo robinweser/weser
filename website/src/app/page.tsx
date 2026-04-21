@@ -55,7 +55,7 @@ export default async function Page() {
             width={['100%', 300]}
             gap={[2, 4]}
             paddingTop={2}>
-            <ActionButton stretch size="large" action="/actions">
+            <ActionButton stretch size="large" action="/action">
               Get Started
             </ActionButton>
 
